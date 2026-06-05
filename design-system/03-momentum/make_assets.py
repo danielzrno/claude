@@ -4,7 +4,7 @@ Generate the small embedded PNG assets used by the Office artifacts:
   - mchip.png        coral rounded-square + white Inter-800 "M"  (for docx + pptx)
   - mchip_white.png  white rounded-square + coral "M"            (reverse, for coral fields)
   - hero_coral.png   coral hero field with a faint darker C9362B diagonal wave (pptx/docx cover)
-  - hero_black.png   black premium field with a faint coral wave (optional alt)
+  - photo_duotone.png / photo_neutral.png   rounded "photo" placeholder blocks
 
 High-res, then placed small — keeps edges crisp in PowerPoint/Word.
 Pillow only. No network images.
@@ -86,18 +86,6 @@ def hero_field(path, w=2600, h=1500, base=CORAL, deep=CORAL_DEEP, tail=CORAL_DAR
     img.save(path, "PNG")
 
 
-def black_field(path, w=2600, h=1500):
-    """Black field with a faint coral wave in the lower-left — premium alt."""
-    img = Image.new("RGB", (w, h), BLACK)
-    blob = Image.new("L", (w, h), 0)
-    bd = ImageDraw.Draw(blob)
-    bd.ellipse([-int(w * 0.45), int(h * 0.55), int(w * 0.55), int(h * 1.9)], fill=255)
-    blob = blob.filter(ImageFilter.GaussianBlur(int(w * 0.17)))
-    coral_layer = Image.new("RGB", (w, h), CORAL_DEEP)
-    img = Image.composite(coral_layer, img, blob.point(lambda v: int(v * 0.42)))
-    img.save(path, "PNG")
-
-
 def duotone_block(path, w=1400, h=1700, base=CORAL, deep=CORAL_DEEP):
     """A coral-duotone 'photo' placeholder block (vertical)."""
     img = Image.new("RGB", (w, h), base)
@@ -141,7 +129,6 @@ def build_all():
     rounded_chip(os.path.join(HERE, "mchip.png"), CORAL, WHITE)
     rounded_chip(os.path.join(HERE, "mchip_white.png"), WHITE, CORAL)
     hero_field(os.path.join(HERE, "hero_coral.png"))
-    black_field(os.path.join(HERE, "hero_black.png"))
     duotone_block(os.path.join(HERE, "photo_duotone.png"))
     neutral_block(os.path.join(HERE, "photo_neutral.png"))
     print("assets written to", HERE)
