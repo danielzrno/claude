@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mivada — Capability overview · Momentum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="momentum.css">
+<style>
+  /* ---- Deck shell ----------------------------------------------------------
+     1280×720 (16:9). Scroll-snap between slides, keyboard nav, slide counter.
+     Prints one slide per page. Layout is local; brand styling is in the CSS. */
+  html, body { height: 100%; }
+  body { background: #DADBD4; overflow-x: hidden; }     /* neutral matte gutter */
+
+  .deck { scroll-snap-type: y mandatory; height: 100vh; overflow-y: scroll; scroll-behavior: smooth; }
+
+  .slide {
+    position: relative;
+    width: 1280px; height: 720px;
+    margin: 0 auto;
+    scroll-snap-align: start;
+    background: var(--off-white);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 64px 72px;
+  }
+  /* Slide types that fill edge-to-edge with a field */
+  .slide--field { padding: 0; }
+
+  /* Slide chrome: number + tiny mark, bottom-right; eyebrow region top */
+  .slide__no {
+    position: absolute; right: 30px; bottom: 24px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--mid-grey);
+  }
+  .slide--on-dark .slide__no { color: rgba(255,255,255,.6); }
+  .slide__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .slide__title { font-size: 40px; max-width: 20ch; }
+  .slide__lede  { max-width: 56ch; }
+
+  /* ---- One choreographed staggered entrance per slide (CSS only) ----------
+     Children with [data-rise] start translated+faded; the active slide plays
+     them in sequence. We toggle .is-active via the scroll observer. */
+  [data-rise] { opacity: 0; transform: translateY(14px); }
+  .is-active [data-rise] {
+    animation: rise .62s cubic-bezier(.22,.61,.36,1) both;
+  }
+  .is-active [data-rise="1"] { animation-delay: .05s; }
+  .is-active [data-rise="2"] { animation-delay: .13s; }
+  .is-active [data-rise="3"] { animation-delay: .21s; }
+  .is-active [data-rise="4"] { animation-delay: .29s; }
+  .is-active [data-rise="5"] { animation-delay: .37s; }
+  .is-active [data-rise="6"] { animation-delay: .45s; }
+  .is-active [data-rise="7"] { animation-delay: .53s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    [data-rise] { opacity: 1; transform: none; }
+    .is-active [data-rise] { animation: none; }
+  }
+
+  /* ---- Slide-specific composition ---------------------------------------- */
+  .cover { padding: 80px 84px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+  .cover__top { display: flex; align-items: center; justify-content: space-between; }
+  .cover__h { font-size: 80px; line-height: 1.0; max-width: 15ch; }
+  .cover__sub { display: flex; align-items: center; gap: 14px; }
+
+  .stack { display: flex; flex-direction: column; }
+  .grow { flex: 1; }
+
+  .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .pillar { padding: 20px 22px; gap: 12px; }
+  .pillar .mchip { margin-bottom: 2px; }
+  .pillar__row { display: flex; align-items: center; gap: 12px; }
+
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .step { gap: 12px; }
+  .step__n { font-size: 13px; font-weight: 700; color: var(--coral); }
+
+  .split { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; flex: 1; }
+  .caps { display: flex; flex-direction: column; gap: 14px; }
+  .cap { display: grid; grid-template-columns: 30px 1fr; gap: 14px; align-items: start; }
+  .cap__n { font-size: 13px; font-weight: 800; color: var(--coral); padding-top: 2px; }
+  .cap__t { font-size: 16px; font-weight: 700; }
+  .cap__d { font-size: 14px; color: var(--graphite); margin-top: 2px; }
+  .photo--tall { height: 100%; min-height: 420px; }
+
+  .quote-row { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  .quote { font-size: 23px; line-height: 1.4; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); max-width: 40ch; }
+  .quote em { color: var(--coral); font-style: normal; }
+  .attrib { display: flex; align-items: center; gap: 14px; }
+  .attrib__name { font-weight: 700; font-size: 14.5px; }
+  .attrib__role { font-size: 13px; color: var(--mid-grey); }
+
+  .reasons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+  .closing { height: 100%; padding: 80px 84px; display: flex; flex-direction: column; justify-content: space-between; }
+  .closing__h { font-size: 56px; max-width: 18ch; }
+  .closing__cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .contact-line { display: flex; gap: 10px; flex-wrap: wrap; color: rgba(255,255,255,.86); font-size: 15px; }
+  .contact-line span { white-space: nowrap; }
+  .dot { color: rgba(255,255,255,.5); }
+
+  /* KPI sizing inside slides */
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+  /* ---- Print: one slide per page ----------------------------------------- */
+  @page { size: 1280px 720px landscape; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .deck { height: auto; overflow: visible; display: block; }
+    .slide { page-break-after: always; break-after: page; margin: 0; box-shadow: none; }
+    [data-rise] { opacity: 1 !important; transform: none !important; }
+    .hint { display: none !important; }
+    .slide, .coral-field, .black-field, .card, .kpi, .photo, .pill, .tag, .mchip {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+  }
+
+  /* small keyboard hint, screen only */
+  .hint {
+    position: fixed; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 50;
+    font-size: 11.5px; color: #6b6b66; background: rgba(255,255,255,.8);
+    border: 1px solid var(--hairline); border-radius: 999px; padding: 5px 14px;
+    font-weight: 500; letter-spacing: 0.02em; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+
+  <!-- 1 · COVER — coral hero field, faint darker diagonal wave -->
+  <section class="slide slide--field slide--on-dark" data-snap>
+    <div class="coral-field cover">
+      <div class="cover__top">
+        <div class="wordmark wordmark--on-dark" data-rise="1">
+          <span class="mchip mchip--reverse mchip--lg"></span>
+          <span class="wordmark__name">Mivada</span>
+        </div>
+        <span class="pill pill--ghost-on-dark" data-rise="1">Capability overview · 2026</span>
+      </div>
+      <div class="stack">
+        <p class="eyebrow eyebrow--on-dark" data-rise="2">Australian technology consultancy</p>
+        <h1 class="cover__h" data-rise="3" style="margin-top:14px;">Technology,<br>human first.</h1>
+      </div>
+      <div class="cover__sub" data-rise="4">
+        <span class="pill pill--ghost-on-dark">Workday &amp; ERP</span>
+        <span class="pill pill--ghost-on-dark">Payroll</span>
+        <span class="pill pill--ghost-on-dark">Data &amp; AI</span>
+        <span class="pill pill--ghost-on-dark">Automation</span>
+      </div>
+    </div>
+    <span class="slide__no">01 / 08</span>
+  </section>
+
+  <!-- 2 · WHO WE ARE — off-white, headline + 3 KPI cards -->
+  <section class="slide" data-snap>
+    <div class="slide__head">
+      <div>
+        <p class="eyebrow" data-rise="1">Who we are</p>
+        <h2 class="slide__title" data-rise="2" style="margin-top:12px;">We turn enterprise platforms into
+          <span class="coral-text">measurable human outcomes</span>.</h2>
+      </div>
+      <span class="mchip mchip--lg" data-rise="1"></span>
+    </div>
+    <p class="lede slide__lede" data-rise="3" style="margin-top:20px;">
+      Mivada is an Australian technology consultancy that turns Workday, payroll, data and AI into
+      <strong>outcomes people actually feel</strong> — built around how teams really work.
+    </p>
+    <div class="grow"></div>
+    <div class="kpis">
+      <div class="kpi" data-rise="4"><div class="kpi__num">2014</div><div class="kpi__label">Founded — formerly LJM Infotech</div></div>
+      <div class="kpi" data-rise="5"><div class="kpi__num">120+</div><div class="kpi__label">Specialists, certified not generalist</div></div>
+      <div class="kpi kpi--coral" data-rise="6"><div class="kpi__num">AU + India</div><div class="kpi__label">Onshore leadership, offshore delivery</div></div>
+    </div>
+    <span class="slide__no">02 / 08</span>
+  </section>
+
+  <!-- 3 · WHAT WE DO — 4 pillars as cards with an M-chip each -->
+  <section class="slide" data-snap>
+    <div class="slide__head">
+      <div>
+        <p class="eyebrow" data-rise="1">What we do</p>
+        <h2 class="slide__title" data-rise="2" style="margin-top:12px;">Four pillars, one operating idea.</h2>
+      </div>
+      <span class="pill" data-rise="1" style="border-color:var(--hairline);">Human first, end to end</span>
+    </div>
+    <div class="grow"></div>
+    <div class="pillars">
+      <div class="card pillar" data-rise="3">
+        <div class="pillar__row"><span class="mchip mchip--sm"></span><span class="card__index">01</span></div>
+        <div class="card__title">Workday &amp; ERP</div>
+        <div class="card__body">Implementation, optimisation and managed support for Workday HCM, Financials and adjacent ERP.</div>
+      </div>
+      <div class="card pillar" data-rise="4">
+        <div class="pillar__row"><span class="mchip mchip--sm"></span><span class="card__index">02</span></div>
+        <div class="card__title">Payroll consulting</div>
+        <div class="card__body">Compliant, accurate payroll across complex awards and multi-entity structures.</div>
+      </div>
+      <div class="card pillar" data-rise="5">
+        <div class="pillar__row"><span class="mchip mchip--sm"></span><span class="card__index">03</span></div>
+        <div class="card__title">Data &amp; AI</div>
+        <div class="card__body">Lakehouse architecture, governed analytics and applied AI on your people and finance data.</div>
+      </div>
+      <div class="card pillar" data-rise="6">
+        <div class="pillar__row"><span class="mchip mchip--sm"></span><span class="card__index">04</span></div>
+        <div class="card__title">Intelligent automation</div>
+        <div class="card__body">RPA, ML and process design combined to remove low-value work for good.</div>
+      </div>
+    </div>
+    <span class="slide__no">03 / 08</span>
+  </section>
+
+  <!-- 4 · HOW WE WORK — Listen → Design → Deliver → Care, 4 cards + pill labels -->
+  <section class="slide" data-snap>
+    <div class="slide__head">
+      <div>
+        <p class="eyebrow" data-rise="1">How we work</p>
+        <h2 class="slide__title" data-rise="2" style="margin-top:12px;">Think human first.</h2>
+      </div>
+      <span class="pill pill--coral" data-rise="1">Weeks, not multi-year programs</span>
+    </div>
+    <p class="lede slide__lede" data-rise="3" style="margin-top:16px;">A four-step engagement model that puts people before platforms.</p>
+    <div class="grow"></div>
+    <div class="steps">
+      <div class="card step" data-rise="4">
+        <span class="pill pill--dark" style="height:30px;padding:0 14px;font-size:12.5px;align-self:flex-start;">Listen</span>
+        <div class="step__n">Step 01</div>
+        <div class="card__body">Understand the people and the work before the technology.</div>
+      </div>
+      <div class="card step" data-rise="5">
+        <span class="pill pill--dark" style="height:30px;padding:0 14px;font-size:12.5px;align-self:flex-start;">Design</span>
+        <div class="step__n">Step 02</div>
+        <div class="card__body">Shape the platform around how teams actually operate.</div>
+      </div>
+      <div class="card step" data-rise="6">
+        <span class="pill pill--dark" style="height:30px;padding:0 14px;font-size:12.5px;align-self:flex-start;">Deliver</span>
+        <div class="step__n">Step 03</div>
+        <div class="card__body">Implement in weeks-long increments, not multi-year programs.</div>
+      </div>
+      <div class="card step card--coral" data-rise="7">
+        <span class="pill" style="height:30px;padding:0 14px;font-size:12.5px;align-self:flex-start;background:#fff;color:var(--coral-deep);border-color:#fff;">Care</span>
+        <div class="step__n">Step 04</div>
+        <div class="card__body">Stay on after go-live; measure outcomes, not tickets closed.</div>
+      </div>
+    </div>
+    <span class="slide__no">04 / 08</span>
+  </section>
+
+  <!-- 5 · DATA & AI — split: rounded photo (duotone) + capability list -->
+  <section class="slide" data-snap>
+    <div class="split">
+      <div class="caps">
+        <p class="eyebrow" data-rise="1">Data &amp; AI</p>
+        <h2 class="slide__title" data-rise="2" style="font-size:36px;">Decisions on current data, not last quarter's.</h2>
+        <div class="cap" data-rise="3"><div class="cap__n">01</div><div><div class="cap__t">Lakehouse architecture</div><div class="cap__d">Designed by certified consultants around your platforms.</div></div></div>
+        <div class="cap" data-rise="4"><div class="cap__n">02</div><div><div class="cap__t">Delta Lake pipelines</div><div class="cap__d">Batch and streaming, built to govern and to scale.</div></div></div>
+        <div class="cap" data-rise="5"><div class="cap__n">03</div><div><div class="cap__t">Governed KPI store</div><div class="cap__d">Databricks integrated with Workday, payroll and finance.</div></div></div>
+        <div class="cap" data-rise="6"><div class="cap__n">04</div><div><div class="cap__t">Real-time insight</div><div class="cap__d">So leaders decide on what is true right now.</div></div></div>
+      </div>
+      <div class="photo photo--duotone photo--tall" data-rise="3">
+        <span class="photo__cap"><span class="mchip mchip--sm" style="--chip:20px;border-radius:5px;"></span>Databricks · Workday · Finance</span>
+      </div>
+    </div>
+    <span class="slide__no">05 / 08</span>
+  </section>
+
+  <!-- 6 · OUTCOMES — 3 KPI cards + short quote with avatar -->
+  <section class="slide" data-snap>
+    <div class="slide__head">
+      <div>
+        <p class="eyebrow" data-rise="1">Outcomes</p>
+        <h2 class="slide__title" data-rise="2" style="margin-top:12px;">Proof, in numbers and in practice.</h2>
+      </div>
+    </div>
+    <div class="kpis" data-rise="3" style="margin-top:22px;">
+      <div class="kpi"><div class="kpi__num">40+</div><div class="kpi__label">Workday deployments delivered</div></div>
+      <div class="kpi kpi--coral"><div class="kpi__num">98%</div><div class="kpi__label">Client retention</div></div>
+      <div class="kpi kpi--ink"><div class="kpi__num">Weeks</div><div class="kpi__label">To value — not months</div></div>
+    </div>
+    <div class="grow"></div>
+    <div class="card" data-rise="5" style="padding:26px 28px;">
+      <div class="quote-row">
+        <p class="quote">&ldquo;They listened first, then built around how our teams actually work. Go-live felt like a <em>beginning</em>, not a handover.&rdquo;</p>
+        <div class="attrib">
+          <span class="avatar avatar--coral"></span>
+          <div><div class="attrib__name">People &amp; Systems lead</div><div class="attrib__role">Enterprise client · illustrative</div></div>
+        </div>
+      </div>
+    </div>
+    <span class="slide__no">06 / 08</span>
+  </section>
+
+  <!-- 7 · WHY MIVADA — 3 reasons as cards -->
+  <section class="slide" data-snap>
+    <div class="slide__head">
+      <div>
+        <p class="eyebrow" data-rise="1">Why Mivada</p>
+        <h2 class="slide__title" data-rise="2" style="margin-top:12px;">Built to be used, not just installed.</h2>
+      </div>
+      <span class="mchip mchip--lg" data-rise="1"></span>
+    </div>
+    <div class="grow"></div>
+    <div class="reasons">
+      <div class="card" data-rise="3" style="gap:14px;">
+        <span class="mchip mchip--sm"></span>
+        <div class="card__title">Certified specialists</div>
+        <div class="card__body">Workday- and Databricks-certified consultants, not generalists learning on your time.</div>
+        <div class="tag-row" style="margin-top:auto;"><span class="tag tag--coral-soft">Workday</span><span class="tag tag--coral-soft">Databricks</span></div>
+      </div>
+      <div class="card" data-rise="4" style="gap:14px;">
+        <span class="mchip mchip--sm"></span>
+        <div class="card__title">Onshore + offshore</div>
+        <div class="card__body">Senior onshore leadership paired with cost-effective delivery from India.</div>
+        <div class="tag-row" style="margin-top:auto;"><span class="tag">Australia</span><span class="tag">India</span></div>
+      </div>
+      <div class="card card--coral" data-rise="5" style="gap:14px;">
+        <span class="mchip mchip--sm"></span>
+        <div class="card__title">People-first change</div>
+        <div class="card__body">Adoption built in from day one, so the platform actually gets used.</div>
+        <div class="tag-row" style="margin-top:auto;"><span class="tag" style="background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.3);">Change</span><span class="tag" style="background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.3);">Adoption</span></div>
+      </div>
+    </div>
+    <span class="slide__no">07 / 08</span>
+  </section>
+
+  <!-- 8 · CONTACT — coral closing field, white CTA + M-chip + pill -->
+  <section class="slide slide--field slide--on-dark" data-snap>
+    <div class="coral-field closing">
+      <div class="cover__top">
+        <div class="wordmark wordmark--on-dark" data-rise="1">
+          <span class="mchip mchip--reverse mchip--lg"></span>
+          <span class="wordmark__name">Mivada</span>
+        </div>
+        <span class="pill pill--ghost-on-dark" data-rise="1">Experience the Mivada difference</span>
+      </div>
+      <div class="stack">
+        <p class="eyebrow eyebrow--on-dark" data-rise="2">Let's talk</p>
+        <h2 class="closing__h" data-rise="3" style="margin-top:14px;">Let's build smarter systems, with people at the centre.</h2>
+        <div class="closing__cta" data-rise="4" style="margin-top:26px;">
+          <span class="pill" style="background:#fff;color:var(--coral-deep);border-color:#fff;font-weight:700;">hello@mivada.com</span>
+          <span class="pill pill--ghost-on-dark">mivada.com</span>
+        </div>
+      </div>
+      <div class="contact-line" data-rise="5">
+        <span>Sydney</span><span class="dot">·</span><span>Melbourne</span><span class="dot">·</span>
+        <span>Onshore AU &amp; India</span><span class="dot">·</span><span>Figures illustrative</span>
+      </div>
+    </div>
+    <span class="slide__no">08 / 08</span>
+  </section>
+
+</main>
+
+<div class="hint" id="hint">Use ← → or Space to move between slides</div>
+
+<script>
+  // Keyboard nav + active-slide observer (one small inline script, no libs).
+  const deck = document.getElementById('deck');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  let idx = 0;
+
+  function go(n) {
+    idx = Math.max(0, Math.min(slides.length - 1, n));
+    slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(idx + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(idx - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+  });
+
+  // Mark the most-visible slide active so its entrance plays on arrival.
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting && en.intersectionRatio > 0.55) {
+        slides.forEach(s => s.classList.remove('is-active'));
+        en.target.classList.add('is-active');
+        idx = slides.indexOf(en.target);
+      }
+    });
+  }, { threshold: [0.55] });
+  slides.forEach(s => io.observe(s));
+  slides[0].classList.add('is-active');
+
+  // Fade the hint out after first interaction.
+  const hint = document.getElementById('hint');
+  let hid = false;
+  ['keydown','wheel','pointerdown'].forEach(ev => window.addEventListener(ev, () => {
+    if (!hid) { hid = true; hint.style.transition = 'opacity .6s'; hint.style.opacity = '0'; }
+  }, { once: true }));
+</script>
+</body>
+</html>

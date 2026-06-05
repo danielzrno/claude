@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mivada — Capability Statement · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="momentum.css">
+<style>
+  /* ---- A4 print document. Brand styling in momentum.css; page rules local. */
+  @page { size: A4; margin: 11mm 15mm 10mm 15mm; }
+
+  html { background: #DADBD4; }
+  body { background: #DADBD4; }
+
+  /* On-screen "paper" preview wrapper */
+  .paper {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 18px auto;
+    background: var(--off-white);
+    box-shadow: 0 10px 40px rgba(17,17,17,.18);
+    padding: 11mm 15mm 10mm;
+    position: relative;
+  }
+
+  .doc { display: flex; flex-direction: column; gap: 13px; }
+
+  /* ---- Coral masthead / hero strip ---- */
+  .masthead {
+    border-radius: var(--r-card);
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .masthead__top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .masthead h1 { font-size: 27px; letter-spacing: -0.025em; }
+  .masthead__sub { display:flex; align-items:center; gap:10px; flex-wrap: wrap; }
+
+  .sec-eyebrow { margin-bottom: 6px; }
+  .sec-title { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 10px; }
+
+  .intro { font-size: 13.8px; line-height: 1.55; color: var(--graphite); }
+  .intro strong { color: var(--ink); }
+
+  /* pillar mini-cards */
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pcard { padding: 12px 15px; gap: 6px; }
+  .pcard__row { display: flex; align-items: center; gap: 10px; }
+  .pcard .card__title { font-size: 15px; }
+  .pcard .card__body { font-size: 12.8px; line-height: 1.5; }
+
+  /* how-we-work row of pills + lines */
+  .how { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .hcell { display: flex; flex-direction: column; gap: 8px; }
+  .hcell__d { font-size: 12.5px; color: var(--graphite); line-height: 1.45; }
+
+  /* split: capabilities + photo */
+  .split { display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; align-items: stretch; }
+  .caps { display: flex; flex-direction: column; gap: 6px; }
+  .cap { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+  .cap__n { font-size: 12px; font-weight: 800; color: var(--coral); padding-top: 1px; }
+  .cap__t { font-size: 13.5px; font-weight: 700; }
+  .cap__d { font-size: 12.3px; color: var(--graphite); }
+  .photo--doc { min-height: 100%; }
+  .photo { min-height: 132px; }
+
+  /* KPI figure block */
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .kpi--doc { padding: 14px 16px; }
+  .kpi--doc .kpi__num { font-size: 30px; }
+  .kpi--doc .kpi__label { font-size: 12px; }
+
+  /* section divider rule (paragraph border, not a bar) */
+  .div { height: 1px; background: var(--hairline); margin: 4px 0; }
+
+  /* footer */
+  .footer {
+    margin-top: 6px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding-top: 12px; border-top: 1.5px solid var(--ink);
+    font-size: 12px; color: var(--graphite);
+  }
+  .footer .l { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .footer .dot { color: var(--mid-grey); }
+
+  @media print {
+    html, body { background: #fff; }
+    .paper { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+    .doc { gap: 14px; }
+    .masthead, .coral-field, .black-field, .card, .kpi, .photo, .pill, .tag, .mchip {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    .pillars, .how, .kpis { break-inside: avoid; }
+    .caps .cap { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="paper">
+  <div class="doc">
+
+    <!-- Coral masthead -->
+    <header class="masthead coral-field">
+      <div class="masthead__top">
+        <div class="wordmark wordmark--on-dark">
+          <span class="mchip mchip--reverse mchip--lg"></span>
+          <span class="wordmark__name">Mivada</span>
+        </div>
+        <span class="pill pill--ghost-on-dark">Capability Statement · 2026</span>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow--on-dark">Technology, human first</p>
+        <h1 style="margin-top:8px;">Enterprise platforms, turned into outcomes people feel.</h1>
+      </div>
+      <div class="masthead__sub">
+        <span class="pill pill--ghost-on-dark" style="height:32px;">Workday &amp; ERP</span>
+        <span class="pill pill--ghost-on-dark" style="height:32px;">Payroll</span>
+        <span class="pill pill--ghost-on-dark" style="height:32px;">Data &amp; AI</span>
+        <span class="pill pill--ghost-on-dark" style="height:32px;">Automation</span>
+      </div>
+    </header>
+
+    <!-- Intro -->
+    <section>
+      <p class="intro">
+        <strong>Mivada is an Australian technology consultancy</strong> that turns enterprise platforms —
+        Workday, payroll, data and AI — into measurable human outcomes. Founded in 2014, we pair senior
+        onshore leadership with cost-effective delivery from India, and we stay on after go-live to
+        measure outcomes, not tickets closed. We think human first.
+      </p>
+    </section>
+
+    <div class="div"></div>
+
+    <!-- What we do -->
+    <section>
+      <p class="eyebrow sec-eyebrow">What we do</p>
+      <h2 class="sec-title">Four service pillars</h2>
+      <div class="pillars">
+        <div class="card pcard">
+          <div class="pcard__row"><span class="mchip mchip--sm"></span><span class="card__index">01 · Workday &amp; ERP</span></div>
+          <div class="card__title">Workday &amp; ERP</div>
+          <div class="card__body">Implementation, optimisation and managed support for Workday HCM, Financials and adjacent ERP.</div>
+        </div>
+        <div class="card pcard">
+          <div class="pcard__row"><span class="mchip mchip--sm"></span><span class="card__index">02 · Payroll</span></div>
+          <div class="card__title">Payroll consulting</div>
+          <div class="card__body">Compliant, accurate payroll across complex awards and multi-entity structures.</div>
+        </div>
+        <div class="card pcard">
+          <div class="pcard__row"><span class="mchip mchip--sm"></span><span class="card__index">03 · Data &amp; AI</span></div>
+          <div class="card__title">Data &amp; AI</div>
+          <div class="card__body">Lakehouse architecture, governed analytics and applied AI on your people and finance data.</div>
+        </div>
+        <div class="card pcard">
+          <div class="pcard__row"><span class="mchip mchip--sm"></span><span class="card__index">04 · Automation</span></div>
+          <div class="card__title">Intelligent automation</div>
+          <div class="card__body">RPA, ML and process design combined to remove low-value work for good.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How we work -->
+    <section>
+      <p class="eyebrow sec-eyebrow">How we work — think human first</p>
+      <h2 class="sec-title">Listen · Design · Deliver · Care</h2>
+      <div class="how">
+        <div class="hcell"><span class="pill pill--dark" style="height:30px;padding:0 14px;font-size:12.5px;align-self:flex-start;">Listen</span><span class="hcell__d">Understand the people and the work before the technology.</span></div>
+        <div class="hcell"><span class="pill pill--dark" style="height:30px;padding:0 14px;font-size:12.5px;align-self:flex-start;">Design</span><span class="hcell__d">Shape the platform around how teams actually operate.</span></div>
+        <div class="hcell"><span class="pill pill--dark" style="height:30px;padding:0 14px;font-size:12.5px;align-self:flex-start;">Deliver</span><span class="hcell__d">Implement in weeks-long increments, not multi-year programs.</span></div>
+        <div class="hcell"><span class="pill pill--coral" style="height:30px;padding:0 14px;font-size:12.5px;align-self:flex-start;">Care</span><span class="hcell__d">Stay on after go-live; measure outcomes, not tickets closed.</span></div>
+      </div>
+    </section>
+
+    <div class="div"></div>
+
+    <!-- Selected capabilities — Data & AI (split with photo) -->
+    <section>
+      <p class="eyebrow sec-eyebrow">Selected capabilities — Data &amp; AI</p>
+      <h2 class="sec-title">Leaders decide on current data</h2>
+      <div class="split">
+        <div class="caps">
+          <div class="cap"><div class="cap__n">01</div><div><div class="cap__t">Lakehouse architecture</div><div class="cap__d">Designed by certified consultants around your platforms.</div></div></div>
+          <div class="cap"><div class="cap__n">02</div><div><div class="cap__t">Delta Lake pipelines</div><div class="cap__d">Batch and streaming, built to govern and to scale.</div></div></div>
+          <div class="cap"><div class="cap__n">03</div><div><div class="cap__t">Databricks integration</div><div class="cap__d">Connected to Workday, payroll and finance.</div></div></div>
+          <div class="cap"><div class="cap__n">04</div><div><div class="cap__t">Governed KPI store</div><div class="cap__d">A single, trusted source for the numbers that matter.</div></div></div>
+          <div class="cap"><div class="cap__n">05</div><div><div class="cap__t">Real-time insight</div><div class="cap__d">So leaders decide on what is true right now.</div></div></div>
+        </div>
+        <div class="photo photo--duotone photo--doc">
+          <span class="photo__cap"><span class="mchip mchip--sm" style="--chip:18px;border-radius:5px;"></span>Governed analytics</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- By the numbers -->
+    <section>
+      <p class="eyebrow sec-eyebrow">By the numbers</p>
+      <div class="kpis">
+        <div class="kpi kpi--doc"><div class="kpi__num">120+</div><div class="kpi__label">Specialists</div></div>
+        <div class="kpi kpi--doc kpi--coral"><div class="kpi__num">40+</div><div class="kpi__label">Workday deployments</div></div>
+        <div class="kpi kpi--doc kpi--ink"><div class="kpi__num">98%</div><div class="kpi__label">Client retention</div></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="l">
+        <span class="mchip mchip--sm" style="--chip:22px;border-radius:5px;"></span>
+        <strong>mivada.com</strong><span class="dot">·</span>
+        <span>hello@mivada.com</span><span class="dot">·</span>
+        <span>Sydney &amp; Melbourne</span><span class="dot">·</span>
+        <span>Onshore AU &amp; India</span>
+      </div>
+      <span class="muted">Figures illustrative.</span>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

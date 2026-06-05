@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mivada — Capability Statement · 2026 (Editorial)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="editorial.css">
+
+<style>
+  /* ===== A4 capability statement — editorial treatment ===== */
+  @page { size: A4; margin: 16mm 15mm; }
+
+  /* on-screen "paper" preview */
+  body { background: #2a2a2a; }
+  .paper {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 22px auto;
+    background: var(--off-white);
+    color: var(--ink);
+    padding: 16mm 15mm;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.4);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ---- Masthead — bold editorial wordmark + meta ---- */
+  .masthead {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 14px;
+  }
+  .masthead .wordmark { font-size: 1.5rem; }
+  .masthead .meta {
+    text-align: right;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--graphite); line-height: 1.5;
+  }
+  .masthead .meta b { color: var(--coral); }
+
+  /* ---- Oversized lede headline ---- */
+  .lede { margin-top: 30px; }
+  .lede .eyebrow { margin-bottom: 14px; }
+  .lede h1 {
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    font-weight: 800; letter-spacing: -0.025em; line-height: 1.0;
+    margin: 0; max-width: 18ch; color: var(--ink);
+  }
+  .lede .intro {
+    margin-top: 18px;
+    columns: 2; column-gap: 30px;
+    font-size: 0.98rem; line-height: 1.55; color: var(--graphite);
+  }
+  .lede .intro p { margin: 0 0 0.7em; break-inside: avoid; }
+
+  /* ---- Section heading rhythm ---- */
+  .sec { margin-top: 26px; break-inside: avoid; }
+  .sec > .eyebrow { color: var(--coral); }
+  .sec h2 {
+    font-size: 1.55rem; font-weight: 800; letter-spacing: -0.02em;
+    margin: 8px 0 14px; color: var(--ink); line-height: 1.05;
+  }
+
+  /* ---- What we do — numbered editorial list, 2 cols ---- */
+  .pillars { columns: 2; column-gap: 30px; }
+  .pillar-item {
+    break-inside: avoid; margin-bottom: 16px;
+    display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: baseline;
+  }
+  .pillar-item .idx { font-size: 1.5rem; font-weight: 800; color: var(--coral); letter-spacing: -0.03em; line-height: 1; font-feature-settings:"tnum" 1; }
+  .pillar-item h3 { font-size: 1.02rem; font-weight: 700; margin: 0 0 3px; color: var(--ink); }
+  .pillar-item p { font-size: 0.9rem; line-height: 1.5; color: var(--graphite); margin: 0; }
+
+  /* ---- How we work — inline bold sequence ---- */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 4px; }
+  .steps .st { padding: 0 16px; }
+  .steps .st:first-child { padding-left: 0; }
+  .steps .st + .st { border-left: 1px solid var(--hairline); }
+  .steps .st .n { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; color: var(--coral); }
+  .steps .st h4 { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; margin: 6px 0 5px; color: var(--ink); }
+  .steps .st p { font-size: 0.82rem; line-height: 1.45; color: var(--graphite); margin: 0; }
+
+  /* ---- BLACK CALLOUT BAND — a deliberate, repeated motif ---- */
+  .callout {
+    margin-top: 26px;
+    background: var(--black); color: #fff;
+    border-radius: 12px;
+    padding: 26px 28px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    break-inside: avoid;
+  }
+  .callout .eyebrow { color: var(--coral); }
+  .callout h2 { color: #fff; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; margin: 8px 0 16px; }
+  .callout .caps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 30px; }
+  .callout .cap { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: baseline; padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.16); }
+  .callout .cap .k { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); white-space: nowrap; padding-top: 0.3em; }
+  .callout .cap .v { font-size: 0.9rem; line-height: 1.45; color: #E2E2E2; }
+  .callout .cap .v b { color: #fff; font-weight: 700; }
+
+  /* ---- Coral pull-quote ---- */
+  .pq {
+    margin-top: 26px; break-inside: avoid;
+    padding-left: 22px; border-left: 4px solid var(--coral);
+  }
+  .pq blockquote {
+    margin: 0;
+    font-size: clamp(1.5rem, 3.4vw, 2rem);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.08;
+    color: var(--coral); max-width: 26ch;
+  }
+  .pq .attr { display:block; margin-top: 10px; font-size: 0.82rem; font-weight: 600; color: var(--mid-grey); }
+
+  /* ---- By the numbers — big stat block ---- */
+  .numbers { margin-top: 26px; break-inside: avoid; }
+  .num-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 6px; }
+  .num-grid .n { padding: 0 18px; }
+  .num-grid .n:first-child { padding-left: 0; }
+  .num-grid .n + .n { border-left: 1px solid var(--hairline); }
+  .num-grid .big { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -0.035em; color: var(--ink); line-height: 0.92; }
+  .num-grid .big .accent { color: var(--coral); }
+  .num-grid .lab { margin-top: 8px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid-grey); line-height: 1.3; }
+
+  /* ---- Footer ---- */
+  .docfoot {
+    margin-top: 28px; padding-top: 12px;
+    border-top: 1px solid var(--hairline);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 0.76rem; color: var(--graphite);
+  }
+  .docfoot .left b { color: var(--ink); font-weight: 700; }
+  .docfoot .right { color: var(--mid-grey); }
+
+  @media print {
+    body { background: #fff; }
+    .paper { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <span class="wordmark"><span class="m-chip"></span>Mivada</span>
+    <div class="meta">Capability statement<br><b>2026</b></div>
+  </header>
+
+  <!-- Oversized lede -->
+  <section class="lede">
+    <p class="eyebrow">Technology, human first</p>
+    <h1>We turn enterprise platforms into <span class="accent">human outcomes.</span></h1>
+    <div class="intro">
+      <p>Mivada is an Australian technology consultancy. We take the platforms that run an enterprise — Workday, payroll, data and AI — and shape them around the people who use them every day.</p>
+      <p>Founded in 2014 and now 120-plus specialists, we lead onshore in Australia and deliver across India. We measure success in outcomes adopted, not tickets closed.</p>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section class="sec">
+    <p class="eyebrow">What we do</p>
+    <h2>Four practices, one operating belief.</h2>
+    <div class="pillars">
+      <div class="pillar-item">
+        <span class="idx">01</span>
+        <div>
+          <h3>Workday &amp; ERP</h3>
+          <p>Implementation, optimisation and managed support for Workday HCM, Financials and adjacent ERP.</p>
+        </div>
+      </div>
+      <div class="pillar-item">
+        <span class="idx">02</span>
+        <div>
+          <h3>Payroll consulting</h3>
+          <p>Compliant, accurate payroll across complex awards and multi-entity structures.</p>
+        </div>
+      </div>
+      <div class="pillar-item">
+        <span class="idx">03</span>
+        <div>
+          <h3>Data &amp; AI</h3>
+          <p>Lakehouse architecture, governed analytics and applied AI on your people and finance data.</p>
+        </div>
+      </div>
+      <div class="pillar-item">
+        <span class="idx">04</span>
+        <div>
+          <h3>Intelligent automation</h3>
+          <p>RPA, ML and process design combined to remove low-value work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How we work -->
+  <section class="sec">
+    <p class="eyebrow">How we work — think human first</p>
+    <h2>Understand the people before the technology.</h2>
+    <div class="steps">
+      <div class="st"><div class="n">STEP 01</div><h4>Listen</h4><p>Understand the people and the work before the technology.</p></div>
+      <div class="st"><div class="n">STEP 02</div><h4>Design</h4><p>Shape the platform around how teams actually operate.</p></div>
+      <div class="st"><div class="n">STEP 03</div><h4>Deliver</h4><p>Implement in weeks-long increments, not multi-year programs.</p></div>
+      <div class="st"><div class="n">STEP 04</div><h4>Care</h4><p>Stay on after go-live; measure outcomes, not tickets.</p></div>
+    </div>
+  </section>
+
+  <!-- BLACK CALLOUT BAND — Data & AI capabilities -->
+  <section class="callout">
+    <p class="eyebrow">Selected capabilities — Data &amp; AI</p>
+    <h2>The data foundation for current-data decisions.</h2>
+    <div class="caps">
+      <div class="cap"><span class="k">Architecture</span><span class="v">Certified consultants design <b>Lakehouse architectures</b> on your people and finance data.</span></div>
+      <div class="cap"><span class="k">Pipelines</span><span class="v">Build <b>Delta Lake pipelines</b> — batch and streaming — on <b>Databricks</b>.</span></div>
+      <div class="cap"><span class="k">Integration</span><span class="v">Integrate Databricks with <b>Workday, payroll and finance</b>.</span></div>
+      <div class="cap"><span class="k">Outcome</span><span class="v">Deliver <b>governed KPI stores</b> and <b>real-time insight</b>.</span></div>
+    </div>
+  </section>
+
+  <!-- Coral pull-quote -->
+  <section class="pq">
+    <blockquote>
+      “They delivered in weeks what we'd scoped for a year — and our team actually uses it.”
+      <span class="attr">People &amp; Payroll Director · national employer (illustrative)</span>
+    </blockquote>
+  </section>
+
+  <!-- By the numbers -->
+  <section class="numbers">
+    <p class="eyebrow">By the numbers</p>
+    <div class="num-grid">
+      <div class="n"><div class="big">40<span class="accent">+</span></div><div class="lab">Workday deployments</div></div>
+      <div class="n"><div class="big">98<span class="accent">%</span></div><div class="lab">Client retention</div></div>
+      <div class="n"><div class="big">120<span class="accent">+</span></div><div class="lab">Specialists</div></div>
+      <div class="n"><div class="big">4</div><div class="lab">Service pillars</div></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="docfoot">
+    <div class="left"><b>hello@mivada.com</b> · mivada.com · Sydney &amp; Melbourne · Onshore AU &amp; India</div>
+    <div class="right">Figures illustrative.</div>
+  </footer>
+
+</div>
+</body>
+</html>

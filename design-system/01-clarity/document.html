@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mivada — Capability statement · 2026 (Clarity)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="clarity.css">
+<style>
+  /* ---- A4 paper, exact colour print ------------------------------------- */
+  @page { size: A4; margin: 18mm 18mm 16mm; }
+
+  body { background: #DBDCD6; }   /* preview stage */
+
+  .paper {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 24px auto;
+    background: var(--off-white);
+    padding: 22mm 20mm 18mm;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.12);
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  /* ---- Masthead --------------------------------------------------------- */
+  .masthead {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .masthead .wordmark { font-size: 24px; }
+  .masthead__meta {
+    text-align: right;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    font-weight: 600;
+    line-height: 1.6;
+    padding-top: 6px;
+  }
+  .masthead__meta .muted { color: var(--mid-grey); }
+  .masthead-rule { border: 0; border-top: 2px solid var(--coral); margin: 14px 0 0; }
+
+  /* ---- Document type scale ---------------------------------------------- */
+  .doc-title {
+    font-size: 33px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.06;
+    color: var(--ink);
+    margin: 34px 0 0;
+    max-width: 18ch;
+  }
+  .doc-intro {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--graphite);
+    margin: 18px 0 0;
+    max-width: 64ch;
+    font-weight: 400;
+  }
+  .doc-intro .accent-word { color: var(--ink); font-weight: 600; }
+
+  section.block { margin-top: 30px; }
+  .block > .eyebrow { margin-bottom: 12px; }
+  .block-rule { border: 0; border-top: 1px solid var(--hairline); margin: 0 0 18px; }
+
+  h2.sec {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+
+  /* two-column content */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 34px;
+  }
+  .col-head {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin: 0 0 14px;
+  }
+
+  /* pillar list (doc) */
+  .pillar {
+    padding: 13px 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .pillar:first-child { border-top: 0; padding-top: 0; }
+  .pillar h3 { font-size: 14px; font-weight: 700; color: var(--ink); margin: 0 0 3px; letter-spacing: -0.01em; }
+  .pillar p { font-size: 12.5px; color: var(--graphite); margin: 0; line-height: 1.5; }
+
+  /* how-we-work steps (doc) */
+  .wstep { padding: 13px 0; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: baseline; }
+  .wstep:first-child { border-top: 0; padding-top: 0; }
+  .wstep .wn { font-size: 14px; font-weight: 800; color: var(--coral); letter-spacing: -0.02em; }
+  .wstep h3 { font-size: 13.5px; font-weight: 700; color: var(--ink); margin: 0 0 2px; }
+  .wstep p { font-size: 12px; color: var(--graphite); margin: 0; line-height: 1.45; }
+
+  /* capability bullets — type-led, no unicode markers */
+  .cap-bullets { list-style: none; margin: 0; padding: 0; }
+  .cap-bullets li {
+    position: relative;
+    padding: 10px 0 10px 22px;
+    border-top: 1px solid var(--hairline);
+    font-size: 13px;
+    color: var(--graphite);
+    line-height: 1.5;
+  }
+  .cap-bullets li:first-child { border-top: 0; }
+  .cap-bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 17px;
+    width: 9px;
+    height: 3px;
+    background: var(--coral);
+    border-radius: 2px;
+  }
+  .cap-bullets li strong { color: var(--ink); font-weight: 600; }
+
+  /* By the numbers — hairline-bordered block */
+  .numbers {
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    background: var(--white);
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .numcell { padding: 0 18px; border-left: 1px solid var(--hairline); }
+  .numcell:first-child { padding-left: 0; border-left: 0; }
+  .numcell .n { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); line-height: 1; margin: 0; }
+  .numcell .l { font-size: 11px; color: var(--graphite); margin: 9px 0 0; line-height: 1.4; }
+  .numcell .e { font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral); margin: 0 0 9px; display: block; }
+
+  /* footer */
+  .doc-footer {
+    margin-top: 32px;
+    padding-top: 14px;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--graphite);
+    letter-spacing: 0.02em;
+  }
+  .doc-footer .muted { color: var(--mid-grey); }
+  .doc-footer .fm { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; }
+
+  @media print {
+    html, body { background: #fff; }
+    .paper { margin: 0; box-shadow: none; width: auto; min-height: auto; padding: 0; }
+    section.block { page-break-inside: avoid; }
+    .numbers { page-break-inside: avoid; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+  <div class="paper">
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <span class="wordmark"><span class="m-chip m-chip--sm">M</span> Mivada</span>
+      <div class="masthead__meta">
+        Capability statement<br>
+        <span class="muted">2026 · Clarity</span>
+      </div>
+    </header>
+    <hr class="masthead-rule">
+
+    <!-- Intro -->
+    <h1 class="doc-title">Technology, <span class="accent">human</span> first.</h1>
+    <p class="doc-intro">Mivada is an <span class="accent-word">Australian technology consultancy</span> that turns enterprise platforms — Workday, payroll, data and AI — into measurable human outcomes. We pair senior onshore leadership with cost-effective offshore delivery, and we stay on after go-live to measure outcomes, not tickets closed. The name comes from <span class="accent-word">my village</span> (community) and <span class="accent-word">wisdom</span> (knowledge); our core value is that we care.</p>
+
+    <!-- What we do / How we work -->
+    <section class="block">
+      <div class="two-col">
+        <div>
+          <p class="col-head">What we do</p>
+          <div class="pillar"><h3>Workday &amp; ERP</h3><p>Implementation, optimisation and managed support for Workday HCM, Financials and adjacent ERP.</p></div>
+          <div class="pillar"><h3>Payroll consulting</h3><p>Compliant, accurate payroll across complex awards and multi-entity structures.</p></div>
+          <div class="pillar"><h3>Data &amp; AI</h3><p>Lakehouse architecture, governed analytics and applied AI on your people and finance data.</p></div>
+          <div class="pillar"><h3>Intelligent automation</h3><p>RPA, ML and process design combined to remove low-value work.</p></div>
+        </div>
+        <div>
+          <p class="col-head">How we work — think human first</p>
+          <div class="wstep"><span class="wn">1</span><div><h3>Listen</h3><p>Understand the people and the work before the technology.</p></div></div>
+          <div class="wstep"><span class="wn">2</span><div><h3>Design</h3><p>Shape the platform around how teams actually operate.</p></div></div>
+          <div class="wstep"><span class="wn">3</span><div><h3>Deliver</h3><p>Implement in weeks-long increments, not multi-year programs.</p></div></div>
+          <div class="wstep"><span class="wn">4</span><div><h3>Care</h3><p>Stay on after go-live; measure outcomes, not tickets closed.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected capabilities — Data & AI -->
+    <section class="block">
+      <span class="eyebrow">Selected capabilities — Data &amp; AI</span>
+      <hr class="block-rule">
+      <ul class="cap-bullets">
+        <li>Certified consultants design <strong>Lakehouse architectures</strong> built for governance and scale.</li>
+        <li>We build <strong>Delta Lake pipelines</strong> — batch and streaming — that are reliable and observable.</li>
+        <li>We integrate <strong>Databricks</strong> with Workday, payroll and finance to deliver a <strong>governed KPI store</strong>.</li>
+        <li>Leaders get <strong>real-time insight</strong> and decide on current data, not last quarter’s.</li>
+      </ul>
+    </section>
+
+    <!-- By the numbers -->
+    <section class="block">
+      <span class="eyebrow">By the numbers</span>
+      <hr class="block-rule">
+      <div class="numbers">
+        <div class="numcell"><span class="e">Established</span><p class="n">2014</p><p class="l">Founded as LJM Infotech.</p></div>
+        <div class="numcell"><span class="e">Specialists</span><p class="n">120+</p><p class="l">Certified, not generalist.</p></div>
+        <div class="numcell"><span class="e">Workday</span><p class="n">40+</p><p class="l">Deployments delivered.</p></div>
+      </div>
+      <div class="numbers" style="margin-top: 14px;">
+        <div class="numcell"><span class="e">Retention</span><p class="n">98%</p><p class="l">Client retention rate.</p></div>
+        <div class="numcell"><span class="e">Pillars</span><p class="n">4</p><p class="l">Workday, payroll, data &amp; AI, automation.</p></div>
+        <div class="numcell"><span class="e">Delivery</span><p class="n">AU + IN</p><p class="l">Onshore Australia, offshore India.</p></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="doc-footer">
+      <span class="fm"><span class="m-chip m-chip--sm" style="width:24px;height:24px;font-size:15px;">M</span> mivada.com · hello@mivada.com · Sydney &amp; Melbourne</span>
+      <span class="muted">Figures illustrative.</span>
+    </footer>
+
+  </div>
+</body>
+</html>
