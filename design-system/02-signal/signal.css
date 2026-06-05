@@ -1,0 +1,342 @@
+/* ============================================================================
+   SIGNAL — Mivada design system 02
+   Data / AI. Dark by default, precise, technical. Engineering-led.
+   Reusable theme: tokens + type scale + dot-grid + deck/document components.
+   Loaded once; HTML emits content markup only.
+   ============================================================================ */
+
+:root {
+  /* ---- palette ---------------------------------------------------------- */
+  --ink:     #0E1416;  /* near-black, faint cool-green undertone — dark bg   */
+  --surface: #161E21;  /* raised panel on dark                               */
+  --line:    #28343A;  /* hairline / border on dark                          */
+  --paper:   #ECEFEC;  /* off-white — text on dark; LIGHT doc background     */
+  --mint:    #34E2A8;  /* signal mint — PRIMARY accent (sharp 10%)           */
+  --slate:   #7E97A1;  /* muted secondary text / secondary accent           */
+  --amber:   #E9B949;  /* warm highlight — rare 2nd accent, one emphasis     */
+
+  /* derived, for light document (ink-on-paper world) */
+  --line-lt: #C9D3CE;  /* hairline on paper                                  */
+  --slate-d: #50656E;  /* secondary text legible on paper                    */
+  --mint-d:  #128A63;  /* mint dark enough to read as text/numerals on paper */
+
+  /* ---- type ------------------------------------------------------------- */
+  --sans: "Hanken Grotesk", Arial, system-ui, sans-serif;
+  --mono: "JetBrains Mono", Consolas, ui-monospace, monospace;
+
+  /* ---- rule language ---------------------------------------------------- */
+  --radius: 4px;
+  --hair: 1px;
+  --glow: 0 0 0 1px rgba(52,226,168,.55), 0 0 36px -6px rgba(52,226,168,.45);
+
+  /* dot-grid (signature) */
+  --dot: rgba(126,151,161,.22);
+  --dot-gap: 22px;
+}
+
+/* dot-grid utility — THE signature texture on dark */
+.dotgrid {
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.4px);
+  background-size: var(--dot-gap) var(--dot-gap);
+  background-position: -1px -1px;
+}
+.dotgrid--mint { --dot: rgba(52,226,168,.16); }
+
+/* ============================================================================
+   TYPE SCALE  (display / body / mono)
+   ============================================================================ */
+.kicker {                       /* mono kicker label: // 01 — who we are     */
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: .04em;
+  color: var(--mint);
+  margin: 0;
+  text-transform: none;
+}
+.kicker .dim { color: var(--slate); }
+
+.eyebrow {                      /* small mono caption / figure tag           */
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: .05em;
+  color: var(--slate);
+  margin: 0;
+}
+
+h1, h2, h3 { font-family: var(--sans); color: var(--paper); margin: 0; text-wrap: balance; }
+h1 { font-weight: 800; font-size: 76px; line-height: .98; letter-spacing: -.025em; }
+h2 { font-weight: 800; font-size: 42px; line-height: 1.02; letter-spacing: -.02em; }
+h3 { font-weight: 700; font-size: 21px; line-height: 1.08; letter-spacing: -.01em; }
+
+.mint { color: var(--mint); }
+.amber { color: var(--amber); }
+
+p { font-family: var(--sans); font-weight: 400; color: var(--paper); margin: 0; }
+.lead { font-size: 19px; line-height: 1.5; color: var(--paper); }
+.muted { color: var(--slate); }
+
+/* ============================================================================
+   PRESENTATION — 16:9 dark deck
+   ============================================================================ */
+.deck { background: var(--ink); }
+
+.slide {
+  position: relative;
+  box-sizing: border-box;
+  width: 1280px;
+  height: 720px;
+  padding: 72px 88px;
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* index tag top-right + slide chrome */
+.slide__tag {
+  position: absolute;
+  top: 40px;
+  right: 88px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--slate);
+}
+.slide__rule {                  /* thin top hairline as a quiet frame edge   */
+  position: absolute;
+  left: 88px; right: 88px; top: 40px;
+  height: 0; border-top: var(--hair) solid var(--line);
+}
+
+/* a tick-ruler motif (NOT a solid bar) — short ticks along a hairline */
+.ticks {
+  height: 10px;
+  background-image: repeating-linear-gradient(
+    to right, var(--line) 0 1px, transparent 1px 24px);
+  border-bottom: var(--hair) solid var(--line);
+  opacity: .8;
+}
+
+/* --- cover ------------------------------------------------------------- */
+.cover { justify-content: center; }
+.cover__top {
+  position: absolute; top: 40px; left: 88px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--slate);
+}
+.cover h1 { max-width: 16ch; }
+.cover__sub { margin-top: 26px; max-width: 52ch; }
+.cover__coord {
+  position: absolute; right: 88px; bottom: 56px;
+  font-family: var(--mono); font-size: 11px; line-height: 1.7;
+  letter-spacing: .04em; color: var(--slate); text-align: right;
+}
+.cover__coord b { color: var(--mint); font-weight: 500; }
+/* the single mint signal element on the cover */
+.signal-dot {
+  position: absolute; left: 88px; bottom: 64px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--mint);
+  box-shadow: var(--glow);
+}
+.signal-dot::after {            /* a faint outward ring — a "ping"           */
+  content: ""; position: absolute; inset: -10px;
+  border: var(--hair) solid rgba(52,226,168,.35); border-radius: 50%;
+}
+
+/* --- generic head block ------------------------------------------------- */
+.head { margin-bottom: 30px; }
+.head h2 { margin-top: 12px; max-width: 24ch; }
+
+/* two-column split */
+.split { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; flex: 1; align-items: start; }
+.split--showpiece { grid-template-columns: .82fr 1.18fr; align-items: center; }
+
+/* --- KPI tiles (hairline cells) ---------------------------------------- */
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: auto; }
+.kpi {
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 22px 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,.012), transparent);
+}
+.kpi__n {
+  font-family: var(--sans); font-weight: 800; color: var(--mint);
+  font-size: 50px; line-height: .9; letter-spacing: -.02em;
+}
+.kpi__c { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--slate); margin-top: 14px; }
+
+/* --- pillars (hairline tiles, mint left tick) -------------------------- */
+.pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; flex: 1; align-content: center; }
+.pillars--row { grid-template-columns: repeat(4, 1fr); }
+.pillar {
+  position: relative;
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 26px 24px 30px;
+  background: var(--surface);
+}
+.pillar::before {               /* mint left tick */
+  content: ""; position: absolute; left: 0; top: 26px; bottom: 26px;
+  width: 3px; background: var(--mint); border-radius: 2px;
+}
+.pillar__ix { font-family: var(--mono); font-size: 12px; color: var(--slate); letter-spacing: .06em; }
+.pillar h3 { margin: 12px 0 8px; }
+.pillar p { font-size: 14.5px; line-height: 1.45; color: var(--slate); }
+
+/* --- pipeline (nodes + mint arrows on a hairline track) ---------------- */
+.pipeline { display: flex; align-items: stretch; gap: 0; flex: 1; align-content: center; }
+.pipe-row { display: flex; align-items: center; width: 100%; }
+.node {
+  flex: 1;
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 22px 20px;
+  min-height: 116px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.node__ix { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--mint); }
+.node__t  { font-family: var(--sans); font-weight: 700; font-size: 19px; color: var(--paper); margin-top: 10px; letter-spacing: -.01em; }
+.node__s  { font-family: var(--mono); font-size: 10.5px; color: var(--slate); margin-top: 8px; letter-spacing: .03em; }
+.arrow {
+  flex: 0 0 52px; text-align: center;
+  font-family: var(--mono); font-size: 22px; color: var(--mint); font-weight: 500;
+}
+
+/* horizontal "how we work" track variant — labels above a hairline rail */
+.track { position: relative; display: flex; align-items: center; flex: 1; }
+.track__rail { position: absolute; left: 0; right: 0; top: 50%; border-top: var(--hair) solid var(--line); }
+.track__row { display: flex; width: 100%; align-items: center; position: relative; }
+.stop { flex: 1; text-align: left; }
+.stop__dot {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--ink); border: 2px solid var(--mint);
+}
+.stop__n { font-family: var(--mono); font-size: 11px; color: var(--slate); letter-spacing: .06em; margin-bottom: 14px; }
+.stop__t { font-family: var(--sans); font-weight: 700; font-size: 24px; color: var(--paper); margin-top: 16px; letter-spacing: -.01em; }
+.stop__s { font-family: var(--sans); font-size: 13.5px; color: var(--slate); margin-top: 7px; line-height: 1.4; max-width: 22ch; }
+
+/* --- stats3 (big mint numerals) + quote -------------------------------- */
+.stats3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.stat__n { font-family: var(--sans); font-weight: 800; color: var(--mint); font-size: 86px; line-height: .86; letter-spacing: -.03em; }
+.stat__c { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--slate); margin-top: 16px; }
+
+.quote {
+  border-top: var(--hair) solid var(--line);
+  margin-top: 40px; padding-top: 28px;
+  display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start;
+}
+.quote__mark { font-family: var(--sans); font-weight: 800; font-size: 60px; color: var(--line); line-height: .7; }
+.quote p { font-family: var(--sans); font-weight: 700; font-size: 24px; line-height: 1.25; letter-spacing: -.01em; max-width: 40ch; }
+.quote .attr { font-family: var(--mono); font-size: 12px; color: var(--slate); margin-top: 14px; letter-spacing: .03em; }
+
+/* --- reasons (hairline rows) ------------------------------------------- */
+.reasons { display: flex; flex-direction: column; flex: 1; justify-content: center; }
+.reason {
+  display: grid; grid-template-columns: 64px 1fr; gap: 28px; align-items: baseline;
+  padding: 26px 0; border-top: var(--hair) solid var(--line);
+}
+.reason:last-child { border-bottom: var(--hair) solid var(--line); }
+.reason__ix { font-family: var(--mono); font-size: 13px; color: var(--mint); letter-spacing: .06em; }
+.reason h3 { font-size: 25px; }
+.reason p { font-size: 15px; color: var(--slate); margin-top: 8px; line-height: 1.45; max-width: 64ch; }
+
+/* --- contact ------------------------------------------------------------ */
+.contact { justify-content: center; }
+.contact h2 { font-size: 58px; max-width: 18ch; line-height: 1.0; }
+.contact__line {
+  font-family: var(--mono); font-size: 15px; color: var(--paper);
+  margin-top: 34px; letter-spacing: .02em;
+}
+.contact__line b { color: var(--mint); font-weight: 500; }
+.contact__meta { font-family: var(--mono); font-size: 11.5px; color: var(--slate); margin-top: 14px; letter-spacing: .04em; }
+
+/* ============================================================================
+   DOCUMENT — A4, LIGHT (ink on paper). Dark deck / light print rule.
+   ============================================================================ */
+.doc {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+.doc .kicker { color: var(--mint-d); }
+.doc .eyebrow { color: var(--slate-d); }
+.doc h1, .doc h2, .doc h3 { color: var(--ink); }
+.doc p { color: #243035; }
+.doc .muted { color: var(--slate-d); }
+.doc .mint { color: var(--mint-d); }
+
+.sheet {
+  box-sizing: border-box;
+  width: 210mm; min-height: 297mm;
+  margin: 0 auto;
+  padding: 20mm 18mm 16mm;
+  background: var(--paper);
+  position: relative;
+}
+
+/* masthead — dot-grid as a faint header motif only */
+.doc-mast {
+  position: relative;
+  border-bottom: var(--hair) solid var(--line-lt);
+  padding-bottom: 16px; margin-bottom: 22px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.doc-mast__motif {
+  position: absolute; right: 0; top: -6px; width: 150px; height: 46px;
+  background-image: radial-gradient(rgba(18,138,99,.20) 1px, transparent 1.4px);
+  background-size: 13px 13px;
+  -webkit-mask-image: linear-gradient(to left, #000, transparent);
+          mask-image: linear-gradient(to left, #000, transparent);
+}
+.wordmark { font-family: var(--sans); font-weight: 800; font-size: 27px; letter-spacing: -.02em; color: var(--ink); }
+.wordmark .mint { color: var(--mint-d); }
+.doc-mast .eyebrow { position: relative; z-index: 1; }
+
+.doc h2.doc-h { font-size: 16px; font-weight: 800; letter-spacing: -.01em; margin: 0 0 12px; }
+.doc-sec { margin-top: 22px; }
+.doc-intro { font-size: 13.5px; line-height: 1.6; max-width: 64ch; }
+.doc-intro .lead-lt { font-weight: 700; font-size: 15px; }
+
+/* pillars mini-grid (hairline) */
+.doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: var(--hair) solid var(--line-lt); border-radius: var(--radius); overflow: hidden; }
+.doc-cell { padding: 15px 16px; border-right: var(--hair) solid var(--line-lt); border-bottom: var(--hair) solid var(--line-lt); }
+.doc-cell:nth-child(2n) { border-right: 0; }
+.doc-cell:nth-last-child(-n+2) { border-bottom: 0; }
+.doc-cell .ix { font-family: var(--mono); font-size: 10.5px; color: var(--slate-d); letter-spacing: .05em; }
+.doc-cell h3 { font-size: 14.5px; margin: 7px 0 5px; }
+.doc-cell p { font-size: 11.8px; line-height: 1.45; color: #36454b; }
+
+/* how-we-work inline steps */
+.doc-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.doc-step { border-left: 2px solid var(--mint-d); padding-left: 12px; }
+.doc-step .ix { font-family: var(--mono); font-size: 10px; color: var(--slate-d); letter-spacing: .05em; }
+.doc-step b { display: block; font-size: 13.5px; font-weight: 800; margin: 4px 0 3px; }
+.doc-step span { font-size: 11px; color: #36454b; line-height: 1.4; }
+
+/* Data & AI pipeline strip */
+.doc-pipe { display: flex; align-items: center; border: var(--hair) solid var(--line-lt); border-radius: var(--radius); padding: 14px 12px; }
+.doc-pipe .pnode { flex: 1; text-align: center; }
+.doc-pipe .pnode .pt { font-family: var(--sans); font-weight: 700; font-size: 12.5px; color: var(--ink); }
+.doc-pipe .pnode .ps { font-family: var(--mono); font-size: 9px; color: var(--slate-d); margin-top: 4px; letter-spacing: .02em; }
+.doc-pipe .parr { flex: 0 0 30px; text-align: center; color: var(--mint-d); font-family: var(--mono); font-weight: 600; font-size: 15px; }
+.doc-caps { font-size: 12.5px; line-height: 1.7; margin-top: 12px; columns: 2; column-gap: 26px; }
+.doc-caps li { list-style: none; padding-left: 16px; position: relative; }
+.doc-caps li::before { content: "→"; position: absolute; left: 0; color: var(--mint-d); font-family: var(--mono); }
+
+/* by the numbers — mint numerals + mono captions */
+.doc-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: var(--hair) solid var(--line-lt); border-radius: var(--radius); overflow: hidden; }
+.doc-kpi { padding: 16px; border-right: var(--hair) solid var(--line-lt); }
+.doc-kpi:last-child { border-right: 0; }
+.doc-kpi .n { font-family: var(--sans); font-weight: 800; font-size: 34px; color: var(--mint-d); line-height: .9; letter-spacing: -.02em; }
+.doc-kpi .c { font-family: var(--mono); font-size: 10px; color: var(--slate-d); margin-top: 10px; letter-spacing: .03em; }
+
+.doc-foot {
+  margin-top: 26px; padding-top: 12px; border-top: var(--hair) solid var(--line-lt);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 10.5px; color: var(--slate-d); letter-spacing: .03em;
+}
+.doc-foot b { color: var(--mint-d); font-weight: 500; }

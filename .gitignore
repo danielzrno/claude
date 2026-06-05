@@ -1,0 +1,7 @@
+# Temporary QA / render artifacts (deliverables are .html, .css, .pptx, .py, .md)
+*.pdf
+slide-*.jpg
+slide-*.png
+qa-*.png
+**/__pycache__/
+.DS_Store

@@ -1,0 +1,705 @@
+/* =============================================================================
+   MERIDIAN — Mivada editorial consulting design system
+   Reusable theme: tokens + type scale + components for the deck AND the document.
+   The token-light core. HTML files link this and emit content markup only.
+   Feel: a premium consulting report. Calm, structured, authoritative, lots of air.
+   ============================================================================= */
+
+:root {
+  /* ---- Palette (60/30/10: paper+ink dominate, bone supports, teal accents) -- */
+  --ink:    #14283A;   /* deep slate-navy — primary text; cover & closing bg     */
+  --paper:  #FBFAF7;   /* barely-warm white — primary background                 */
+  --bone:   #ECE7DB;   /* warm stone — secondary panel / fill                    */
+  --teal:   #18786A;   /* deep teal — PRIMARY accent, the sharp 10%              */
+  --brass:  #A87C3D;   /* muted brass — secondary accent, very sparing           */
+  --stone:  #C8C1B2;   /* hairline / rule colour                                 */
+  --ink-60: #5A6675;   /* secondary text                                         */
+
+  /* paper tinted slightly toward ink, for hairlines on dark grounds */
+  --stone-dim: #3A4B5C;
+
+  /* ---- Type families --------------------------------------------------------- */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-text:    "Archivo", Calibri, system-ui, sans-serif;
+
+  /* ---- Modular type scale (editorial; generous) ------------------------------ */
+  --fs-mega:   clamp(3.5rem, 8.5vw, 7rem);   /* cover / closing hero            */
+  --fs-xxl:    clamp(2.6rem, 4.6vw, 4rem);   /* big stat numerals               */
+  --fs-xl:     clamp(2rem, 3.3vw, 3rem);     /* slide headlines / standfirst    */
+  --fs-lg:     1.5rem;
+  --fs-md:     1.125rem;                      /* body                            */
+  --fs-sm:     0.95rem;
+  --fs-xs:     0.78rem;                       /* tracked caps labels             */
+
+  /* ---- Spacing scale --------------------------------------------------------- */
+  --sp-1: 0.5rem;
+  --sp-2: 1rem;
+  --sp-3: 1.5rem;
+  --sp-4: 2.25rem;
+  --sp-5: 3.5rem;
+  --sp-6: 5rem;
+
+  /* ---- Rule / radius language ------------------------------------------------ */
+  --hair: 1px solid var(--stone);            /* the signature thin rule          */
+  --hair-ink: 1px solid var(--stone-dim);    /* hairline on dark grounds         */
+  --radius: 2px;                              /* SHARP. 0–2px only.               */
+
+  --tracking-caps: 0.14em;
+}
+
+/* =============================================================================
+   RESET / BASE
+   ============================================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* No drop shadows anywhere — depth is hairlines + bone panels. */
+
+/* =============================================================================
+   TYPE PRIMITIVES (shared by deck + document)
+   ============================================================================= */
+
+/* Tracked caps kicker — Archivo. NEVER followed by a rule directly under it. */
+.kicker {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin: 0;
+}
+.kicker--teal { color: var(--teal); }
+
+/* The signature numbered-section kicker: big light Fraunces numeral + caps label */
+.section-no {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+.section-no .num {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: clamp(2.5rem, 4vw, 3.4rem);
+  line-height: 0.9;
+  color: var(--ink);
+  font-variant-numeric: lining-nums;
+}
+.section-no .label {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+/* Headlines — Fraunces, sentence case, weight contrast carries hierarchy. */
+.h-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: var(--fs-xl);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+/* The mega Fraunces hero used only on cover + closing bookends.
+   Light weight (300) so the big size reads as a standfirst, not a shout. */
+.h-hero {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: var(--fs-mega);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.h-hero em, .h-hero .em-key {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--teal);
+}
+/* The single key word, italic + teal. The ONLY coloured word in a headline. */
+.h-display em,
+.em-key {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--teal);
+}
+
+/* The large light-weight Fraunces standfirst paragraph (signature motif). */
+.standfirst {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: var(--fs-lg);
+  line-height: 1.32;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin: 0;
+  max-width: 32ch;
+}
+.standfirst em { font-style: italic; color: var(--teal); font-weight: 400; }
+
+/* Body copy — Archivo, always left-aligned. */
+.body {
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-size: var(--fs-md);
+  line-height: 1.62;
+  color: var(--ink);
+  max-width: 62ch;
+}
+.body--dim { color: var(--ink-60); }
+
+/* Stat unit: big Fraunces numeral + small Archivo caps label (signature motif). */
+.stat .figure {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: var(--fs-xxl);
+  line-height: 0.95;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  font-variant-numeric: lining-nums;
+  display: block;
+}
+.stat .figure em { font-style: italic; color: var(--teal); font-weight: 400; }
+.stat .caption {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-top: var(--sp-1);
+  display: block;
+}
+
+/* =============================================================================
+   DECK  —  16:9 slides, scroll-snap, keyboard nav
+   ============================================================================= */
+
+.deck {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+
+.slide {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  overflow: hidden;
+  /* editorial outer margin — wide, like a printed report */
+  padding: clamp(3rem, 6vh, 5rem) clamp(3.5rem, 7vw, 7rem);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Aspect-locked stage so the deck looks identical regardless of window ratio. */
+@media screen {
+  .deck { background: #0c151e; }
+  .slide {
+    width: min(100vw, calc(100vh * 16 / 9));
+    height: min(100vh, calc(100vw * 9 / 16));
+    margin: 0 auto;
+  }
+}
+
+/* Slide counter (bottom-right, quiet) */
+.slide__no {
+  position: absolute;
+  right: clamp(3.5rem, 7vw, 7rem);
+  bottom: clamp(2rem, 4vh, 3rem);
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  color: var(--ink-60);
+}
+.slide--ink .slide__no { color: #8794A2; }
+
+/* Tiny tracked wordmark used top-left on bookend slides */
+.wordmark {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* ---- Ink bookend slides (cover + closing) --------------------------------- */
+.slide--ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+.slide--ink .h-display,
+.slide--ink .h-hero { color: var(--paper); }
+.slide--ink .standfirst { color: var(--paper); }
+.slide--ink .h-display em,
+.slide--ink .h-hero em { color: #5BB5A4; }   /* teal lifts on dark ground   */
+
+/* A thin BRASS vertical rule as a right-margin element (cover signature). */
+.rule-right {
+  position: absolute;
+  top: clamp(3rem, 8vh, 6rem);
+  bottom: clamp(3rem, 8vh, 6rem);
+  right: clamp(3.5rem, 7vw, 7rem);
+  width: 1px;
+  background: var(--brass);
+  opacity: 0.8;
+}
+/* A brass hairline used on the closing slide */
+.rule-brass {
+  width: clamp(3rem, 6vw, 5rem);
+  height: 1px;
+  background: var(--brass);
+  border: 0;
+  margin: 0 0 var(--sp-3);   /* left-aligned with the contact line, not auto-centred */
+}
+
+/* ---- Slide layout helpers -------------------------------------------------- */
+.slide--cover { align-content: space-between; }
+.cover__top { display: flex; justify-content: space-between; align-items: flex-start; }
+.cover__head { align-self: end; max-width: 18ch; }
+.cover__caption {
+  font-family: var(--font-text);
+  font-weight: 500;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  color: #8794A2;
+  margin: var(--sp-3) 0 0;
+}
+
+/* Two-column editorial split (Who we are, Data & AI) */
+.split {
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-content: center;
+}
+.split__main { align-self: center; }
+.split__main .standfirst { margin-top: var(--sp-3); }
+
+/* Stats stacked + separated by hairlines (right column of Who we are) */
+.stat-stack { align-self: center; display: grid; }
+.stat-stack .stat { padding: var(--sp-3) 0; border-top: var(--hair); }
+.stat-stack .stat:first-child { border-top: 0; padding-top: 0; }
+.stat-stack .stat:last-child { padding-bottom: 0; }
+
+/* 2x2 pillar grid separated by hairline rules — NO boxes, NO shadows. */
+.pillars {
+  display: grid;
+  align-content: center;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  gap: 0;
+}
+.pillar {
+  padding: var(--sp-4) clamp(2rem, 3.5vw, 3.5rem);
+  border-top: var(--hair);
+  border-left: var(--hair);
+}
+.pillar:nth-child(-n+2) { border-top: 0; }          /* top row: no top rule    */
+.pillar:nth-child(odd) { border-left: 0; padding-left: 0; }  /* left col flush  */
+.pillar__index {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-md);
+  color: var(--brass);
+  font-variant-numeric: lining-nums;
+}
+.pillar__name {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: var(--fs-lg);
+  line-height: 1.1;
+  margin: var(--sp-1) 0 var(--sp-1);
+  color: var(--ink);
+}
+.pillar__line {
+  font-family: var(--font-text);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--ink-60);
+  margin: 0;
+  max-width: 30ch;
+}
+
+/* Horizontal process: big Fraunces step numerals hung from a connecting hairline.
+   The rule is a shared top border across the cells (robust everywhere) — the numerals
+   sit just beneath it, so the line visibly threads the four steps. */
+.steps {
+  display: grid;
+  align-content: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.step {
+  position: relative;
+  border-top: var(--hair);
+  padding: var(--sp-3) clamp(1.25rem, 2.2vw, 2rem) 0 0;
+}
+.step:last-child { padding-right: 0; }
+.step__num {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1;
+  color: var(--ink);
+  display: block;
+  font-variant-numeric: lining-nums;
+}
+.step__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-lg);
+  margin: var(--sp-2) 0 var(--sp-1);
+  color: var(--ink);
+}
+.step__cap {
+  font-family: var(--font-text);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--ink-60);
+  margin: 0;
+  max-width: 24ch;
+}
+
+/* Tracked-caps labelled list (Data & AI right column, capability lists) */
+.label-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.label-list li {
+  padding: var(--sp-3) 0;
+  border-top: var(--hair);
+}
+.label-list li:first-child { border-top: 0; padding-top: 0; }
+.label-list .term {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--teal);
+  display: block;
+  margin-bottom: var(--sp-1);
+}
+.label-list .desc {
+  font-family: var(--font-text);
+  font-size: var(--fs-sm);
+  color: var(--ink-60);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 38ch;
+}
+
+/* Three big stat callouts (Outcomes) */
+.stats3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-content: start;
+  align-self: start;
+}
+.stats3 .stat .figure { font-size: clamp(3rem, 5.5vw, 5rem); }
+
+/* Pull-quote: italic Fraunces + small-caps attribution */
+.pullquote {
+  margin: 0;
+  max-width: 46ch;
+}
+.pullquote p {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--fs-lg);
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0;
+}
+.pullquote .attr {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-top: var(--sp-2);
+  display: block;
+}
+
+/* Numbered reasons in a column (Why Mivada) — teal numerals, generous leading. */
+.reasons { list-style: none; margin: 0; padding: 0; align-content: center; display: grid; gap: var(--sp-4); }
+.reason { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-3); align-items: baseline; }
+.reason__num {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+  line-height: 0.9;
+  color: var(--teal);
+  font-variant-numeric: lining-nums;
+}
+.reason__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-lg);
+  margin: 0 0 var(--sp-1);
+  color: var(--ink);
+}
+.reason__body {
+  font-family: var(--font-text);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  color: var(--ink-60);
+  margin: 0;
+  max-width: 56ch;
+}
+
+/* Closing CTA slide */
+.slide--closing { align-content: space-between; }
+.closing__cta { align-self: center; max-width: 20ch; }
+
+/* =============================================================================
+   ENTRANCE CHOREOGRAPHY  (one staggered reveal per slide; CSS only)
+   The active slide's children rise + fade in sequence. Subtle, not fade-up-on-all.
+   ============================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  .slide [data-rise] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+  }
+  .slide.is-active [data-rise] {
+    opacity: 1;
+    transform: none;
+  }
+  .slide.is-active [data-rise="2"] { transition-delay: 0.10s; }
+  .slide.is-active [data-rise="3"] { transition-delay: 0.20s; }
+  .slide.is-active [data-rise="4"] { transition-delay: 0.30s; }
+  .slide.is-active [data-rise="5"] { transition-delay: 0.40s; }
+  .slide.is-active [data-rise="6"] { transition-delay: 0.50s; }
+  /* the right-margin brass rule wipes down */
+  .slide .rule-right { transform: scaleY(0); transform-origin: top; transition: transform 0.9s cubic-bezier(.2,.7,.2,1) 0.25s; }
+  .slide.is-active .rule-right { transform: scaleY(1); }
+}
+
+/* =============================================================================
+   PRINT  —  deck prints one slide per page (16:9 landscape)
+   ============================================================================= */
+@media print {
+  /* 1280x720 is already landscape by dimension; the bare size keeps it valid CSS. */
+  @page { size: 1280px 720px; margin: 0; }
+  html, body { background: #fff; }
+  .deck { height: auto; overflow: visible; display: block; }
+  .deck > .nav, .nav { display: none !important; }
+  .slide {
+    width: 1280px; height: 720px;
+    margin: 0; page-break-after: always; break-after: page;
+    box-shadow: none;
+  }
+  .slide [data-rise], .slide .rule-right { opacity: 1 !important; transform: none !important; }
+}
+
+/* =============================================================================
+   DOCUMENT  —  A4 Capability Statement (editorial report layout)
+   On-screen "paper" wrapper; @page A4 for print.
+   ============================================================================= */
+
+/* On-screen reading surface behind the page */
+body.doc {
+  background: #d9d6cd;     /* muted desk tone behind the sheet */
+  padding: clamp(1rem, 4vw, 3rem) 0;
+}
+
+.page {
+  background: var(--paper);
+  color: var(--ink);
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 22mm 20mm 20mm;
+  /* editorial wide left margin for marginal notes */
+  display: block;
+  position: relative;
+}
+
+/* Masthead: wordmark + a hairline rule UNDER THE MASTHEAD (allowed — masthead rule) */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: var(--sp-2);
+  border-bottom: var(--hair);
+}
+.masthead__mark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.masthead__mark .dot { color: var(--teal); }
+.masthead__meta {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+/* Intro standfirst with welcome drop-cap */
+.doc-intro {
+  margin: var(--sp-4) 0 var(--sp-4);
+}
+.doc-intro .standfirst {
+  max-width: 56ch;
+  font-size: 1.5rem;
+  line-height: 1.36;
+}
+.dropcap::first-letter {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.4em;
+  line-height: 0.82;
+  float: left;
+  padding: 0.04em 0.1em 0 0;
+  color: var(--teal);
+  font-style: normal;
+}
+
+/* The editorial grid: wide left margin column for marginal notes */
+.grid-margin {
+  display: grid;
+  grid-template-columns: 30mm 1fr;
+  gap: var(--sp-4);
+  align-items: start;
+  margin-top: var(--sp-3);
+}
+.marginal {
+  font-family: var(--font-text);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--ink-60);
+}
+.marginal .section-no { display: block; }
+.marginal .section-no .num { font-size: 2.4rem; display: block; }
+.marginal .section-no .label { display: block; margin-top: var(--sp-1); }
+.marginal p { margin: var(--sp-2) 0 0; }
+
+/* Section heading inside the document */
+.doc-h {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  margin: 0 0 var(--sp-3);
+  color: var(--ink);
+  break-after: avoid;        /* never orphan a heading at a page foot/top */
+  padding-top: 0.1mm;        /* keeps the cap-height clear of a page-top break */
+}
+
+/* Two-column body for "What we do" + "How we work" */
+.cols-2 {
+  column-count: 2;
+  column-gap: var(--sp-4);
+  column-rule: var(--hair);   /* signature rule BETWEEN columns */
+}
+.cols-2 > * { break-inside: avoid; }
+
+/* A compact definition entry used in the doc body */
+.entry { margin: 0 0 var(--sp-3); break-inside: avoid; }
+.entry__term {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.06rem;
+  color: var(--ink);
+  display: block;
+}
+.entry__term .ix { color: var(--brass); font-weight: 400; margin-right: 0.4em; }
+.entry__desc {
+  font-family: var(--font-text);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--ink-60);
+  margin: 0.2rem 0 0;
+}
+
+/* "By the numbers" — hairline-bordered figure block.
+   The caption is a full-width label ABOVE the figure grid (a robust sibling, not a
+   spanned grid cell), then the figures sit in a clean 3-column grid. */
+.figure-block {
+  margin: var(--sp-4) 0;
+  border-top: var(--hair);
+  border-bottom: var(--hair);
+  padding: var(--sp-3) 0;
+}
+.figure-block .fig-caption {
+  display: block;
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin: 0 0 var(--sp-3);
+}
+.figure-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3) var(--sp-4);
+}
+.figure-block .stat .figure { font-size: 2.6rem; }
+
+/* Footer */
+.doc-footer {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-2);
+  border-top: var(--hair);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-text);
+  font-size: var(--fs-xs);
+  color: var(--ink-60);
+}
+.doc-footer .contact { letter-spacing: 0.04em; }
+.doc-footer .note { font-style: italic; }
+
+@media print {
+  @page { size: A4; margin: 0; }
+  html, body.doc { background: #fff; padding: 0; }
+  .page {
+    width: auto; min-height: auto;
+    margin: 0; padding: 18mm 18mm 16mm;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+}
