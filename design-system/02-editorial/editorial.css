@@ -1,0 +1,266 @@
+/* ============================================================================
+   Mivada — Concept 02 · EDITORIAL
+   Bold magazine / thought-leadership. Black-dominant + coral, oversized
+   headlines, asymmetric columns, big pull-quotes. Type does the work.
+
+   This is the token-light core: brand tokens (shared, exact) + the editorial
+   components. HTML files link this and emit content markup only.
+   ========================================================================== */
+
+/* ---- Brand tokens (identical across all 3 concepts — EXACT) ------------- */
+:root {
+  /* Palette (sampled from mivada.com) */
+  --coral:        #EA493F;  /* primary accent — the decisive 10% */
+  --coral-deep:   #C9362B;  /* gradient / hover partner */
+  --black:        #000000;  /* dark sections — the brand's OnBlack home */
+  --ink:          #111111;  /* body + headings on light (soft black) */
+  --off-white:    #FAFAFA;  /* primary page background */
+  --white:        #FFFFFF;  /* cards / raised surfaces */
+  --warm-neutral: #F2F3EE;  /* warm off-white panels */
+  --graphite:     #323232;  /* strong secondary text */
+  --mid-grey:     #AEAEAE;  /* muted text / captions */
+  --hairline:     #E4E4E0;  /* borders / rules on light */
+
+  /* Font — Inter everywhere (swap this one var if the real face differs) */
+  --font: "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  /* Editorial radius language: photography softens, structure stays sharp */
+  --radius-photo: 12px;
+  --radius-chip:  10px;
+
+  /* Editorial type scale — oversized, magazine. Fluid for HTML. */
+  --fs-display:  clamp(3.4rem, 8.5vw, 7rem);   /* cover monster */
+  --fs-h1:       clamp(2.6rem, 5.6vw, 4.6rem);  /* slide headlines */
+  --fs-h2:       clamp(1.9rem, 3.4vw, 2.9rem);  /* section headlines */
+  --fs-quote:    clamp(2.1rem, 4.2vw, 3.6rem);  /* pull-quotes */
+  --fs-numeral:  clamp(3rem, 6.4vw, 5.4rem);    /* big stat numerals */
+  --fs-index:    clamp(2.4rem, 4vw, 3.4rem);    /* list index numerals */
+  --fs-body:     clamp(1rem, 1.25vw, 1.18rem);
+  --fs-eyebrow:  0.78rem;
+}
+
+/* ---- Reset-ish base ----------------------------------------------------- */
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--off-white);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "ss01" 1;
+}
+
+/* ---- Type primitives ---------------------------------------------------- */
+.eyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin: 0;
+  display: inline-block;
+}
+.eyebrow--muted { color: var(--mid-grey); }
+.eyebrow--ink   { color: var(--ink); }
+
+/* Headlines: Inter 800, sentence case, tight tracking, big. */
+.display, .headline, .h2 {
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  line-height: 0.98;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.display  { font-size: var(--fs-display); line-height: 0.92; }
+.headline { font-size: var(--fs-h1); }
+.h2       { font-size: var(--fs-h2); line-height: 1.02; }
+
+/* The one word that matters gets the coral. Never the whole line. */
+.accent { color: var(--coral); }
+
+/* Standfirst — the magazine intro paragraph. Lighter weight for contrast. */
+.standfirst {
+  font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.42;
+  color: var(--graphite);
+  max-width: 42ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.body {
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  color: var(--graphite);
+  text-align: left;
+  text-wrap: pretty;
+}
+.body--tight { line-height: 1.5; }
+
+/* ---- The "M" chip — coral rounded square + white Inter-800 M ------------ */
+.m-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--coral);
+  color: var(--white);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  border-radius: var(--radius-chip);
+  width: 2.6em;
+  height: 2.6em;
+  font-size: 1rem;
+  line-height: 1;
+  user-select: none;
+}
+.m-chip::before { content: "M"; transform: translateY(-0.02em); }
+.m-chip--lg { font-size: 1.7rem; }
+
+/* Wordmark lockup */
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: 1.25rem;
+  color: var(--ink);
+}
+.wordmark--rev { color: var(--white); }
+
+/* ---- Pill button (motif; mostly decorative in static artifacts) -------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  border-radius: 999px;
+  padding: 0.7em 1.4em;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  text-decoration: none;
+  line-height: 1;
+}
+.pill--coral { background: var(--coral); color: var(--white); }
+.pill--ghost-rev { border-color: rgba(255,255,255,0.32); color: var(--white); }
+.pill--ghost { border-color: var(--hairline); color: var(--ink); }
+
+/* ---- Pull-quote — the signature editorial moment ----------------------- */
+.pullquote {
+  font-size: var(--fs-quote);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  color: var(--coral);
+  margin: 0;
+  text-wrap: balance;
+}
+.pullquote--onblack { color: var(--coral); }
+.pullquote cite, .pullquote__attr {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-style: normal;
+  color: var(--mid-grey);
+  margin-top: 0.9rem;
+}
+
+/* ---- Big stat numeral --------------------------------------------------- */
+.stat__num {
+  font-size: var(--fs-numeral);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  color: var(--ink);
+}
+.stat__num .accent, .stat__num--coral { color: var(--coral); }
+.stat__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--mid-grey);
+  margin-top: 0.7rem;
+}
+
+/* ---- Index numeral (asymmetric editorial lists) ------------------------- */
+.index {
+  font-size: var(--fs-index);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--coral);
+  font-feature-settings: "tnum" 1;
+}
+
+/* ---- Column rule (vertical hairline between editorial columns) ---------- */
+.col-rule { border-left: 1px solid var(--hairline); }
+.col-rule--rev { border-left: 1px solid rgba(255,255,255,0.16); }
+
+/* ---- Coral section divider (a deliberate, repeated motif) -------------- */
+.divider-coral {
+  height: 4px;
+  background: var(--coral);
+  border: 0;
+  width: 64px;
+  margin: 0;
+}
+.divider-coral--full { width: 100%; }
+
+/* ---- Photo / placeholder block (no network images) --------------------- */
+.photo {
+  border-radius: var(--radius-photo);
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(0,0,0,0.04) 0 14px, rgba(0,0,0,0.02) 14px 28px),
+    var(--warm-neutral);
+  position: relative;
+  overflow: hidden;
+}
+.photo--dark {
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(255,255,255,0.05) 0 14px, rgba(255,255,255,0.02) 14px 28px),
+    var(--graphite);
+}
+.photo__tag {
+  position: absolute;
+  left: 14px; bottom: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mid-grey);
+}
+
+/* ---- Surface helpers ---------------------------------------------------- */
+.on-black {
+  background: var(--black);
+  color: var(--white);
+}
+.on-black .headline, .on-black .display, .on-black .h2 { color: var(--white); }
+.on-black .body { color: #D6D6D6; }
+.on-black .standfirst { color: #CFCFCF; }
+.on-black .stat__num { color: var(--white); }
+.on-black .stat__label { color: var(--mid-grey); }
+
+.on-offwhite { background: var(--off-white); color: var(--ink); }
+
+/* Coral hero field — full coral panel with a faint darker diagonal wave. */
+.coral-field {
+  background:
+    linear-gradient(125deg, transparent 38%, rgba(201,54,43,0.55) 100%),
+    var(--coral);
+  color: var(--white);
+}
+.coral-field .headline, .coral-field .display { color: var(--white); }
+
+/* ---- Small utilities used by the HTML files ---------------------------- */
+.muted { color: var(--mid-grey); }
+.nowrap { white-space: nowrap; }

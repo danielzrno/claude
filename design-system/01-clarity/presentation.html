@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mivada — Capability overview · 2026 (Clarity)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="clarity.css">
+<style>
+  /* ---- Deck shell: 1280×720 (16:9), scroll-snap, print one slide/page ---- */
+  html, body { height: 100%; }
+  body { background: #DBDCD6; }   /* neutral stage behind the slides */
+
+  .deck {
+    scroll-snap-type: y mandatory;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  .slide {
+    scroll-snap-align: start;
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    margin: 0 auto;
+    background: var(--off-white);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  }
+  .slide__pad {
+    flex: 1;
+    padding: 64px 84px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  /* slide chrome */
+  .chrome {
+    position: absolute;
+    bottom: 30px;
+    right: 84px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    font-weight: 600;
+  }
+  .chrome__brand {
+    position: absolute;
+    bottom: 30px;
+    left: 84px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+    font-weight: 600;
+  }
+  .on-black .chrome, .on-black .chrome__brand { color: #7A7A7A; }
+
+  /* counter pill (fixed, on-screen only) */
+  .counter {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(17,17,17,0.86);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 7px 15px;
+    border-radius: 999px;
+    z-index: 50;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Layout helpers (deck-local) ---- */
+  .grid { display: grid; gap: 28px; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center; height: 100%; }
+  .stack-top { margin-top: auto; }
+  .fill { flex: 1; min-height: 0; }
+  .vcenter { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+
+  /* stat row (slide 2) — hairline separated */
+  .statlist { display: flex; flex-direction: column; }
+  .statlist .statrow { padding: 22px 0; border-top: 1px solid var(--hairline); }
+  .statlist .statrow:first-child { border-top: 0; }
+
+  /* pillar 2x2 */
+  .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 22px; }
+
+  /* steps */
+  .steprow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+  .stepcol { border-top: 2px solid var(--ink); padding-top: 20px; }
+
+  /* capability split list */
+  .caplist { display: flex; flex-direction: column; }
+  .capitem { padding: 16px 0; border-top: 1px solid var(--hairline); }
+  .capitem:first-child { border-top: 0; }
+  .capitem__k { font-size: 14px; font-weight: 700; color: var(--ink); margin: 0 0 3px; letter-spacing: -0.01em; }
+  .capitem__v { font-size: 13px; color: var(--graphite); margin: 0; line-height: 1.45; }
+
+  /* outcomes stats */
+  .out3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .out3 .outcell { padding: 0 30px; border-left: 1px solid var(--hairline); }
+  .out3 .outcell:first-child { padding-left: 0; border-left: 0; }
+  .out3 .outnum { font-size: 72px; font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; color: var(--ink); margin: 0; }
+
+  /* reasons */
+  .reasonrow { display: grid; grid-template-columns: 56px 1fr; gap: 28px; padding: 26px 0; border-top: 1px solid var(--hairline); align-items: start; }
+  .reasonrow:first-of-type { border-top: 0; }
+  .reasonrow .rnum { font-size: 26px; font-weight: 800; color: var(--coral); letter-spacing: -0.02em; line-height: 1; padding-top: 2px; }
+  .reasonrow .rttl { font-size: 21px; font-weight: 700; color: var(--ink); margin: 0 0 5px; letter-spacing: -0.01em; }
+  .reasonrow .rbody { font-size: 14.5px; color: var(--graphite); margin: 0; max-width: 60ch; line-height: 1.5; }
+
+  /* quote */
+  .quote { font-size: 21px; font-weight: 500; line-height: 1.4; color: var(--ink); letter-spacing: -0.01em; max-width: 40ch; margin: 0; }
+  .quote__by { font-size: 12.5px; color: var(--mid-grey); margin: 16px 0 0; letter-spacing: 0.02em; }
+
+  /* contact (black) */
+  .contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: end; height: 100%; }
+  .contact-line { font-size: 14px; color: #CFCFCF; margin: 6px 0 0; }
+  .contact-line strong { color: #fff; font-weight: 600; }
+
+  /* ---- One choreographed entrance per slide (CSS only) ---- */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* animate the active slide's marked children, staggered */
+  .slide.is-active [data-rise] {
+    animation: rise 0.62s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  .slide.is-active [data-rise="1"] { animation-delay: 0.05s; }
+  .slide.is-active [data-rise="2"] { animation-delay: 0.14s; }
+  .slide.is-active [data-rise="3"] { animation-delay: 0.23s; }
+  .slide.is-active [data-rise="4"] { animation-delay: 0.32s; }
+  .slide.is-active [data-rise="5"] { animation-delay: 0.41s; }
+  .slide.is-active [data-rise="6"] { animation-delay: 0.50s; }
+  @media (prefers-reduced-motion: reduce) {
+    .slide.is-active [data-rise] { animation: none; }
+  }
+
+  /* ---- Print: one slide per page, exact colour ---- */
+  @page { size: 1280px 720px landscape; margin: 0; }
+  @media print {
+    html, body { background: #fff; height: auto; }
+    .deck { height: auto; overflow: visible; display: block; }
+    .counter { display: none; }
+    .slide {
+      page-break-after: always;
+      break-after: page;
+      box-shadow: none;
+      margin: 0;
+    }
+    .slide [data-rise] { animation: none !important; opacity: 1 !important; transform: none !important; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* fit smaller screens for preview without breaking the 1280 canvas */
+  @media (max-width: 1320px) {
+    .slide { transform-origin: top center; }
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 · COVER -------------------------------------------------------------- -->
+  <section class="slide" data-name="Cover">
+    <div class="slide__pad">
+      <div data-rise="1"><span class="m-chip">M</span></div>
+      <div class="vcenter fill">
+        <span class="eyebrow" data-rise="2">Capability overview · 2026</span>
+        <h1 class="h-display" data-rise="3" style="max-width: 16ch;">Technology, <span class="accent">human</span> first.</h1>
+        <p class="standfirst" data-rise="4" style="margin-top: 26px;">An Australian technology consultancy that turns enterprise platforms — Workday, payroll, data and AI — into measurable human outcomes.</p>
+      </div>
+    </div>
+    <span class="chrome__brand">Mivada</span>
+    <span class="chrome">Capability overview</span>
+  </section>
+
+  <!-- 2 · WHO WE ARE --------------------------------------------------------- -->
+  <section class="slide" data-name="Who we are">
+    <div class="slide__pad">
+      <div class="split">
+        <div>
+          <span class="eyebrow" data-rise="1">Who we are</span>
+          <h2 class="h-title" data-rise="2" style="max-width: 14ch;">A consultancy built around people, not platforms.</h2>
+          <p class="standfirst" data-rise="3" style="margin-top: 24px;">From <em style="font-style: normal; color: var(--ink); font-weight: 600;">my village</em> and <em style="font-style: normal; color: var(--ink); font-weight: 600;">wisdom</em> — community and knowledge. We pair senior onshore leadership with cost-effective delivery, and we stay on after go-live.</p>
+        </div>
+        <div class="statlist" data-rise="4">
+          <div class="statrow stat">
+            <span class="stat__eyebrow">Established</span>
+            <p class="stat__num">2014</p>
+            <p class="stat__label">Founded as LJM Infotech; Mivada today.</p>
+          </div>
+          <div class="statrow stat">
+            <span class="stat__eyebrow">Specialists</span>
+            <p class="stat__num">120+</p>
+            <p class="stat__label">Certified consultants, not generalists.</p>
+          </div>
+          <div class="statrow stat">
+            <span class="stat__eyebrow">Delivery</span>
+            <p class="stat__num">AU + India</p>
+            <p class="stat__label">Onshore in Australia, offshore in India.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="chrome__brand">Mivada</span>
+    <span class="chrome">02</span>
+  </section>
+
+  <!-- 3 · WHAT WE DO --------------------------------------------------------- -->
+  <section class="slide" data-name="What we do">
+    <div class="slide__pad">
+      <span class="eyebrow" data-rise="1">What we do</span>
+      <h2 class="h-title" data-rise="2" style="margin-bottom: 30px;">Four service pillars.</h2>
+      <div class="pillar-grid fill">
+        <div class="card" data-rise="3">
+          <p class="card__index">01</p>
+          <h3 class="card__title">Workday &amp; ERP</h3>
+          <p class="card__body">Implementation, optimisation and managed support for Workday HCM, Financials and adjacent ERP.</p>
+        </div>
+        <div class="card" data-rise="4">
+          <p class="card__index">02</p>
+          <h3 class="card__title">Payroll consulting</h3>
+          <p class="card__body">Compliant, accurate payroll across complex awards and multi-entity structures.</p>
+        </div>
+        <div class="card" data-rise="5">
+          <p class="card__index">03</p>
+          <h3 class="card__title">Data &amp; AI</h3>
+          <p class="card__body">Lakehouse architecture, governed analytics and applied AI on top of your people and finance data.</p>
+        </div>
+        <div class="card" data-rise="6">
+          <p class="card__index">04</p>
+          <h3 class="card__title">Intelligent automation</h3>
+          <p class="card__body">RPA, ML and process design combined to remove low-value work.</p>
+        </div>
+      </div>
+    </div>
+    <span class="chrome__brand">Mivada</span>
+    <span class="chrome">03</span>
+  </section>
+
+  <!-- 4 · HOW WE WORK -------------------------------------------------------- -->
+  <section class="slide" data-name="How we work">
+    <div class="slide__pad">
+      <span class="eyebrow" data-rise="1">How we work — think human first</span>
+      <h2 class="h-title" data-rise="2" style="margin-bottom: 36px;">We understand the people before the technology.</h2>
+      <div class="steprow fill" style="align-content: start;">
+        <div class="stepcol" data-rise="3">
+          <p class="step__num">01</p>
+          <span class="eyebrow eyebrow--ink" style="margin-bottom: 8px;">Listen</span>
+          <p class="step__body">Understand the people and the work before the technology.</p>
+        </div>
+        <div class="stepcol" data-rise="4">
+          <p class="step__num">02</p>
+          <span class="eyebrow eyebrow--ink" style="margin-bottom: 8px;">Design</span>
+          <p class="step__body">Shape the platform around how teams actually operate.</p>
+        </div>
+        <div class="stepcol" data-rise="5">
+          <p class="step__num">03</p>
+          <span class="eyebrow eyebrow--ink" style="margin-bottom: 8px;">Deliver</span>
+          <p class="step__body">Implement in weeks-long increments, not multi-year programs.</p>
+        </div>
+        <div class="stepcol" data-rise="6">
+          <p class="step__num">04</p>
+          <span class="eyebrow eyebrow--ink" style="margin-bottom: 8px;">Care</span>
+          <p class="step__body">Stay on after go-live; measure outcomes, not tickets closed.</p>
+        </div>
+      </div>
+    </div>
+    <span class="chrome__brand">Mivada</span>
+    <span class="chrome">04</span>
+  </section>
+
+  <!-- 5 · DATA & AI ---------------------------------------------------------- -->
+  <section class="slide" data-name="Data &amp; AI">
+    <div class="slide__pad">
+      <div class="split">
+        <div>
+          <span class="eyebrow" data-rise="1">Data &amp; AI — spotlight</span>
+          <h2 class="h-title" data-rise="2" style="max-width: 13ch;">So leaders decide on current data.</h2>
+          <p class="standfirst" data-rise="3" style="margin-top: 22px;">Certified consultants design Lakehouse architectures and integrate Databricks with Workday, payroll and finance — governed, real-time, and built to be trusted.</p>
+          <div data-rise="4" style="margin-top: 26px; display: flex; align-items: center; gap: 14px;">
+            <span class="rule-coral"></span>
+            <span style="font-size: 13px; font-weight: 600; color: var(--graphite); letter-spacing: 0.02em;">Databricks &amp; Workday certified</span>
+          </div>
+        </div>
+        <div class="caplist" data-rise="5">
+          <div class="capitem">
+            <p class="capitem__k">Lakehouse architecture</p>
+            <p class="capitem__v">Designed for governance, scale and analytics from day one.</p>
+          </div>
+          <div class="capitem">
+            <p class="capitem__k">Delta Lake pipelines</p>
+            <p class="capitem__v">Batch and streaming, reliable and observable.</p>
+          </div>
+          <div class="capitem">
+            <p class="capitem__k">Governed KPI store</p>
+            <p class="capitem__v">One trusted source for people and finance metrics.</p>
+          </div>
+          <div class="capitem">
+            <p class="capitem__k">Real-time insight</p>
+            <p class="capitem__v">Current data in the hands of the people deciding.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="chrome__brand">Mivada</span>
+    <span class="chrome">05</span>
+  </section>
+
+  <!-- 6 · OUTCOMES ----------------------------------------------------------- -->
+  <section class="slide" data-name="Outcomes">
+    <div class="slide__pad">
+      <span class="eyebrow" data-rise="1">Outcomes</span>
+      <h2 class="h-title" data-rise="2" style="margin-bottom: 44px;">Measured where it matters.</h2>
+      <div class="out3" data-rise="3">
+        <div class="outcell stat">
+          <span class="stat__eyebrow">Workday</span>
+          <p class="outnum">40+</p>
+          <p class="stat__label" style="margin-top: 14px;">deployments delivered.</p>
+        </div>
+        <div class="outcell stat">
+          <span class="stat__eyebrow">Retention</span>
+          <p class="outnum">98%</p>
+          <p class="stat__label" style="margin-top: 14px;">client retention rate.</p>
+        </div>
+        <div class="outcell stat">
+          <span class="stat__eyebrow">Pace</span>
+          <p class="outnum">Weeks</p>
+          <p class="stat__label" style="margin-top: 14px;">to value — not months.</p>
+        </div>
+      </div>
+      <hr class="hairline" data-rise="4" style="margin: 46px 0 28px;">
+      <blockquote class="quote" data-rise="5">“They built the platform around how our teams actually work — and stayed until it stuck.”</blockquote>
+      <p class="quote__by" data-rise="6">People &amp; finance lead · enterprise client</p>
+    </div>
+    <span class="chrome__brand">Mivada</span>
+    <span class="chrome">06</span>
+  </section>
+
+  <!-- 7 · WHY MIVADA --------------------------------------------------------- -->
+  <section class="slide" data-name="Why Mivada">
+    <div class="slide__pad">
+      <span class="eyebrow" data-rise="1">Why Mivada</span>
+      <h2 class="h-title" data-rise="2" style="margin-bottom: 30px;">Three reasons it sticks.</h2>
+      <div class="fill" style="display: flex; flex-direction: column; justify-content: center;">
+        <div class="reasonrow" data-rise="3">
+          <span class="rnum">01</span>
+          <div>
+            <h3 class="rttl">Certified specialists</h3>
+            <p class="rbody">Workday- and Databricks-certified consultants, not generalists.</p>
+          </div>
+        </div>
+        <div class="reasonrow" data-rise="4">
+          <span class="rnum">02</span>
+          <div>
+            <h3 class="rttl">Onshore + offshore</h3>
+            <p class="rbody">Senior onshore leadership with cost-effective India delivery.</p>
+          </div>
+        </div>
+        <div class="reasonrow" data-rise="5">
+          <span class="rnum">03</span>
+          <div>
+            <h3 class="rttl">People-first change</h3>
+            <p class="rbody">Adoption built in from day one, so platforms actually get used.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="chrome__brand">Mivada</span>
+    <span class="chrome">07</span>
+  </section>
+
+  <!-- 8 · CONTACT (BLACK BOOKEND) ------------------------------------------- -->
+  <section class="slide on-black" data-name="Contact">
+    <div class="slide__pad">
+      <div data-rise="1"><span class="m-chip">M</span></div>
+      <div class="contact-grid">
+        <div>
+          <span class="eyebrow" data-rise="2">Let’s talk</span>
+          <h2 class="h-title" data-rise="3" style="max-width: 18ch;">Let’s build smarter systems, with people at the <span class="accent">centre.</span></h2>
+        </div>
+        <div data-rise="4">
+          <p class="contact-line"><strong>mivada.com</strong></p>
+          <p class="contact-line"><strong>hello@mivada.com</strong></p>
+          <p class="contact-line">Sydney &amp; Melbourne</p>
+          <p class="contact-line">Onshore AU &amp; India</p>
+          <hr class="hairline" style="margin: 22px 0 16px; max-width: 260px;">
+          <p class="contact-line muted" style="font-size: 11.5px; letter-spacing: 0.04em;">Experience the Mivada difference. Figures illustrative.</p>
+        </div>
+      </div>
+    </div>
+    <span class="chrome__brand">Mivada</span>
+    <span class="chrome">08</span>
+  </section>
+
+</div>
+
+<div class="counter" id="counter">01 / 08</div>
+
+<script>
+  (function () {
+    var deck = document.getElementById('deck');
+    var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+    var counter = document.getElementById('counter');
+    var current = 0;
+
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+    function setActive(i) {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      current = i;
+      slides.forEach(function (s, idx) {
+        if (idx === i) s.classList.add('is-active');
+        else s.classList.remove('is-active');
+      });
+      counter.textContent = pad(i + 1) + ' / ' + pad(slides.length);
+    }
+
+    function goto(i) {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActive(i);
+    }
+
+    // Re-evaluate active slide on scroll (snap may be user-driven)
+    var ticking = false;
+    deck.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        var mid = deck.scrollTop + deck.clientHeight / 2;
+        var best = 0, bestDist = Infinity;
+        slides.forEach(function (s, idx) {
+          var c = s.offsetTop + s.offsetHeight / 2;
+          var d = Math.abs(c - mid);
+          if (d < bestDist) { bestDist = d; best = idx; }
+        });
+        if (best !== current) setActive(best);
+        else counter.textContent = pad(current + 1) + ' / ' + pad(slides.length);
+        ticking = false;
+      });
+    }, { passive: true });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault(); goto(current + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault(); goto(current - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault(); goto(0);
+      } else if (e.key === 'End') {
+        e.preventDefault(); goto(slides.length - 1);
+      }
+    });
+
+    setActive(0);
+  })();
+</script>
+</body>
+</html>

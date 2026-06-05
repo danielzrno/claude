@@ -1,0 +1,341 @@
+/* ============================================================================
+   MIVADA · Concept 03 — MOMENTUM
+   The site's own energy: coral hero fields, M-chip tiles, pill buttons,
+   rounded photography blocks, KPI cards. The brand-forward expression —
+   closest to the live mivada.com.
+
+   Token-light core: every artifact links this file and emits content markup.
+   Swap note: change --font (here) / THEME["font"] (pptx) / docx style font
+   if Mivada's real licensed face differs — nothing else.
+   ============================================================================ */
+
+:root {
+  /* ---- Palette (exact, sampled from mivada.com) ---------------------------- */
+  --coral:        #EA493F;   /* primary — the decisive 10% */
+  --coral-deep:   #C9362B;   /* hero wave / hover partner  */
+  --black:        #000000;   /* dark sections, OnBlack home */
+  --ink:          #111111;   /* body + headings on light    */
+  --off-white:    #FAFAFA;   /* primary page background     */
+  --white:        #FFFFFF;   /* cards / raised surfaces      */
+  --warm-neutral: #F2F3EE;   /* warm off-white panels        */
+  --graphite:     #323232;   /* strong secondary text        */
+  --mid-grey:     #AEAEAE;   /* muted captions               */
+  --hairline:     #E4E4E0;   /* borders / rules on light     */
+
+  /* ---- Type --------------------------------------------------------------- */
+  --font: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --tracking-tight: -0.02em;   /* headlines */
+  --tracking-eyebrow: 0.14em;  /* uppercase labels */
+
+  /* ---- Shape language (Momentum = one considered curve, held everywhere) --- */
+  --r-chip: 9px;     /* the "M" chip (~20% of a 44px tile) */
+  --r-card: 12px;    /* cards + photo blocks */
+  --r-pill: 999px;   /* pills + tags */
+  --r-field: 18px;   /* big hero / closing fields */
+
+  /* ---- One tuned soft shadow (card-based concept; commit to this one) ------ */
+  --shadow-card: 0 1px 2px rgba(17,17,17,.04), 0 14px 34px rgba(17,17,17,.07);
+  --shadow-lift: 0 2px 4px rgba(201,54,43,.10), 0 20px 50px rgba(201,54,43,.16);
+}
+
+/* ============================================================================
+   Base
+   ============================================================================ */
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--off-white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.06;
+  margin: 0;
+  color: var(--ink);
+  /* Sentence case is authored, not transformed — never text-transform here. */
+}
+
+p { margin: 0; }
+
+a { color: var(--coral); text-decoration: none; }
+
+/* ============================================================================
+   Eyebrow — small uppercase tracked label above a heading
+   ============================================================================ */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--coral);
+  margin: 0;
+}
+.eyebrow--quiet { color: var(--mid-grey); }
+.eyebrow--on-dark { color: #FFD9D4; }      /* warm tint, legible on coral/black */
+
+/* ============================================================================
+   The "M" chip — coral rounded-square tile + white Inter-800 "M"
+   The signature mark. Sizes via --chip.
+   ============================================================================ */
+.mchip {
+  --chip: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--chip);
+  height: var(--chip);
+  background: var(--coral);
+  border-radius: var(--r-chip);
+  color: var(--white);
+  font-weight: 800;
+  font-size: calc(var(--chip) * .56);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  flex: none;
+  user-select: none;
+}
+.mchip::before { content: "M"; }
+.mchip--sm { --chip: 30px; }
+.mchip--lg { --chip: 64px; border-radius: 13px; }
+/* Reversed: white tile + coral M — for use on a coral field */
+.mchip--reverse { background: var(--white); color: var(--coral); }
+/* Outline on a coral field, when a filled white tile is too heavy */
+.mchip--ghost {
+  background: rgba(255,255,255,.12);
+  color: var(--white);
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.5);
+}
+
+/* The wordmark lock-up: chip + name, used on mastheads/covers */
+.wordmark { display: inline-flex; align-items: center; gap: 12px; }
+.wordmark__name {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.wordmark--on-dark .wordmark__name { color: var(--white); }
+
+/* ============================================================================
+   Coral hero field — full coral panel, faint darker diagonal wave, white text
+   ============================================================================ */
+.coral-field {
+  position: relative;
+  background: var(--coral);
+  color: var(--white);
+  border-radius: var(--r-field);
+  overflow: hidden;
+  isolation: isolate;
+}
+/* The diagonal wave: a soft darker sweep from the lower-left, layered with a
+   faint highlight at the top — subtle, brand-forward, never a hard stripe. */
+.coral-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(120% 90% at 12% 108%, var(--coral-deep) 0%, rgba(201,54,43,0) 58%),
+    radial-gradient(90% 70% at 92% -10%, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 50%),
+    linear-gradient(118deg, var(--coral-deep) 0%, var(--coral) 42%, var(--coral) 100%);
+  opacity: .96;
+}
+/* A second, very faint wave contour to read as motion */
+.coral-field::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -10%; right: -10%; bottom: -40%;
+  height: 80%;
+  background: radial-gradient(60% 100% at 30% 100%, rgba(201,54,43,.55), rgba(201,54,43,0) 70%);
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+.coral-field h1, .coral-field h2, .coral-field h3 { color: var(--white); }
+
+/* Black field — premium moments (cover/closing alt) */
+.black-field {
+  position: relative;
+  background: var(--black);
+  color: var(--white);
+  border-radius: var(--r-field);
+  overflow: hidden;
+}
+.black-field h1, .black-field h2, .black-field h3 { color: var(--white); }
+
+/* ============================================================================
+   Cards — white raised surface; the site's "We Listen / We Deliver" pattern
+   ============================================================================ */
+.card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  padding: 22px 22px 24px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card__title { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.card__body  { font-size: 14.5px; color: var(--graphite); line-height: 1.55; }
+.card__index { /* big quiet number for ordered cards */
+  font-size: 13px; font-weight: 700; color: var(--coral);
+  letter-spacing: 0.02em;
+}
+/* On a warm panel a card can drop its border for a cleaner block */
+.card--flat { box-shadow: none; }
+/* A coral card — used sparingly as the dominant tile in a set */
+.card--coral {
+  background: var(--coral);
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: var(--shadow-lift);
+}
+.card--coral .card__title { color: var(--white); }
+.card--coral .card__body  { color: rgba(255,255,255,.92); }
+.card--coral .card__index { color: #FFD9D4; }
+.card--coral .mchip { background: var(--white); color: var(--coral); }
+
+/* ============================================================================
+   Pills + tags — fully-rounded labels / buttons; coral = active
+   ============================================================================ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 20px;
+  border-radius: var(--r-pill);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--hairline);
+  background: var(--white);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.pill--coral { background: var(--coral); border-color: var(--coral); color: var(--white); }
+.pill--dark  { background: var(--ink);   border-color: var(--ink);   color: var(--white); }
+.pill--ghost-on-dark {
+  background: transparent; color: var(--white);
+  border-color: rgba(255,255,255,.45);
+}
+/* tag = the small, quiet pill used in clusters */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: var(--warm-neutral);
+  color: var(--graphite);
+  border: 1px solid var(--hairline);
+}
+.tag--coral-soft { background: #FCE7E4; color: var(--coral-deep); border-color: #F6CFC9; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ============================================================================
+   Photo placeholder — rounded block, neutral or coral-duotone. No images.
+   ============================================================================ */
+.photo {
+  position: relative;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: var(--warm-neutral);
+  /* a soft neutral "studio" gradient so it reads as a real cropped photo */
+  background-image:
+    radial-gradient(120% 90% at 80% 0%, #FFFFFF 0%, rgba(255,255,255,0) 55%),
+    linear-gradient(160deg, #EDEEE8 0%, #DEDFD8 55%, #D2D3CB 100%);
+  border: 1px solid var(--hairline);
+  min-height: 160px;
+}
+/* coral duotone variant — a brand-tinted image block */
+.photo--duotone {
+  background-image:
+    radial-gradient(120% 100% at 78% 8%, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 45%),
+    linear-gradient(155deg, var(--coral) 0%, var(--coral-deep) 78%, #A82C22 100%);
+  border-color: transparent;
+}
+/* a small caption chip floating on a photo */
+.photo__cap {
+  position: absolute;
+  left: 12px; bottom: 12px;
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 30px; padding: 0 12px 0 10px;
+  background: rgba(255,255,255,.92);
+  border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 600; color: var(--graphite);
+  backdrop-filter: saturate(1.1);
+}
+.photo--duotone .photo__cap { background: rgba(17,17,17,.34); color: #fff; }
+
+/* round avatar placeholder — for quote attributions */
+.avatar {
+  width: 46px; height: 46px; border-radius: 999px; flex: none;
+  background:
+    radial-gradient(120% 120% at 70% 20%, #FFFFFF 0%, rgba(255,255,255,0) 50%),
+    linear-gradient(150deg, #E7E8E2, #CFD0C9);
+  border: 1px solid var(--hairline);
+}
+.avatar--coral {
+  background:
+    radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 50%),
+    linear-gradient(150deg, var(--coral), var(--coral-deep));
+  border-color: transparent;
+}
+
+/* ============================================================================
+   KPI card — the figure block. Big coral number, quiet label.
+   ============================================================================ */
+.kpi {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  padding: 20px 22px 18px;
+  box-shadow: var(--shadow-card);
+}
+.kpi__num {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--coral);
+  line-height: 1;
+}
+.kpi__label {
+  margin-top: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--graphite);
+}
+.kpi--ink   { background: var(--ink);   border-color: transparent; }
+.kpi--ink .kpi__num   { color: var(--white); }
+.kpi--ink .kpi__label { color: rgba(255,255,255,.72); }
+.kpi--coral { background: var(--coral); border-color: transparent; box-shadow: var(--shadow-lift); }
+.kpi--coral .kpi__num   { color: var(--white); }
+.kpi--coral .kpi__label { color: rgba(255,255,255,.9); }
+
+/* ============================================================================
+   Small utilities (kept minimal — layout lives in each artifact)
+   ============================================================================ */
+.lede { font-size: 19px; line-height: 1.55; color: var(--graphite); font-weight: 400; }
+.lede strong { color: var(--ink); font-weight: 700; }
+.muted { color: var(--mid-grey); }
+.rule { height: 1px; background: var(--hairline); border: 0; margin: 0; }
+.grid { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.coral-text { color: var(--coral); }

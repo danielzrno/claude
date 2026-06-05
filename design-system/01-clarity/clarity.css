@@ -1,0 +1,245 @@
+/* ============================================================================
+   Mivada — Concept 01 · CLARITY
+   Corporate / clean. Off-white + white cards + ink text. Coral as a disciplined
+   10% accent only (eyebrows, one key word, the M-chip, a short stat rule).
+   Token-light core: shared brand tokens + reusable components.
+   ----------------------------------------------------------------------------
+   Brand tokens are identical across all three concepts; only layout differs.
+   Swap note: change --font in one place if Mivada's licensed face differs.
+   ============================================================================ */
+
+/* ---- Brand tokens (exact, sampled from mivada.com) ---------------------- */
+:root {
+  --coral:        #EA493F;  /* primary — the decisive 10% */
+  --coral-deep:   #C9362B;  /* gradient / hover partner */
+  --black:        #000000;  /* dark sections, closing bookend */
+  --ink:          #111111;  /* body + headings on light (soft black) */
+  --off-white:    #FAFAFA;  /* primary page background */
+  --white:        #FFFFFF;  /* cards / raised surfaces */
+  --warm-neutral: #F2F3EE;  /* warm off-white panels */
+  --graphite:     #323232;  /* strong secondary text */
+  --mid-grey:     #AEAEAE;  /* muted captions */
+  --hairline:     #E4E4E0;  /* borders / rules on light */
+
+  --font: "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  /* type scale */
+  --tracking-tight: -0.02em;   /* headlines */
+  --tracking-eyebrow: 0.14em;  /* uppercase labels */
+
+  /* radius language: restrained. chip & cards share one considered curve. */
+  --radius-chip: 22%;
+  --radius-card: 10px;
+  --radius-pill: 999px;
+}
+
+/* ---- Reset-ish base ----------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--off-white);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Eyebrow label ------------------------------------------------------ */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--coral);
+  margin: 0 0 14px;
+  display: block;
+}
+.eyebrow--ink { color: var(--graphite); }
+.eyebrow--mute { color: var(--mid-grey); }
+
+/* ---- Headlines: sentence case, tight tracking, weight contrast --------- */
+.h-display,
+.h-title,
+.h-sub {
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.04;
+  color: var(--ink);
+  margin: 0;
+}
+.h-display { font-size: clamp(40px, 6vw, 76px); }
+.h-title   { font-size: clamp(28px, 3.4vw, 44px); line-height: 1.08; }
+.h-sub     { font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.12; }
+
+.accent { color: var(--coral); }      /* colour the ONE word that matters */
+
+/* Standfirst / lead paragraph — lighter weight carries hierarchy */
+.standfirst {
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--graphite);
+  max-width: 46ch;
+  margin: 0;
+}
+.lead { color: var(--graphite); font-weight: 400; }
+.muted { color: var(--mid-grey); }
+
+/* ---- The "M" chip — coral rounded-square, white Inter-800 "M" ---------- */
+.m-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--coral);
+  color: var(--white);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  border-radius: var(--radius-chip);
+  width: 44px;
+  height: 44px;
+  font-size: 27px;
+  line-height: 1;
+  user-select: none;
+}
+.m-chip--sm { width: 34px; height: 34px; font-size: 21px; }
+.m-chip--lg { width: 60px; height: 60px; font-size: 37px; }
+
+/* Wordmark lockup */
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 22px;
+  color: var(--ink);
+}
+
+/* ---- Hairline rules ----------------------------------------------------- */
+.hairline { border: 0; border-top: 1px solid var(--hairline); margin: 0; }
+.rule-coral {            /* a short coral rule — used beside a stat, never under a title */
+  width: 34px;
+  height: 3px;
+  background: var(--coral);
+  border-radius: 2px;
+  display: block;
+}
+
+/* ---- Stat block --------------------------------------------------------- */
+.stat { display: block; }
+.stat__num {
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink);
+  line-height: 1;
+  margin: 0;
+}
+.stat__label {
+  font-size: 13px;
+  color: var(--graphite);
+  margin: 10px 0 0;
+  max-width: 22ch;
+}
+.stat__eyebrow {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--coral);
+  margin: 0 0 12px;
+  display: block;
+}
+
+/* ---- Card (white, hairline border, no heavy shadow) -------------------- */
+.card {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  padding: 26px 26px 28px;
+}
+.card__index {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mid-grey);
+  letter-spacing: 0.04em;
+  margin: 0 0 14px;
+}
+.card__title { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 8px; }
+.card__body  { font-size: 14px; color: var(--graphite); margin: 0; line-height: 1.5; }
+
+/* ---- Pill button -------------------------------------------------------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  border: 1px solid transparent;
+  letter-spacing: 0.01em;
+}
+.pill--coral { background: var(--coral); color: var(--white); }
+.pill--ink   { background: var(--ink); color: var(--white); }
+.pill--ghost { background: transparent; color: var(--ink); border-color: var(--hairline); }
+.pill--onblack { background: var(--coral); color: var(--white); }
+
+/* ---- Numbered step ------------------------------------------------------ */
+.step__num {
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+  margin: 0 0 16px;
+}
+.step__title { font-size: 17px; font-weight: 700; color: var(--ink); margin: 0 0 7px; }
+.step__body  { font-size: 13.5px; color: var(--graphite); margin: 0; line-height: 1.5; }
+
+/* ---- Neutral photography placeholder (no network images) --------------- */
+.photo {
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(135deg, var(--warm-neutral) 0%, #E9EAE3 100%);
+  border: 1px solid var(--hairline);
+  position: relative;
+  overflow: hidden;
+}
+.photo::after {           /* a faint diagonal — restrained, not a logo */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 55%, rgba(0,0,0,0.025) 100%);
+}
+.photo__tag {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--mid-grey);
+  z-index: 1;
+}
+
+/* ---- Dark section (closing bookend) ------------------------------------ */
+.on-black {
+  background: var(--black);
+  color: var(--white);
+}
+.on-black .h-display,
+.on-black .h-title { color: var(--white); }
+.on-black .standfirst { color: #CFCFCF; }
+.on-black .eyebrow { color: var(--coral); }
+.on-black .hairline { border-top-color: rgba(255,255,255,0.14); }
+.on-black .muted { color: var(--mid-grey); }

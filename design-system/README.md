@@ -1,79 +1,76 @@
-# Mivada Design Systems — for fast, on-brand artifacts in Claude
+# Mivada design systems — fast, on-brand artifacts that don't look AI-generated
 
-Three production-ready design systems for generating **HTML pages, HTML presentations,
-A4 documents and PowerPoint decks** that reflect Mivada's look and feel — built to be
-produced *fast* and with *managed tokens* in Claude, and engineered so the output
-**does not read as AI-generated**.
+Three design systems for generating **HTML pages & presentations, Word documents, and PowerPoint
+decks** that are **true to Mivada's real brand** (colours and fonts taken from mivada.com), are fast
+and token-light to produce in Claude, and are engineered so the output **doesn't read as AI-generated**.
 
-> Mivada is an Australian technology consultancy — Workday & ERP, payroll, data & AI,
-> and intelligent automation — positioned "human first." These systems interpret that
-> brand. Drop official brand hex values and fonts in where noted once you have them.
+All three are **one brand, three layout systems** — identical palette and typeface, distinct
+composition. The brand reference is [`guides/mivada-brand.md`](guides/mivada-brand.md).
+
+## The real Mivada brand (extracted from the live site)
+
+- **Coral `#EA493F`** (primary accent) · **Black `#000000`** · **Off-white `#FAFAFA`** · warm-neutral
+  `#F2F3EE` · ink `#111111` · graphite `#323232`. Coral is the decisive 10% accent; the brand lives
+  comfortably on black and off-white.
+- **Type:** a clean neo-grotesque — matched with **Inter** (the licensed family isn't exposed in the
+  site CSS; swap one variable if it differs).
+- **Motifs:** the coral **"M" chip**, **pill buttons**, **coral hero fields**, **rounded photography**,
+  full-**black sections**, uppercase eyebrow labels.
 
 ## The three concepts
 
-| | Concept | Feel | Type | Palette | Use when |
-|--|---------|------|------|---------|----------|
-| **01** | **[Meridian](01-meridian/)** | Editorial consulting — calm, authoritative | Fraunces + Archivo | Ink-navy + teal on warm white | Proposals, capability statements, board decks |
-| **02** | **[Signal](02-signal/)** | Data/AI — precise, modern, technical | Hanken Grotesk + JetBrains Mono | Near-black + signal-mint, dot-grid | Data & AI pitches, product/eng, conference talks |
-| **03** | **[Village](03-village/)** | Human-first — warm, approachable, premium | Gabarito + Source Serif 4 | Oat + sage + amber, espresso ink | People/change, culture, recruiting, client care |
+| | Concept | Expression | Use when |
+|--|---------|-----------|----------|
+| **01** | **[Clarity](01-clarity/)** | Corporate / clean — light, airy, coral as a disciplined accent | Proposals, capability statements, board packs |
+| **02** | **[Editorial](02-editorial/)** | Bold magazine — black-dominant + coral, oversized headlines, pull-quotes | Thought leadership, marketing, reports |
+| **03** | **[Momentum](03-momentum/)** | The site's own energy — coral hero fields, M-chip cards, pills, rounded photography | Sales pitches, brand-forward decks, dynamic one-pagers |
 
-Each folder contains: a reusable CSS theme, an HTML presentation, an HTML A4 document,
-a python-pptx builder + a generated `.pptx`, and a README spec. They all present the
-**same Mivada content** (see [`guides/mivada-content.md`](guides/mivada-content.md)) so
-you can compare them on design alone.
+Each concept ships every format:
 
-## Why this is fast + token-light
+| File | Format |
+|------|--------|
+| `presentation.html` | HTML presentation (16:9, keyboard nav, print-to-PDF) |
+| `<concept>.pptx` + `build_pptx.py` | PowerPoint |
+| `<concept>.docx` + `build_docx.js` | Word — native `.docx` |
+| `document.html` | Word — HTML A4 (print-to-PDF) alternative |
+| `<concept>.css` | the reusable theme (token-light core) |
+| `README.md` | the concept spec |
 
-Styling is written **once** per concept (`<concept>.css` + a PPTX `THEME` + helpers).
-New artifacts emit **content only** and inherit the look:
+All present the **same Mivada content** ([`guides/mivada-content.md`](guides/mivada-content.md)) so you
+compare them on design alone. Figures in the examples are illustrative samples.
 
-```html
-<!-- a whole on-brand slide -->
-<link rel="stylesheet" href="meridian.css">
-<section class="slide slide--stat">
-  <p class="kicker">02 — Who we are</p>
-  <h2>We turn enterprise platforms into <em>human outcomes</em>.</h2>
-  <ul class="stats"> … </ul>
-</section>
-```
+## Why it's fast + token-light
 
-```python
-# a whole on-brand PPTX deck
-from build_pptx import Deck
-d = Deck()
-d.cover("Mivada", "Technology, human first.", "Capability overview · 2026")
-d.kpis("Who we are", [("2014","Founded"), ("120+","Specialists"), ("AU + India","Delivery")])
-d.save("mivada.pptx")
-```
+Styling is written **once** per concept (the CSS theme, the PPTX `THEME`/helpers, the docx style block).
+New artifacts emit **content only** and inherit the look — Claude writes a few dozen lines, not hundreds.
 
-Claude writes a few dozen lines of content, not hundreds of lines of styling.
+## Not looking AI-generated — with a real brand font
 
-## The anti-"AI look" discipline
-
-Every artifact is checked against [`guides/anti-ai-tells.md`](guides/anti-ai-tells.md) —
-a concrete checklist of the patterns that scream "a model made this" (purple gradients,
-Inter/Poppins+Lora, emoji bullets, accent-line-under-title slides, beige defaults,
-centered hero + two pills, hype copy) and the fix for each.
+[`guides/anti-ai-tells.md`](guides/anti-ai-tells.md) lists the patterns that scream "a model made this."
+Because we're being faithful to Mivada's actual (grotesque) typeface, the "don't look generic" work is
+carried by the **bold coral/black colour system, the distinct per-concept layouts, and the brand motifs**
+(M-chip, pills, coral fields, rounded photography) — not by exotic fonts. No purple, no emoji, no
+accent-line-under-title slides, no centered-hero-plus-two-pills filler.
 
 ## How to use a concept
 
-1. Pick a concept from the table.
-2. **HTML page / presentation / document:** copy the relevant `.html`, keep the
-   `<link>` to the concept CSS and the Google Fonts `<link>`, replace the content.
-   Open in a browser; "Print → Save as PDF" exports decks (one slide/page) and A4 docs.
-3. **PowerPoint:** edit the content calls in `build_pptx.py` and run it. Install the two
-   named Google fonts for pixel-perfect rendering (otherwise PowerPoint uses the listed
-   Office-safe fallbacks).
+1. Pick a concept. 2. **HTML / presentation / A4 doc:** copy the `.html`, keep the `<link>`s, replace the
+content; open in a browser; "Print → Save as PDF" exports decks (one slide/page) and A4 docs. 3.
+**PowerPoint:** edit the content calls in `build_pptx.py` and run it. 4. **Word:** edit `build_docx.js`
+and run `NODE_PATH=/opt/node22/lib/node_modules node build_docx.js`.
+
+For pixel-perfect PowerPoint/Word, install **Inter** (free, Google Fonts); otherwise Office uses Arial.
 
 ## Guides
 
-- [`guides/mivada-content.md`](guides/mivada-content.md) — shared positioning, voice, and the example copy.
+- [`guides/mivada-brand.md`](guides/mivada-brand.md) — the real brand: exact palette, fonts, motifs, voice.
+- [`guides/mivada-content.md`](guides/mivada-content.md) — positioning, voice, example copy.
 - [`guides/anti-ai-tells.md`](guides/anti-ai-tells.md) — the "doesn't look AI-generated" checklist.
-- [`guides/build-conventions.md`](guides/build-conventions.md) — structure, fonts, HTML/PPTX rules.
+- [`guides/build-conventions.md`](guides/build-conventions.md) — structure, fonts, HTML/PPTX/Word rules.
 
-## Swapping in official Mivada assets
+## Swapping in official assets
 
-When you have the real brand kit: (1) replace the palette hex values at the top of each
-`<concept>.css` and the `THEME` dict in `build_pptx.py`; (2) swap the Google Fonts link +
-`--font-*` variables for the licensed brand fonts; (3) drop the logo into the masthead/cover
-slots. Nothing else needs to change.
+When you have the real brand kit: (1) the palette is already exact; (2) if the licensed font differs from
+Inter, change the single `--font` variable in each `.css`, the `THEME["font"]` in `build_pptx.py`, and the
+font in `build_docx.js`; (3) drop the real logo into the masthead/cover and replace the photo-placeholder
+blocks with Mivada photography. Nothing else changes.

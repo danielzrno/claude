@@ -9,11 +9,16 @@ reuse) while leaving each free to look completely different.
 NN-name/
   README.md            # the concept spec: palette, type, motifs, when to use
   name.css             # the reusable theme — design tokens + components (the token-light core)
-  presentation.html    # self-contained 16:9 deck, links name.css
-  document.html        # A4 print-ready document, links name.css
+  presentation.html    # self-contained 16:9 deck, links name.css       (HTML presentation)
+  document.html        # A4 print-ready document, links name.css         (Word — HTML A4 version)
+  build_docx.js        # docx-js generator for the native Word document
+  name.docx            # generated native Word document (committed)      (Word — .docx version)
   build_pptx.py        # python-pptx theme module + builder
-  name.pptx            # generated output (committed)
+  name.pptx            # generated PowerPoint (committed)                 (PowerPoint)
 ```
+
+All three concepts share the **exact same brand tokens** (see `mivada-brand.md`) — identical palette
+and font. They differ only in layout, density and colour-blocking.
 
 ## The token-saving idea (why this is "fast + token-managed in Claude")
 
@@ -64,3 +69,21 @@ Gabarito, Source Serif 4.
   python /mnt/skills/public/pptx/scripts/office/soffice.py --headless --convert-to pdf name.pptx
   rm -f slide-*.jpg && pdftoppm -jpeg -r 110 name.pdf slide && ls -1 "$PWD"/slide-*.jpg
   ```
+
+## Word (.docx) rules — `build_docx.js` (docx-js)
+
+Native Word document built with **docx-js** (`require('docx')`; run with
+`NODE_PATH=/opt/node22/lib/node_modules node build_docx.js`). Follow `/mnt/skills/public/docx/SKILL.md`.
+
+- **A4** page (`size: { width: 11906, height: 16838 }`, DXA), ~1" margins; content width ≈ 9026 DXA.
+- Override built-in styles (`Heading1`/`Heading2`/`Normal`) with the brand font (**Inter**, fallback Arial)
+  and brand colours (coral `EA493F`, ink `111111`). Title/eyebrow can be coral; keep body ink for readability.
+- **Never** unicode bullets — use `numbering` config with `LevelFormat.BULLET`.
+- Tables need **dual widths** (`columnWidths` + per-cell `width`, DXA), `ShadingType.CLEAR`, cell margins.
+  Use a coral-shaded header row or a coral KPI block. Never use tables as dividers — use a paragraph
+  **bottom border** for rules.
+- Header/footer: wordmark + contact + page number (tab stops, not tables).
+- Validate: `python /mnt/skills/public/docx/scripts/office/validate.py name.docx`, then convert for QA:
+  `python /mnt/skills/public/pptx/scripts/office/soffice.py --headless --convert-to pdf name.docx`.
+- The `.docx` carries the same capability-statement content as `document.html`, styled on-brand within
+  Word's constraints (it won't match the HTML pixel-for-pixel — that's expected).

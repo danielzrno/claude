@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mivada — Capability overview · 2026 (Editorial)</title>
+
+<!-- Inter from Google Fonts (renders in the reader's browser) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- the reusable Mivada · Editorial theme -->
+<link rel="stylesheet" href="editorial.css">
+
+<style>
+  /* ===== Deck shell — 1280×720 (16:9), scroll-snap, print one/page ===== */
+  html, body { height: 100%; }
+  body { background: #2a2a2a; overflow-x: hidden; }
+
+  .deck {
+    scroll-snap-type: y mandatory;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    margin: 0 auto;
+    scroll-snap-align: start;
+    overflow: hidden;
+    display: grid;
+    /* generous editorial margin */
+    padding: 72px 88px;
+  }
+  /* alternating page tint behind the fixed-size slide */
+  .slide + .slide { margin-top: 28px; }
+  .deck { padding: 28px 0; }
+
+  /* slide counter */
+  .counter {
+    position: fixed;
+    right: 22px; bottom: 18px;
+    z-index: 50;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #fff;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-family: var(--font);
+  }
+  .hint {
+    position: fixed;
+    left: 22px; bottom: 18px;
+    z-index: 50;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.7);
+    font-family: var(--font);
+  }
+
+  /* tiny slide tag, top-right inside each slide */
+  .slug {
+    position: absolute;
+    top: 40px; right: 88px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid-grey);
+  }
+  .on-black .slug { color: #777; }
+
+  /* ---- per-slide composition ---- */
+
+  /* (1) Cover */
+  .s-cover { grid-template-rows: auto 1fr auto; }
+  .s-cover .display { font-size: clamp(4rem, 9.2vw, 8.6rem); line-height: 0.9; }
+  .cover-top { display: flex; align-items: center; gap: 16px; }
+  .cover-foot {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-top: 1px solid rgba(255,255,255,0.16);
+    padding-top: 20px;
+  }
+  .cover-foot small { color: var(--mid-grey); font-weight: 600; letter-spacing: 0.06em; }
+
+  /* (2) Who we are — headline + standfirst over, 3 stats under */
+  .s-who { grid-template-rows: auto auto 1fr; gap: 30px; align-content: start; }
+  .who-head { display: grid; grid-template-columns: 1.35fr 1fr; gap: 56px; align-items: end; }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; align-self: end; }
+  .stats-row .stat { padding: 28px 34px 6px; }
+  .stats-row .stat:first-child { padding-left: 0; }
+
+  /* (3) What we do — asymmetric editorial list, big index numerals */
+  .s-pillars { grid-template-rows: auto 1fr; gap: 34px; align-content: start; }
+  .pillar-list { display: grid; gap: 0; }
+  .pillar {
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    gap: 30px;
+    align-items: baseline;
+    padding: 22px 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .pillar:last-child { border-bottom: 1px solid var(--hairline); }
+  .pillar__title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .pillar__desc { color: var(--graphite); font-size: 1.02rem; line-height: 1.5; max-width: 46ch; }
+  .pillar__tag { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid-grey); }
+
+  /* (4) How we work — bold numbered sequence */
+  .s-how { grid-template-rows: auto 1fr; gap: 38px; align-content: start; }
+  .seq { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; align-items: stretch; }
+  .step { padding: 0 30px; position: relative; }
+  .step:first-child { padding-left: 0; }
+  .step + .step { border-left: 1px solid var(--hairline); }
+  .step__n { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em; color: var(--coral); }
+  .step__name { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.025em; color: var(--ink); margin: 14px 0 12px; line-height: 1; }
+  .step__desc { color: var(--graphite); font-size: 1rem; line-height: 1.5; }
+
+  /* (5) Data & AI — black, capability list */
+  .s-data { grid-template-columns: 1fr 1fr; gap: 64px; align-content: center; align-items: center; }
+  .cap-list { display: grid; gap: 0; }
+  .cap {
+    display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: baseline;
+    padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.14);
+  }
+  .cap:last-child { border-bottom: 1px solid rgba(255,255,255,0.14); }
+  .cap__k { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--coral); white-space: nowrap; padding-top: 0.35em; }
+  .cap__v { color: #E4E4E4; font-size: 1.08rem; line-height: 1.45; }
+  .cap__v b { color: #fff; font-weight: 700; }
+
+  /* (6) Outcomes — big pull-quote + 3 stats */
+  .s-out { grid-template-rows: auto 1fr auto; gap: 30px; align-content: start; }
+  .out-stats { display: grid; grid-template-columns: repeat(3, 1fr); align-self: end; }
+  .out-stats .stat { padding: 26px 34px 4px; border-left: 1px solid var(--hairline); }
+  .out-stats .stat:first-child { padding-left: 0; border-left: 0; }
+
+  /* (7) Why Mivada — 3 reasons, bold */
+  .s-why { grid-template-rows: auto 1fr; gap: 38px; align-content: start; }
+  .reasons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .reason { padding: 0 34px; }
+  .reason:first-child { padding-left: 0; }
+  .reason + .reason { border-left: 1px solid var(--hairline); }
+  .reason__n { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; color: var(--coral); }
+  .reason__h { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.025em; color: var(--ink); margin: 16px 0 12px; line-height: 1.02; }
+  .reason__b { color: var(--graphite); font-size: 1.02rem; line-height: 1.5; }
+
+  /* (8) Contact — black closing */
+  .s-contact { grid-template-rows: auto 1fr auto; }
+  .s-contact .display { font-size: clamp(3rem, 6.6vw, 5.8rem); line-height: 0.96; max-width: 20ch; }
+  .contact-foot {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-top: 1px solid rgba(255,255,255,0.16); padding-top: 20px;
+  }
+  .contact-foot .line { color: #CFCFCF; font-weight: 500; }
+  .contact-foot .line b { color: #fff; font-weight: 700; }
+
+  /* ===== One choreographed staggered entrance per slide (CSS only) ===== */
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* animate children of the active slide; stagger via nth-child delays.
+     Uses :target-within fallback to "always animate on load via snap". */
+  .stagger > * { opacity: 0; animation: riseIn 0.62s cubic-bezier(.2,.7,.2,1) forwards; }
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.14s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.23s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.32s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.41s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.50s; }
+  @media (prefers-reduced-motion: reduce) {
+    .stagger > * { animation: none; opacity: 1; }
+  }
+
+  /* ===== Print: one slide per page, exact colour ===== */
+  @page { size: 1280px 720px landscape; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .deck { height: auto; overflow: visible; padding: 0; scroll-snap-type: none; }
+    .counter, .hint { display: none; }
+    .slide {
+      margin: 0 !important;
+      page-break-after: always;
+      break-after: page;
+      box-shadow: none;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .stagger > * { animation: none; opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- (1) COVER — BLACK -->
+  <section class="slide on-black s-cover stagger">
+    <div class="cover-top">
+      <span class="m-chip m-chip--lg"></span>
+      <span class="wordmark wordmark--rev">Mivada</span>
+    </div>
+    <div style="align-self:center;">
+      <p class="eyebrow" style="margin-bottom:26px;">Capability overview · 2026</p>
+      <h1 class="display">Technology,<br>human <span class="accent">first.</span></h1>
+    </div>
+    <div class="cover-foot">
+      <small>An Australian technology consultancy</small>
+      <small>Workday · Payroll · Data &amp; AI · Automation</small>
+    </div>
+  </section>
+
+  <!-- (2) WHO WE ARE — OFF-WHITE -->
+  <section class="slide on-offwhite s-who stagger">
+    <span class="slug">02 · Who we are</span>
+    <div class="who-head">
+      <h2 class="headline">We turn enterprise platforms into measurable&nbsp;<span class="accent">human outcomes.</span></h2>
+      <p class="standfirst">Mivada takes Workday, payroll, data and AI and shapes them around how your people actually work — onshore in Australia, with delivery across India.</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat__num">2014</div>
+        <div class="stat__label">Founded · formerly LJM Infotech</div>
+      </div>
+      <div class="stat col-rule">
+        <div class="stat__num">120<span class="accent">+</span></div>
+        <div class="stat__label">Specialists, not generalists</div>
+      </div>
+      <div class="stat col-rule">
+        <div class="stat__num">AU&nbsp;+&nbsp;India</div>
+        <div class="stat__label">Onshore leadership · offshore delivery</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- (3) WHAT WE DO — BLACK -->
+  <section class="slide on-black s-pillars stagger">
+    <span class="slug">03 · What we do</span>
+    <div>
+      <p class="eyebrow" style="margin-bottom:16px;">Four service pillars</p>
+      <h2 class="headline" style="max-width:18ch;">Four practices, one&nbsp;<span class="accent">operating belief.</span></h2>
+    </div>
+    <div class="pillar-list" style="border-color:rgba(255,255,255,0.14);">
+      <div class="pillar" style="border-color:rgba(255,255,255,0.14);">
+        <span class="index">01</span>
+        <div>
+          <div class="pillar__title" style="color:#fff;">Workday &amp; ERP</div>
+          <p class="pillar__desc" style="color:#cfcfcf;">Implementation, optimisation and managed support for Workday HCM, Financials and adjacent ERP.</p>
+        </div>
+        <span class="pillar__tag">Platform</span>
+      </div>
+      <div class="pillar" style="border-color:rgba(255,255,255,0.14);">
+        <span class="index">02</span>
+        <div>
+          <div class="pillar__title" style="color:#fff;">Payroll consulting</div>
+          <p class="pillar__desc" style="color:#cfcfcf;">Compliant, accurate payroll across complex awards and multi-entity structures.</p>
+        </div>
+        <span class="pillar__tag">Compliance</span>
+      </div>
+      <div class="pillar" style="border-color:rgba(255,255,255,0.14);">
+        <span class="index">03</span>
+        <div>
+          <div class="pillar__title" style="color:#fff;">Data &amp; AI</div>
+          <p class="pillar__desc" style="color:#cfcfcf;">Lakehouse architecture, governed analytics and applied AI on your people and finance data.</p>
+        </div>
+        <span class="pillar__tag">Insight</span>
+      </div>
+      <div class="pillar" style="border-color:rgba(255,255,255,0.14);">
+        <span class="index">04</span>
+        <div>
+          <div class="pillar__title" style="color:#fff;">Intelligent automation</div>
+          <p class="pillar__desc" style="color:#cfcfcf;">RPA, ML and process design combined to remove low-value work.</p>
+        </div>
+        <span class="pillar__tag">Efficiency</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- (4) HOW WE WORK — OFF-WHITE -->
+  <section class="slide on-offwhite s-how stagger">
+    <span class="slug">04 · How we work</span>
+    <div>
+      <p class="eyebrow" style="margin-bottom:16px;">Think human first</p>
+      <h2 class="headline" style="max-width:20ch;">Understand the people&nbsp;<span class="accent">before the technology.</span></h2>
+    </div>
+    <div class="seq">
+      <div class="step">
+        <div class="step__n">STEP 01</div>
+        <div class="step__name">Listen</div>
+        <p class="step__desc">Understand the people and the work before a line of configuration.</p>
+      </div>
+      <div class="step">
+        <div class="step__n">STEP 02</div>
+        <div class="step__name">Design</div>
+        <p class="step__desc">Shape the platform around how teams actually operate day to day.</p>
+      </div>
+      <div class="step">
+        <div class="step__n">STEP 03</div>
+        <div class="step__name">Deliver</div>
+        <p class="step__desc">Implement in weeks-long increments, not multi-year programs.</p>
+      </div>
+      <div class="step">
+        <div class="step__n">STEP 04</div>
+        <div class="step__name">Care</div>
+        <p class="step__desc">Stay on after go-live; measure outcomes, not tickets closed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- (5) DATA & AI — BLACK -->
+  <section class="slide on-black s-data stagger">
+    <span class="slug">05 · Data &amp; AI</span>
+    <div>
+      <p class="eyebrow" style="margin-bottom:18px;">Capability spotlight</p>
+      <h2 class="headline" style="max-width:14ch;">Decisions made on&nbsp;<span class="accent">current data.</span></h2>
+      <p class="standfirst" style="margin-top:24px;">Certified consultants build the data foundation that puts a governed, real-time view of your people and finance data in front of leaders.</p>
+    </div>
+    <div class="cap-list">
+      <div class="cap">
+        <span class="cap__k">Architecture</span>
+        <p class="cap__v">Designed <b>Lakehouse architectures</b> that unify people and finance data in one governed place.</p>
+      </div>
+      <div class="cap">
+        <span class="cap__k">Pipelines</span>
+        <p class="cap__v">Built <b>Delta Lake pipelines</b> — batch and streaming — on <b>Databricks</b>.</p>
+      </div>
+      <div class="cap">
+        <span class="cap__k">Integration</span>
+        <p class="cap__v">Connected Databricks to <b>Workday, payroll and finance</b> as one model.</p>
+      </div>
+      <div class="cap">
+        <span class="cap__k">Outcome</span>
+        <p class="cap__v">Delivered <b>governed KPI stores</b> and <b>real-time insight</b> for current-data decisions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- (6) OUTCOMES — OFF-WHITE, big coral pull-quote + 3 stats -->
+  <section class="slide on-offwhite s-out stagger">
+    <span class="slug">06 · Outcomes</span>
+    <div>
+      <p class="eyebrow" style="margin-bottom:22px;">In their words</p>
+      <blockquote class="pullquote" style="max-width:24ch;">
+        “They delivered in weeks what we'd scoped for a year — and our team actually uses it.”
+        <span class="pullquote__attr">People &amp; Payroll Director · national employer (illustrative)</span>
+      </blockquote>
+    </div>
+    <div class="out-stats">
+      <div class="stat">
+        <div class="stat__num">40<span class="accent">+</span></div>
+        <div class="stat__label">Workday deployments</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">98<span class="accent">%</span></div>
+        <div class="stat__label">Client retention</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">Weeks</div>
+        <div class="stat__label">To value · not months</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- (7) WHY MIVADA — BLACK -->
+  <section class="slide on-black s-why stagger">
+    <span class="slug">07 · Why Mivada</span>
+    <div>
+      <p class="eyebrow" style="margin-bottom:16px;">Three reasons</p>
+      <h2 class="headline" style="max-width:16ch;">Why teams choose to&nbsp;<span class="accent">stay with us.</span></h2>
+    </div>
+    <div class="reasons">
+      <div class="reason">
+        <div class="reason__n">01</div>
+        <div class="reason__h" style="color:#fff;">Certified specialists</div>
+        <p class="reason__b" style="color:#cfcfcf;">Workday- and Databricks-certified consultants, not generalists learning on your budget.</p>
+      </div>
+      <div class="reason" style="border-color:rgba(255,255,255,0.16);">
+        <div class="reason__n">02</div>
+        <div class="reason__h" style="color:#fff;">Onshore + offshore</div>
+        <p class="reason__b" style="color:#cfcfcf;">Senior onshore leadership in Australia with cost-effective delivery from India.</p>
+      </div>
+      <div class="reason" style="border-color:rgba(255,255,255,0.16);">
+        <div class="reason__n">03</div>
+        <div class="reason__h" style="color:#fff;">People-first change</div>
+        <p class="reason__b" style="color:#cfcfcf;">Adoption built in from day one, so the platform actually gets used.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- (8) CONTACT — BLACK CLOSING -->
+  <section class="slide on-black s-contact stagger">
+    <div class="cover-top">
+      <span class="m-chip m-chip--lg"></span>
+      <span class="wordmark wordmark--rev">Mivada</span>
+    </div>
+    <div style="align-self:center;">
+      <p class="eyebrow" style="margin-bottom:24px;">Let's talk</p>
+      <h2 class="display">Let's build smarter systems, with people at the <span class="accent">centre.</span></h2>
+    </div>
+    <div class="contact-foot">
+      <div class="line"><b>hello@mivada.com</b> &nbsp;·&nbsp; mivada.com</div>
+      <div class="line">Sydney &amp; Melbourne &nbsp;·&nbsp; Onshore AU &amp; India</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="counter" id="counter">01 / 08</div>
+<div class="hint">← / → / space to navigate</div>
+
+<script>
+  // Minimal keyboard nav + live slide counter. One inline script, no libs.
+  (function () {
+    var deck = document.getElementById('deck');
+    var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+    var counter = document.getElementById('counter');
+    var i = 0;
+
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+    function render(){ counter.textContent = pad(i + 1) + ' / ' + pad(slides.length); }
+    function go(n){
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      render();
+    }
+
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(i + 1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(i - 1); }
+      else if (e.key === 'Home') { e.preventDefault(); go(0); }
+      else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+    });
+
+    // keep counter in sync when scrolling/snapping by wheel or trackpad
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var idx = slides.indexOf(en.target);
+          if (idx > -1) { i = idx; render(); }
+        }
+      });
+    }, { root: deck, threshold: 0.55 });
+    slides.forEach(function (s) { io.observe(s); });
+
+    render();
+  })();
+</script>
+</body>
+</html>
