@@ -196,7 +196,7 @@ class Deck:
                    0.96, 0.5, 0.26, fallback=False)
         tb, tf = self._box(slide, PAGE_W - 4.3, 0.46, 3.5, 0.35)
         p = self._para(tf, first=True, align=PP_ALIGN.RIGHT)
-        self._run(p, text.upper(), 10.5, "777777" if dark else "AEAEAE",
+        self._run(p, text.upper(), 11, "EA493F",
                   bold=True, spacing=0.14, caps=True)
 
     # ======================================================================
@@ -232,10 +232,9 @@ class Deck:
         """(2) OFF-WHITE — oversized headline + standfirst, 3 big stats."""
         s = self._slide(THEME["off_white"])
         self._slug(s, "02 · Who we are")
-        self._eyebrow(s, 0.96, 0.92, 8, eyebrow, color="coral")
 
         # headline (left) + standfirst (right), baseline-ish aligned
-        tb, tf = self._box(s, 0.92, 1.4, 7.7, 2.7)
+        tb, tf = self._box(s, 0.92, 1.02, 7.7, 2.7)
         p = self._para(tf, first=True, line=1.0)
         self._run(p, headline_pre + " ", 40, "111111", bold=True, spacing=-0.022)
         self._run(p, headline_accent, 40, "EA493F", bold=True, spacing=-0.022)
@@ -281,8 +280,7 @@ class Deck:
         """(3) BLACK — asymmetric editorial list, big coral index numerals."""
         s = self._slide(THEME["black"])
         self._slug(s, "03 · What we do", dark=True)
-        self._eyebrow(s, 0.96, 0.86, 8, eyebrow, color="coral")
-        tb, tf = self._box(s, 0.92, 1.28, 11, 1.1)
+        tb, tf = self._box(s, 0.92, 0.95, 11, 1.1)
         p = self._para(tf, first=True, line=1.0)
         self._run(p, headline_pre + " ", 34, "FFFFFF", bold=True, spacing=-0.022)
         self._run(p, headline_accent, 34, "EA493F", bold=True, spacing=-0.022)
@@ -315,8 +313,7 @@ class Deck:
         """(4) OFF-WHITE — bold numbered sequence, 4 across."""
         s = self._slide(THEME["off_white"])
         self._slug(s, "04 · How we work")
-        self._eyebrow(s, 0.96, 0.92, 8, eyebrow, color="coral")
-        tb, tf = self._box(s, 0.92, 1.34, 11.4, 1.1)
+        tb, tf = self._box(s, 0.92, 1.0, 11.4, 1.1)
         p = self._para(tf, first=True, line=1.0)
         self._run(p, headline_pre + " ", 34, "111111", bold=True, spacing=-0.022)
         self._run(p, headline_accent, 34, "EA493F", bold=True, spacing=-0.022)
@@ -344,8 +341,7 @@ class Deck:
         s = self._slide(THEME["black"])
         self._slug(s, "05 · Data & AI", dark=True)
         # left column
-        self._eyebrow(s, 0.96, 1.15, 5.5, eyebrow, color="coral")
-        tb, tf = self._box(s, 0.92, 1.6, 5.4, 1.9)
+        tb, tf = self._box(s, 0.92, 1.2, 5.4, 1.9)
         p = self._para(tf, first=True, line=1.0)
         self._run(p, headline_pre + " ", 36, "FFFFFF", bold=True, spacing=-0.022)
         self._run(p, headline_accent, 36, "EA493F", bold=True, spacing=-0.022)
@@ -353,22 +349,22 @@ class Deck:
         p = self._para(tf, first=True, line=1.34)
         self._run(p, standfirst, 14, THEME["rev_soft"], bold=False, spacing=0)
 
-        # right column — capability list
+        # right column — capability list (key over value, full width = no overlap)
         rx = 6.95
         rw = PAGE_W - 0.96 - rx
         y = 1.35
-        rowh = 1.06
+        rowh = 1.2
         self._hline(s, rx, y, rw, THEME["rev_hair"], 1.0)
         for i, (k, v_parts) in enumerate(caps):
             ry = y + i * rowh
-            tb, tf = self._box(s, rx, ry + 0.16, 1.55, 0.8)
-            p = self._para(tf, first=True, line=1.05)
-            self._run(p, k.upper(), 10.5, "EA493F", bold=True, spacing=0.12, caps=True)
-            tb, tf = self._box(s, rx + 1.65, ry + 0.12, rw - 1.65, 0.9, anchor=MSO_ANCHOR.MIDDLE)
-            p = self._para(tf, first=True, line=1.18)
+            tb, tf = self._box(s, rx, ry + 0.2, rw, 0.32)
+            p = self._para(tf, first=True)
+            self._run(p, k.upper(), 10.5, "EA493F", bold=True, spacing=0.14, caps=True)
+            tb, tf = self._box(s, rx, ry + 0.54, rw, 0.5)
+            p = self._para(tf, first=True, line=1.1)
             for txt, strong in v_parts:
-                self._run(p, txt, 13, "FFFFFF" if strong else THEME["rev_body"],
-                          bold=strong, spacing=0)
+                self._run(p, txt, 14, "FFFFFF" if strong else THEME["rev_body"],
+                          bold=strong, spacing=-0.005)
             self._hline(s, rx, ry + rowh, rw, THEME["rev_hair"], 1.0)
         return s
 
@@ -376,7 +372,6 @@ class Deck:
         """(6) OFF-WHITE — big coral pull-quote + 3 big stats."""
         s = self._slide(THEME["off_white"])
         self._slug(s, "06 · Outcomes")
-        self._eyebrow(s, 0.96, 0.92, 8, eyebrow, color="coral")
         # coral left rule for the quote
         self._rect(s, 0.96, 1.55, 0.07, 2.5, fill_hex=THEME["coral"])
         tb, tf = self._box(s, 1.32, 1.5, 10.5, 2.7)
@@ -393,8 +388,7 @@ class Deck:
         """(7) BLACK — 3 bold reasons across."""
         s = self._slide(THEME["black"])
         self._slug(s, "07 · Why Mivada", dark=True)
-        self._eyebrow(s, 0.96, 0.92, 8, eyebrow, color="coral")
-        tb, tf = self._box(s, 0.92, 1.34, 11, 1.1)
+        tb, tf = self._box(s, 0.92, 1.0, 11, 1.1)
         p = self._para(tf, first=True, line=1.0)
         self._run(p, headline_pre + " ", 34, "FFFFFF", bold=True, spacing=-0.022)
         self._run(p, headline_accent, 34, "EA493F", bold=True, spacing=-0.022)

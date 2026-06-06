@@ -16,15 +16,40 @@ M = 0.96; CW = PAGE_W - 2 * M
 d = Deck()
 
 def head(s, eyebrow, hpre, hacc, tag, dark=False):
-    d._slug(s, tag, dark=dark)
-    d._eyebrow(s, M, 0.92, 11, eyebrow, color="coral")
-    _, tf = d._box(s, 0.92, 1.32, CW, 1.2); p = d._para(tf, first=True, line=1.0)
+    d._slug(s, tag, dark=dark)           # section label sits top-right (coral), once
+    _, tf = d._box(s, 0.92, 1.0, CW, 1.2); p = d._para(tf, first=True, line=1.0)
     d._run(p, hpre + " ", 34, (WHITE if dark else INK), bold=True, spacing=-0.022)
     d._run(p, hacc, 34, CORAL, bold=True, spacing=-0.022)
 
 def standfirst(s, text, y, w=10.8, size=14):
     _, tf = d._box(s, M, y, w, 0.9)
     d._run(d._para(tf, first=True, line=1.3), text, size, "323232", bold=False, spacing=0)
+
+def clients_slide():
+    """Trusted-by wall. Uses the real colour logo image if present, else a clean name grid."""
+    from PIL import Image as PILImage
+    img = next((c for c in ["../assets/clients/clients-logos.png", "../assets/clients/clients.png"]
+                if os.path.exists(c)), None)
+    if img:  # white slide — colour logos read best on white
+        s = d._slide(WHITE); d._slug(s, "Trusted by")
+        _, tf = d._box(s, 0.92, 1.0, CW, 1.0); p = d._para(tf, first=True)
+        d._run(p, "In good ", 34, INK, bold=True, spacing=-0.022); d._run(p, "company.", 34, CORAL, bold=True, spacing=-0.022)
+        iw, ih = PILImage.open(img).size; w = 10.8; h = w * ih / iw
+        if h > 3.9: h = 3.9; w = h * iw / ih
+        s.shapes.add_picture(img, Inches((PAGE_W - w) / 2), Inches(2.7), width=Inches(w))
+        return
+    s = d._slide(THEME["off_white"]); head(s, "Clients", "In good", "company.", "Trusted by")
+    standfirst(s, "A decade of work with some of Australia's most demanding operations.", 2.18)
+    names = ["Qantas", "Jetstar", "Guzman y Gomez", "Western Sydney Airport", "Canva", "NAB",
+             "Rio Tinto", "ResMed", "HCF", "IAG", "University of Sydney", "Macquarie University",
+             "Nine", "Seven West Media", "Amart", "dnata", "Queensland Airports", "Kennards",
+             "Anglicare", "ProPharma"]
+    cols = 4; cw = CW / cols; y0 = 3.0; rowh = 0.62
+    for i, nm in enumerate(names):
+        r, c = divmod(i, cols); x = M + c * cw; y = y0 + r * rowh
+        _, tf = d._box(s, x, y, cw - 0.2, 0.5)
+        d._run(d._para(tf, first=True), nm, 15, INK, bold=True, spacing=-0.01)
+        d._hline(s, x, y + 0.5, cw - 0.35, THEME["hairline"], 1.0)
 
 # ---- 1 · LOGO (white) ------------------------------------------------------
 s = d._slide(WHITE)
@@ -44,6 +69,9 @@ d.kpis("Who we are", "An Australian technology", "consultancy.",
        "where human understanding becomes system advantage.",
        [("2014", "", "Founded"), ("200", "+", "Specialists · AU, US & India"),
         ("100", "+", "People-systems clients")])
+
+# ---- 3b · TRUSTED BY (clients) --------------------------------------------
+clients_slide()
 
 # ---- 4 · WHAT WE DO --------------------------------------------------------
 d.pillars("What we do", "Across your", "people platform.", [

@@ -85,3 +85,19 @@ capability (the numbers) → contact. Reuses the tested Editorial layouts with r
 ```bash
 python mivada_overview.py    # -> Mivada_Company_Overview.pptx
 ```
+
+## AMS & Services pack — `extra_slides_editorial.py`
+
+`Mivada_AMS_Services_editorial.pptx` (7 slides) — the supplied AMS/services slides rebuilt in
+Editorial (diagrams reimagined, nothing lost): cover · full-stack Workday FIN & HCM coverage ·
+two engagement models (Augmentation vs AMS) · AMS operating framework (23 capabilities, 3 themes) ·
+coverage model (onshore/offshore timeline + 24×7 on-call) · governance model (3 tiers) · team structure.
+
+```bash
+python extra_slides_editorial.py    # -> Mivada_AMS_Services_editorial.pptx
+```
+
+> **Core change:** the section label now appears once only — the **top-right slug, in coral** (the
+> duplicate body eyebrow was removed); the Data & AI value column was widened to full width (fixes
+> the text overlap). The overview's **Trusted by** slide uses a name grid until a colour-logo image
+> is added at `design-system/assets/clients/clients-logos.png`, then it swaps in automatically.
