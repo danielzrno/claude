@@ -101,3 +101,14 @@ python extra_slides_editorial.py    # -> Mivada_AMS_Services_editorial.pptx
 > duplicate body eyebrow was removed); the Data & AI value column was widened to full width (fixes
 > the text overlap). The overview's **Trusted by** slide uses a name grid until a colour-logo image
 > is added at `design-system/assets/clients/clients-logos.png`, then it swaps in automatically.
+
+## Merged deck — `mivada_full_deck.py`
+
+`Mivada_Overview_and_Services.pptx` (17 slides) — the company overview and the AMS/services pack
+combined into one presentation, with the single coral section label (de-numbered, position-independent).
+Flow: logo · cover · who we are · trusted by · what we do · how we work · Data & AI · FIN & HCM coverage ·
+engagement models · AMS framework · coverage model · governance · team · outcomes · why Mivada · capability · contact.
+
+```bash
+python mivada_full_deck.py    # -> Mivada_Overview_and_Services.pptx
+```

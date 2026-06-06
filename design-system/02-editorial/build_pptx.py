@@ -231,7 +231,7 @@ class Deck:
     def kpis(self, eyebrow, headline_pre, headline_accent, standfirst, stats):
         """(2) OFF-WHITE — oversized headline + standfirst, 3 big stats."""
         s = self._slide(THEME["off_white"])
-        self._slug(s, "02 · Who we are")
+        self._slug(s, "Who we are")
 
         # headline (left) + standfirst (right), baseline-ish aligned
         tb, tf = self._box(s, 0.92, 1.02, 7.7, 2.7)
@@ -279,7 +279,7 @@ class Deck:
     def pillars(self, eyebrow, headline_pre, headline_accent, items):
         """(3) BLACK — asymmetric editorial list, big coral index numerals."""
         s = self._slide(THEME["black"])
-        self._slug(s, "03 · What we do", dark=True)
+        self._slug(s, "What we do", dark=True)
         tb, tf = self._box(s, 0.92, 0.95, 11, 1.1)
         p = self._para(tf, first=True, line=1.0)
         self._run(p, headline_pre + " ", 34, "FFFFFF", bold=True, spacing=-0.022)
@@ -312,7 +312,7 @@ class Deck:
     def steps(self, eyebrow, headline_pre, headline_accent, steps):
         """(4) OFF-WHITE — bold numbered sequence, 4 across."""
         s = self._slide(THEME["off_white"])
-        self._slug(s, "04 · How we work")
+        self._slug(s, "How we work")
         tb, tf = self._box(s, 0.92, 1.0, 11.4, 1.1)
         p = self._para(tf, first=True, line=1.0)
         self._run(p, headline_pre + " ", 34, "111111", bold=True, spacing=-0.022)
@@ -339,7 +339,7 @@ class Deck:
     def split(self, eyebrow, headline_pre, headline_accent, standfirst, caps):
         """(5) BLACK — Data & AI: headline+standfirst left, capability list right."""
         s = self._slide(THEME["black"])
-        self._slug(s, "05 · Data & AI", dark=True)
+        self._slug(s, "Data & AI", dark=True)
         # left column
         tb, tf = self._box(s, 0.92, 1.2, 5.4, 1.9)
         p = self._para(tf, first=True, line=1.0)
@@ -371,7 +371,7 @@ class Deck:
     def pullquote(self, eyebrow, quote, attr, stats):
         """(6) OFF-WHITE — big coral pull-quote + 3 big stats."""
         s = self._slide(THEME["off_white"])
-        self._slug(s, "06 · Outcomes")
+        self._slug(s, "Outcomes")
         # coral left rule for the quote
         self._rect(s, 0.96, 1.55, 0.07, 2.5, fill_hex=THEME["coral"])
         tb, tf = self._box(s, 1.32, 1.5, 10.5, 2.7)
@@ -387,7 +387,7 @@ class Deck:
     def reasons(self, eyebrow, headline_pre, headline_accent, items):
         """(7) BLACK — 3 bold reasons across."""
         s = self._slide(THEME["black"])
-        self._slug(s, "07 · Why Mivada", dark=True)
+        self._slug(s, "Why Mivada", dark=True)
         tb, tf = self._box(s, 0.92, 1.0, 11, 1.1)
         p = self._para(tf, first=True, line=1.0)
         self._run(p, headline_pre + " ", 34, "FFFFFF", bold=True, spacing=-0.022)
