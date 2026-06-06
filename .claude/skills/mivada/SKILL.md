@@ -50,7 +50,10 @@ Pick the matching workflow; read its reference file before building.
    (`design-system/02-editorial/slide_library.py`, `import slide_library as L`) + the `Deck` methods
    in `build_pptx.py` — write content-only calls and run. The catalogue of every standard slide is
    `samples/slide_library_demo.py` → `Editorial_Slide_Library.pptx`; `samples/ams_slides.py` and
-   `samples/mivada_full_deck.py` are worked examples. For HTML, copy `presentation.html` + link `editorial.css`.
+   `samples/mivada_full_deck.py` are worked examples. For HTML, copy `presentation.html` + link `editorial.css`
+   (the HTML catalogue of every standard slide is `02-editorial/slide-library.html`).
+   **Fastest start:** `python design-system/make_deck.py list` shows every standard slide;
+   `python design-system/make_deck.py new <name>` scaffolds an editable deck script.
 
 2. **New document** → native Word `.docx` and/or HTML A4.
    Read `editorial-system.md` (docx helpers). Start from

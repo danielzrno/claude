@@ -92,6 +92,10 @@ Self-contained; `presentation.html` is the 16:9 deck, `document.html` the A4. Ke
 - **Brand mark:** `.wordmark` / `.wordmark--rev` (reversed for dark), `.m-chip` / `.m-chip--lg`.
   When real logos exist, swap these for `<img>` of the correct variant (see logos README).
 - Deck nav: ← / → / Space; scroll-snap; slide counter; prints one slide per page.
+- **`slide-library.html`** is the HTML catalogue — one of every standard slide as a web slide
+  (logo, cover, divider, statement, pillars, steps, split, two-cards, columns, **framework stack**,
+  **coverage gantt**, **governance pyramid**, **org chart**, logo wall, cases, KPI grid, pull-quote,
+  reasons, contact). Copy the markup/CSS for the slide you need.
 
 ## Adding logos (when files are in `design-system/assets/logos/`)
 

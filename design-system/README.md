@@ -74,3 +74,12 @@ When you have the real brand kit: (1) the palette is already exact; (2) if the l
 Inter, change the single `--font` variable in each `.css`, the `THEME["font"]` in `build_pptx.py`, and the
 font in `build_docx.js`; (3) drop the real logo into the masthead/cover and replace the photo-placeholder
 blocks with Mivada photography. Nothing else changes.
+
+## Tooling & catalogues (Editorial)
+
+- **`make_deck.py`** — `python design-system/make_deck.py list` shows every standard slide;
+  `… new <name>` scaffolds an editable deck script.
+- **PPTX catalogue** — `samples/slide_library_demo.py` → `Editorial_Slide_Library.pptx` (one of every slide).
+- **HTML catalogue** — `02-editorial/slide-library.html` (the same standard slides as web slides).
+- **Library** — `02-editorial/slide_library.py` (the content-driven builders) + the `Deck` methods in `build_pptx.py`.
+- **Skill** — `.claude/skills/mivada/` generates PPTX, HTML and Word in this style.
