@@ -74,3 +74,14 @@ Next steps.
 ```bash
 python micah_refined.py    # -> First_Meeting_with_Micah_Projects_refined.pptx
 ```
+
+## Mivada company overview — `mivada_overview.py`
+
+`Mivada_Company_Overview.pptx` (10 slides) — a fresh, general company overview built from the brand
+content (not tied to any client deck): white logo opener → cover → who we are → what we do (4 practices)
+→ how we work (Listen·Design·Deliver·Care) → Data & AI → outcomes (Qantas·GYG·WSI) → why Mivada →
+capability (the numbers) → contact. Reuses the tested Editorial layouts with real content.
+
+```bash
+python mivada_overview.py    # -> Mivada_Company_Overview.pptx
+```
