@@ -30,6 +30,36 @@ d.save("out.pptx")
   `_rect`, `_hline`, `_run`. Backgrounds via `_slide(bg_hex)`; colours via `C("coral")`.
 - 16:9, `THEME["font"] = "Inter"`. **No drop shadows** in Editorial. **No rule under titles.**
 
+## Standard slide library — `02-editorial/slide_library.py`
+
+Content-driven builders for the **key slide types** (`import slide_library as L`; each takes the Deck
+`d` + content). Compose any deck from these + the Deck methods above. The catalogue
+`samples/slide_library_demo.py` → `Editorial_Slide_Library.pptx` shows one of each.
+
+| Builder | Slide |
+|---|---|
+| `L.logo_slide(d, pre, accent)` | white brand-arrival (centred master logo + tagline) |
+| `d.cover_plain(eyebrow, pre, accent, footL, footR)` | black cover |
+| `L.divider(d, eyebrow, pre, accent, sub)` | black section divider |
+| `L.statement(d, pre, accent, tag, sub, points, footer, dark)` | manifesto + two-column points |
+| `d.kpis(...)` · `d.pillars(...)` · `d.steps(...)` · `d.split(...)` | who-we-are stats · pillars · steps · two-column list |
+| `L.two_cards(d, pre, accent, tag, cards, sub, footer, dark)` | two comparison cards |
+| `L.columns(d, pre, accent, tag, cols, sub, footer)` | 2–3 labelled lists (auto sub-columns) |
+| `L.framework_stack(d, …, top_label, gov_label, gov_items, tiles, mid_label, foundations)` | layered framework |
+| `L.timeline_gantt(d, …, hours_top, hours_bottom, bars, overlap, callout, descs)` | onshore/offshore gantt + 24×7 |
+| `L.pyramid_tiers(d, …, tiers, footer)` | central pyramid + flanking columns |
+| `L.org_chart(d, …, leaders, delivery, banners)` | leadership → delivery org chart |
+| `L.logo_wall(d, pre, accent, tag, names, image)` | client wall (logo image or name grid) |
+| `L.cases(d, pre, accent, tag, items, sub)` | 3-column case studies |
+| `L.kpi_grid(d, pre, accent, tag, stats, sub)` | up to 7 KPIs over two rows |
+| `d.pullquote(...)` · `d.reasons(...)` | coral pull-quote · 3 reasons |
+| `d.chart_coral(eyebrow, pre, accent, categories, series, slug)` | brand column chart (`series=[(name, values)]`) |
+| `d.contact_plain(...)` | black closing CTA |
+
+Section label = the single coral top-right slug (de-numbered, position-independent). `samples/ams_slides.py`
+is a worked example: Mivada AMS content on top of these builders, used by both the standalone pack and the
+merged `Mivada_Overview_and_Services.pptx`.
+
 ## Word — `build_docx.js` (docx-js, Node)
 
 Tokens at top (`CORAL="EA493F"`, `INK`, `BLACK`, …, `FONT="Inter"`). Compose paragraphs with the

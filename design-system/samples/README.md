@@ -112,3 +112,16 @@ engagement models · AMS framework · coverage model · governance · team · ou
 ```bash
 python mivada_full_deck.py    # -> Mivada_Overview_and_Services.pptx
 ```
+
+## Standard slide library — `../02-editorial/slide_library.py`
+
+The reusable, content-driven builders for every key slide type (logo, divider, statement, two-cards,
+columns, framework stack, gantt, pyramid, org chart, logo wall, cases, KPI grid, …) on top of the
+`Deck` methods. `slide_library_demo.py` renders one of each:
+
+```bash
+python slide_library_demo.py   # -> Editorial_Slide_Library.pptx  (the catalogue)
+```
+
+`ams_slides.py` = Mivada AMS content on these builders (used by the standalone pack and the merged deck),
+so there's one implementation of each slide type.

@@ -46,9 +46,11 @@ prefer the real files. Never place coral-on-coral or white-on-white.
 Pick the matching workflow; read its reference file before building.
 
 1. **New presentation** → PowerPoint `.pptx` and/or HTML deck.
-   Read `editorial-system.md` (the `Deck` API + HTML classes). Copy
-   `design-system/02-editorial/build_pptx.py` as a starting point (or import its `Deck`),
-   write content-only calls, run it. For HTML, copy `presentation.html` and link `editorial.css`.
+   Read `editorial-system.md`, then compose from the **standard slide library**
+   (`design-system/02-editorial/slide_library.py`, `import slide_library as L`) + the `Deck` methods
+   in `build_pptx.py` — write content-only calls and run. The catalogue of every standard slide is
+   `samples/slide_library_demo.py` → `Editorial_Slide_Library.pptx`; `samples/ams_slides.py` and
+   `samples/mivada_full_deck.py` are worked examples. For HTML, copy `presentation.html` + link `editorial.css`.
 
 2. **New document** → native Word `.docx` and/or HTML A4.
    Read `editorial-system.md` (docx helpers). Start from
