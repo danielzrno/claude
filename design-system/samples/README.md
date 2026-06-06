@@ -44,3 +44,17 @@ a finished, hand-mapped translation looks like.
 To translate a real deck, point the translator at it; where a slide doesn't fit an existing
 Editorial template, **extend the system** (add a `Deck` method) rather than drop content — see
 `.claude/skills/mivada/translate-deck.md`.
+
+## Slide variations — `variations.py`
+
+Three customer-facing versions each of the Micah deck's **Why Mivada**, **Workday Services**, and
+**Workday Capability** slides (9 total), in the Editorial look — the original diagrams reimagined as
+clean editorial compositions. Output: `slide-variations_editorial.pptx`.
+
+- **Why Mivada** — v1 differentiator grid · v2 black manifesto ("we grew out of a customer") · v3 split (manifesto + capability rows). All close with a *Trusted by* line.
+- **Workday Services** — v1 nine-service catalogue · v2 lifecycle flow (Advise→Implement→Optimise→Manage) · v3 three practices.
+- **Workday Capability** — v1 KPI grid · v2 hero stat (10+ years) · v3 KPI cards.
+
+```bash
+python variations.py     # -> slide-variations_editorial.pptx (9 slides)
+```
