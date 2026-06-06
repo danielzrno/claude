@@ -80,17 +80,28 @@ run(para(tf, space=4), "Company Overview", 30, BLACK)
 run(para(tf), "Capability Statement — 2026", 16, GREY)
 notes(s, "Intro the company. Australian technology consultancy. Thank the audience for their time.")
 
-# (2) About us
+# (2) About us  (with an embedded image, to exercise image-carrying on translation)
+def _placeholder_photo(path, w=1200, h=820):
+    from PIL import Image, ImageDraw
+    img = Image.new("RGB", (w, h), (208, 212, 209)); d = ImageDraw.Draw(img)
+    for y in range(h):
+        t = y / h; d.line([(0, y), (w, y)], fill=(int(206 - 34 * t), int(210 - 30 * t), int(207 - 28 * t)))
+    d.ellipse([w * 0.52, h * 0.18, w * 0.96, h * 0.86], fill=(156, 165, 162))
+    d.rectangle([w * 0.05, h * 0.6, w * 0.42, h * 0.94], fill=(126, 134, 131))
+    img.save(path)
+PHOTO = "/tmp/_legacy_photo.png"; _placeholder_photo(PHOTO)
+
 s = slide(); title_bar(s, "About Us")
-tf = box(s, 0.7, 1.5, 12, 1.6)
+tf = box(s, 0.7, 1.5, 7.3, 1.8)
 run(para(tf, first=True),
     "Mivada is an Australian technology consultancy founded in 2014. We turn enterprise "
     "platforms — Workday, payroll, data and AI — into measurable outcomes, built around how "
-    "teams actually work. Onshore in Australia with a delivery team across AU and India.", 16)
+    "teams actually work. Onshore in Australia with a delivery team across AU and India.", 15)
 bullets(s, ["Founded 2014; formerly LJM Infotech",
             "120+ certified specialists",
             "Delivery across Australia and India",
-            "Independent and platform-agnostic"], y=3.2, size=16)
+            "Independent and platform-agnostic"], x=0.7, y=3.4, w=7.0, size=15)
+s.shapes.add_picture(PHOTO, Inches(8.2), Inches(1.7), width=Inches(4.5))
 footer(s, 2); notes(s, "People first. We are not a body shop — outcomes, not hours.")
 
 # (3) What we do

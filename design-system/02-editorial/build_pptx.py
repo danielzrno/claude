@@ -554,6 +554,42 @@ class Deck:
             plot.data_labels.number_format = "0"; plot.data_labels.number_format_is_linked = False
         return s
 
+    def media(self, eyebrow, headline_pre, headline_accent, items, image_path,
+              dark=False, slug_txt=None):
+        """Split slide — text/bullets left, an image placed (aspect-preserved) right.
+        Used so images from a translated deck are carried, not dropped."""
+        s = self._slide(THEME["black"] if dark else THEME["off_white"])
+        self._slug(s, (slug_txt or eyebrow or "")[:30], dark=dark)
+        if eyebrow:
+            self._eyebrow(s, 0.96, 0.92, 6.0, eyebrow, color="coral")
+        tcol = "FFFFFF" if dark else "111111"
+        _, tf = self._box(s, 0.92, 1.34, 5.9, 1.3)
+        p = self._para(tf, first=True, line=1.0)
+        self._run(p, (headline_pre or "") + (" " if headline_accent else ""), 30, tcol, bold=True, spacing=-0.022)
+        if headline_accent:
+            self._run(p, headline_accent, 30, "EA493F", bold=True, spacing=-0.022)
+        items = [it for it in (items or []) if it and str(it).strip()]
+        bsize = 14 if len(items) <= 6 else 11
+        body = THEME["rev_body"] if dark else "323232"
+        _, tf = self._box(s, 0.96, 2.75, 5.5, 4.3)
+        for i, it in enumerate(items):
+            p = self._para(tf, first=(i == 0), space_before=(0 if i == 0 else 7), line=1.22)
+            self._run(p, "—  ", bsize, "EA493F", bold=True, spacing=0)
+            self._run(p, str(it), bsize, body, bold=False, spacing=0)
+        if image_path and os.path.exists(image_path):
+            bx, by, bw, bh = 6.95, 1.45, 5.42, 5.0
+            try:
+                from PIL import Image as _PIL
+                iw, ih = _PIL.open(image_path).size; ar = iw / ih
+            except Exception:
+                ar = 1.5
+            w = bw; h = w / ar
+            if h > bh:
+                h = bh; w = h * ar
+            s.shapes.add_picture(image_path, Inches(bx + (bw - w) / 2),
+                                 Inches(by + (bh - h) / 2), width=Inches(w))
+        return s
+
     def save(self, path):
         self.prs.save(path)
 
