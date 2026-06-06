@@ -437,6 +437,123 @@ class Deck:
         self._run(p, footR, 12.5, "AEAEAE", bold=False, spacing=0.02)
         return s
 
+    # ======================================================================
+    # GENERAL-PURPOSE slides (for translating arbitrary decks — never lose text)
+    # ======================================================================
+    def _fit(self, text, big, mid, small, a=18, b=30):
+        n = len(text or "")
+        return big if n <= a else (mid if n <= b else small)
+
+    def cover_plain(self, eyebrow, headline_pre, headline_accent, footL="", footR="",
+                    logo="Mivada_Logo_2C_OnBlack_RGB_L"):
+        """BLACK cover with a free headline (pre + coral accent)."""
+        s = self._slide(THEME["black"])
+        self._logo(s, logo, 0.96, 0.82, 0.42)
+        if eyebrow:
+            self._eyebrow(s, 0.96, 2.55, 10.5, eyebrow, color="coral")
+        sz = self._fit((headline_pre or "") + (headline_accent or ""), 76, 54, 40)
+        _, tf = self._box(s, 0.92, 2.95, 11.6, 3.2)
+        p = self._para(tf, first=True, line=0.98)
+        self._run(p, (headline_pre or "") + (" " if headline_accent else ""), sz, "FFFFFF", bold=True, spacing=-0.025)
+        if headline_accent:
+            self._run(p, headline_accent, sz, "EA493F", bold=True, spacing=-0.025)
+        self._hline(s, 0.96, 6.74, PAGE_W - 1.92, THEME["rev_hair"], 1.0)
+        _, tf = self._box(s, 0.96, 6.86, 7.5, 0.4)
+        self._run(self._para(tf, first=True), footL or "", 11.5, "AEAEAE", bold=True, spacing=0.04)
+        _, tf = self._box(s, PAGE_W - 7, 6.86, 6.04, 0.4)
+        self._run(self._para(tf, first=True, align=PP_ALIGN.RIGHT), footR or "", 11.5, "AEAEAE", bold=True, spacing=0.04)
+        return s
+
+    def contact_plain(self, eyebrow, headline_pre, headline_accent, footL="", footR="",
+                      logo="Mivada_Logo_2C_OnBlack_RGB_L"):
+        """BLACK closing with a free headline + contact feet."""
+        s = self._slide(THEME["black"])
+        self._logo(s, logo, 0.96, 0.82, 0.42)
+        if eyebrow:
+            self._eyebrow(s, 0.96, 2.4, 10.5, eyebrow, color="coral")
+        sz = self._fit((headline_pre or "") + (headline_accent or ""), 54, 44, 34, a=26, b=46)
+        _, tf = self._box(s, 0.92, 2.85, 11.2, 3.0)
+        p = self._para(tf, first=True, line=0.98)
+        self._run(p, (headline_pre or "") + (" " if headline_accent else ""), sz, "FFFFFF", bold=True, spacing=-0.025)
+        if headline_accent:
+            self._run(p, headline_accent, sz, "EA493F", bold=True, spacing=-0.025)
+        self._hline(s, 0.96, 6.4, PAGE_W - 1.92, THEME["rev_hair"], 1.0)
+        _, tf = self._box(s, 0.96, 6.55, 8, 0.5)
+        self._run(self._para(tf, first=True), footL or "", 12.5, "CFCFCF", bold=True, spacing=0.02)
+        _, tf = self._box(s, PAGE_W - 7, 6.55, 6.04, 0.5)
+        self._run(self._para(tf, first=True, align=PP_ALIGN.RIGHT), footR or "", 12.5, "AEAEAE", bold=False, spacing=0.02)
+        return s
+
+    def content(self, eyebrow, headline_pre, headline_accent, items, dark=False, slug_txt=None):
+        """A general content slide — title + a left-aligned coral-bulleted body.
+        Holds an arbitrary number of lines (auto-shrinks) so no source text is dropped."""
+        s = self._slide(THEME["black"] if dark else THEME["off_white"])
+        self._slug(s, (slug_txt or eyebrow or "")[:34], dark=dark)
+        if eyebrow:
+            self._eyebrow(s, 0.96, 0.92, 11, eyebrow, color="coral")
+        tcol = "FFFFFF" if dark else "111111"
+        hz = self._fit((headline_pre or "") + (headline_accent or ""), 34, 28, 23, a=26, b=46)
+        _, tf = self._box(s, 0.92, 1.34, 11.4, 1.2)
+        p = self._para(tf, first=True, line=1.0)
+        self._run(p, (headline_pre or "") + (" " if headline_accent else ""), hz, tcol, bold=True, spacing=-0.022)
+        if headline_accent:
+            self._run(p, headline_accent, hz, "EA493F", bold=True, spacing=-0.022)
+        items = [it for it in (items or []) if it and str(it).strip()]
+        n = len(items)
+        bsize = 16 if n <= 5 else (13 if n <= 9 else 11)
+        gap = 9 if n <= 5 else 5
+        body = THEME["rev_body"] if dark else "323232"
+        _, tf = self._box(s, 0.96, 2.75, PAGE_W - 1.92, 4.35)
+        for i, it in enumerate(items):
+            p = self._para(tf, first=(i == 0), space_before=(0 if i == 0 else gap), line=1.22)
+            self._run(p, "—  ", bsize, "EA493F", bold=True, spacing=0)
+            self._run(p, str(it), bsize, body, bold=False, spacing=0)
+        return s
+
+    def quote_plain(self, eyebrow, quote, attr="", dark=False):
+        """A general pull-quote slide (no stats required)."""
+        s = self._slide(THEME["black"] if dark else THEME["off_white"])
+        self._slug(s, (eyebrow or "Quote")[:34], dark=dark)
+        if eyebrow:
+            self._eyebrow(s, 0.96, 0.92, 10, eyebrow, color="coral")
+        self._rect(s, 0.96, 1.7, 0.07, 3.2, fill_hex=THEME["coral"])
+        qs = 36 if len(quote or "") < 140 else (28 if len(quote or "") < 240 else 21)
+        _, tf = self._box(s, 1.32, 1.6, 10.8, 3.8)
+        self._run(self._para(tf, first=True, line=1.1), quote or "", qs, "EA493F", bold=True, spacing=-0.02)
+        if attr:
+            _, tf = self._box(s, 1.32, 5.5, 10, 0.5)
+            self._run(self._para(tf, first=True), attr, 12, THEME["mid_grey"], bold=True, spacing=0.02)
+        return s
+
+    def chart_coral(self, eyebrow, headline_pre, headline_accent, categories, series, slug_txt=None):
+        """A column chart re-coloured to the brand (coral primary), data preserved."""
+        from pptx.chart.data import CategoryChartData
+        from pptx.enum.chart import XL_CHART_TYPE
+        s = self._slide(THEME["off_white"])
+        self._slug(s, (slug_txt or eyebrow or "Results")[:34])
+        if eyebrow:
+            self._eyebrow(s, 0.96, 0.92, 9, eyebrow, color="coral")
+        _, tf = self._box(s, 0.92, 1.34, 11, 1.0)
+        p = self._para(tf, first=True, line=1.0)
+        self._run(p, (headline_pre or "") + (" " if headline_accent else ""), 32, "111111", bold=True, spacing=-0.022)
+        if headline_accent:
+            self._run(p, headline_accent, 32, "EA493F", bold=True, spacing=-0.022)
+        cd = CategoryChartData(); cd.categories = categories
+        for name, vals in series:
+            cd.add_series(name, vals)
+        gf = s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED,
+                                Inches(0.96), Inches(2.7), Inches(11.4), Inches(4.0), cd)
+        ch = gf.chart; ch.has_legend = len(series) > 1
+        plot = ch.plots[0]; plot.gap_width = 70
+        palette = ["EA493F", "111111", "AEAEAE", "C9362B"]
+        for i, se in enumerate(plot.series):
+            se.format.fill.solid(); se.format.fill.fore_color.rgb = RGBColor.from_string(palette[i % len(palette)])
+            se.format.line.fill.background()
+        if len(series) == 1:
+            plot.has_data_labels = True
+            plot.data_labels.number_format = "0"; plot.data_labels.number_format_is_linked = False
+        return s
+
     def save(self, path):
         self.prs.save(path)
 

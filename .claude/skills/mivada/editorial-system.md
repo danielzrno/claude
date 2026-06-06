@@ -69,3 +69,18 @@ Self-contained; `presentation.html` is the 16:9 deck, `document.html` the A4. Ke
 - **PPTX:** in `_logo()`, `slide.shapes.add_picture(path, x, y, height=Inches(h))` (height only → preserves aspect); pick `*-white.png` on dark/coral, `*-coral.png`/`*-black.png` on light; fall back to `_m_chip` if the file is missing.
 - **Word:** `new ImageRun({ data: fs.readFileSync(path), transformation: { width, height } })` in the masthead/footer; pick the variant by band colour.
 - Always preserve aspect ratio; never place coral-on-coral or white-on-white.
+
+## General-purpose slides (for translating arbitrary decks)
+
+Beyond the bespoke Mivada slides, `Deck` has general builders that take free content — use these
+when restyling someone else's deck so no text is dropped:
+
+- `cover_plain(eyebrow, headline_pre, headline_accent, footL, footR)` — black cover, any headline.
+- `contact_plain(eyebrow, headline_pre, headline_accent, footL, footR)` — black closing, any headline.
+- `content(eyebrow, headline_pre, headline_accent, items, dark=False, slug_txt=None)` — title + a
+  coral-bulleted body that **auto-shrinks** to hold an arbitrary number of lines (the lossless catch-all).
+- `quote_plain(eyebrow, quote, attr, dark=False)` — a pull-quote with no stats required.
+- `chart_coral(eyebrow, headline_pre, headline_accent, categories, series, slug_txt=None)` — a column
+  chart re-coloured to the brand (coral primary), all data preserved.
+
+These power the automated translator (`design-system/samples/auto_translate.py`).

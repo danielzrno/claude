@@ -4,6 +4,22 @@ Goal: take a source PowerPoint (or doc) and **re-express every bit of its conten
 Editorial system. Nothing gets dropped — text, tables, chart data, speaker notes and image intent
 all carry over. Work in phases; do not skip the extract/reconcile bookends.
 
+## Quick start — automated first pass
+
+`design-system/samples/auto_translate.py` does a strong first pass automatically (classify each
+slide → cover / content / table-stat-grid / coral chart / quote / contact; carry all text + notes;
+print a reconcile coverage report):
+
+```bash
+cd design-system/samples
+python auto_translate.py /path/to/source.pptx     # -> source_editorial_auto.pptx + coverage report
+```
+
+Then **refine by hand** anything the report flags or that deserves a richer layout (promote a bullet
+slide to `pillars`/`steps`, a metrics slide to a stat row, a testimonial to `pullquote`). The phases
+below are that full, careful process — and what to do when the source has charts/images/edge cases.
+`samples/translate_to_editorial.py` is a worked, hand-tuned example of the finished result.
+
 ## Phase 1 — Extract everything (lossless inventory)
 
 Read the source skill first: `/mnt/skills/public/pptx/SKILL.md` (and `docx/SKILL.md` for documents).

@@ -14,15 +14,22 @@ PowerPoint and re-express **every** slide in the Editorial look without losing i
 |------|-----------|
 | `make_legacy.py` | builds `legacy-overview.pptx` — the generic "before" deck (8 slides + speaker notes) |
 | `legacy-overview.pptx` | the **before** (off-brand source) |
-| `translate_to_editorial.py` | the translator: extract → map → rebuild (Editorial `Deck` + logos) → reconcile |
-| `legacy-overview_editorial.pptx` | the **after** (on-brand Editorial output) |
+| `auto_translate.py` | **general** translator — classifies any deck, rebuilds in Editorial, reconciles (first pass) |
+| `legacy-overview_editorial_auto.pptx` | the automated first-pass output (99% tokens; only the "Metric" header label dropped) |
+| `translate_to_editorial.py` | **hand-tuned** worked example (richer per-slide mapping) |
+| `legacy-overview_editorial.pptx` | the hand-tuned **after** (44/44 critical tokens) |
 
 ## Run
 
 ```bash
-python make_legacy.py                              # (re)build the sample source
-python translate_to_editorial.py SOURCE.pptx       # -> SOURCE_editorial.pptx  (defaults to legacy-overview.pptx)
+python make_legacy.py                          # (re)build the sample source
+python auto_translate.py SOURCE.pptx           # GENERAL first pass -> SOURCE_editorial_auto.pptx + coverage
+python translate_to_editorial.py SOURCE.pptx   # hand-tuned worked example -> SOURCE_editorial.pptx
 ```
+
+Two approaches: **`auto_translate.py`** for a fast, lossless-as-possible first pass on *any* deck
+(then refine the slides the report flags), and **`translate_to_editorial.py`** as a reference for what
+a finished, hand-mapped translation looks like.
 
 ## What it does (and proves)
 
