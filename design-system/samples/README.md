@@ -86,15 +86,15 @@ capability (the numbers) → contact. Reuses the tested Editorial layouts with r
 python mivada_overview.py    # -> Mivada_Company_Overview.pptx
 ```
 
-## AMS & Services pack — `extra_slides_editorial.py`
+## AMS & Services pack — `ams_slides.py`
 
 `Mivada_AMS_Services_editorial.pptx` (7 slides) — the supplied AMS/services slides rebuilt in
 Editorial (diagrams reimagined, nothing lost): cover · full-stack Workday FIN & HCM coverage ·
 two engagement models (Augmentation vs AMS) · AMS operating framework (23 capabilities, 3 themes) ·
-coverage model (onshore/offshore timeline + 24×7 on-call) · governance model (3 tiers) · team structure.
+coverage model (onshore/offshore **hour-grid gantt** + 24×7 on-call) · governance model (**pyramid** of 3 tiers) · team **org chart**. The four diagram slides keep the original visual structures, restyled to brand (shared builders in `ams_slides.py`, used by the merged deck too).
 
 ```bash
-python extra_slides_editorial.py    # -> Mivada_AMS_Services_editorial.pptx
+python ams_slides.py    # -> Mivada_AMS_Services_editorial.pptx
 ```
 
 > **Core change:** the section label now appears once only — the **top-right slug, in coral** (the
