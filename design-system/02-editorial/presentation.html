@@ -78,6 +78,18 @@
   }
   .on-black .slug { color: #777; }
 
+  /* ---- real Mivada logos ---- */
+  .logo { display: block; height: 30px; width: auto; }
+  /* small brand mark, top-left of every content slide (mirrors the slug) */
+  .slide:not(.s-cover):not(.s-contact)::before {
+    content: ""; position: absolute; top: 40px; left: 88px;
+    width: 38px; height: 23px; pointer-events: none;
+    background: url(../assets/logos/Mivada_Icon_Melon_RGB_L.png) left center/contain no-repeat;
+  }
+  .slide.on-black:not(.s-cover):not(.s-contact)::before {
+    background-image: url(../assets/logos/Mivada_Icon_White_RGB_L.png);
+  }
+
   /* ---- per-slide composition ---- */
 
   /* (1) Cover */
@@ -204,8 +216,7 @@
   <!-- (1) COVER — BLACK -->
   <section class="slide on-black s-cover stagger">
     <div class="cover-top">
-      <span class="m-chip m-chip--lg"></span>
-      <span class="wordmark wordmark--rev">Mivada</span>
+      <img class="logo" src="../assets/logos/Mivada_Logo_2C_OnBlack_RGB_L.png" alt="Mivada">
     </div>
     <div style="align-self:center;">
       <p class="eyebrow" style="margin-bottom:26px;">Capability overview · 2026</p>
@@ -397,8 +408,7 @@
   <!-- (8) CONTACT — BLACK CLOSING -->
   <section class="slide on-black s-contact stagger">
     <div class="cover-top">
-      <span class="m-chip m-chip--lg"></span>
-      <span class="wordmark wordmark--rev">Mivada</span>
+      <img class="logo" src="../assets/logos/Mivada_Logo_2C_OnBlack_RGB_L.png" alt="Mivada">
     </div>
     <div style="align-self:center;">
       <p class="eyebrow" style="margin-bottom:24px;">Let's talk</p>

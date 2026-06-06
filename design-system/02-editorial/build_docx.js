@@ -10,7 +10,7 @@
 
 const fs = require("fs");
 const {
-  Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+  Document, Packer, Paragraph, TextRun, ImageRun, Table, TableRow, TableCell,
   Header, Footer, AlignmentType, LevelFormat, BorderStyle, WidthType,
   ShadingType, VerticalAlign, PageNumber, TabStopType, TabStopPosition,
 } = require("docx");
@@ -30,6 +30,8 @@ const FONT = "Inter"; // Office fallback Arial happens automatically if absent
 // A4 content width with the section margins below (~11906 - 1300 - 1300).
 // Use 9304 so it divides evenly by 2 and 4 for exact table column math.
 const CONTENT_W = 9304;
+// Real Mivada logos (see design-system/assets/logos/README.md)
+const LOGO = (n) => `${__dirname}/../assets/logos/${n}.png`;
 
 // ---- small helpers ---------------------------------------------------------
 const sz = (pt) => pt * 2;            // half-points
@@ -88,10 +90,13 @@ function build() {
     spacing: { after: 60 },
     border: { bottom: { style: BorderStyle.SINGLE, size: 16, color: INK, space: 6 } },
     children: [
-      // M chip rendered as a coral-highlighted bold M
-      new TextRun({ text: " M ", font: FONT, size: sz(15), bold: true, color: WHITE,
-        shading: { type: ShadingType.CLEAR, fill: CORAL, color: "auto" } }),
-      run("  Mivada", { size: 15, bold: true, color: INK, spacing: -4 }),
+      // real Mivada master wordmark (coral M + ink text); falls back to text mark
+      ...(fs.existsSync(LOGO("Mivada_Logo_Master_RGB_L"))
+        ? [ new ImageRun({ data: fs.readFileSync(LOGO("Mivada_Logo_Master_RGB_L")),
+              transformation: { width: 150, height: 23 }, type: "png" }) ]
+        : [ new TextRun({ text: " M ", font: FONT, size: sz(15), bold: true, color: WHITE,
+              shading: { type: ShadingType.CLEAR, fill: CORAL, color: "auto" } }),
+            run("  Mivada", { size: 15, bold: true, color: INK, spacing: -4 }) ]),
       new TextRun({ text: "\tCAPABILITY STATEMENT · ", font: FONT, size: sz(8.5),
         bold: true, color: GRAPHITE, allCaps: true, characterSpacing: 28 }),
       new TextRun({ text: "2026", font: FONT, size: sz(8.5), bold: true,

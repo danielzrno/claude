@@ -1,43 +1,52 @@
-# Mivada logos — drop-in assets + placement rules
+# Mivada logos — the kit + how it's wired
 
-Put the official Mivada logo files in this folder using the names below. Every template
-(HTML / PowerPoint / Word) reads from here, picks the **right variant for the background**,
-and falls back to the CSS/Pillow **"M" chip** when a file is missing — so things work before
-the real art arrives and auto-upgrade the moment you add it.
+The official Mivada logo files (provided by the brand). Templates read from this folder and pick
+the **right variant for the background**; if a file is missing they fall back to the CSS/Pillow
+**"M" chip**. All files are RGB PNGs with transparent backgrounds.
 
-> If your brand kit uses different filenames, that's fine — just tell me the mapping and I'll
-> wire it; or rename to match these.
+## The kit
 
-## Expected files
+**Horizontal wordmark** ("mıvada", 1002×152):
 
-Vector (**SVG**) is preferred for HTML; transparent **PNG** (≥ 1000px wide / 4× the placed size)
-is needed for PowerPoint & Word embedding. Provide both where you can.
+| File | Composition | Use on |
+|------|-------------|--------|
+| `Mivada_Logo_Master_RGB_L.png` | coral M + ink text (`#071621`) | **light** backgrounds (primary) |
+| `Mivada_Logo_Black_RGB_L.png` | all black | light, mono |
+| `Mivada_Logo_White_RGB_L.png` | all white | dark / coral, mono |
+| `Mivada_Logo_2C_OnBlack_RGB_L.png` | coral M + white text | **black** backgrounds |
+| `Mivada_Logo_2C_OnRed_RGB_L.png` | ink M + white text | **coral / red** backgrounds |
 
-| File | What it is | For |
-|------|-----------|-----|
-| `mivada-wordmark-white.svg` / `.png` | Full wordmark, **white** | dark / black / coral backgrounds |
-| `mivada-wordmark-coral.svg` / `.png` | Full wordmark, **coral `#EA493F`** | light / off-white backgrounds (primary) |
-| `mivada-wordmark-black.svg` / `.png` | Full wordmark, **black/ink** | light backgrounds where coral would clash |
-| `mivada-mark-white.svg` / `.png` | The **"M" mark** only, white | dark/coral, tight spaces (slugs, footers) |
-| `mivada-mark-coral.svg` / `.png` | The **"M" mark** only, coral | light, tight spaces / card chips |
-| `mivada-mark-black.svg` / `.png` | The **"M" mark** only, black | light, mono contexts |
+**Vertical lockup** (M stacked over wordmark, 1018×880): `Mivada_Logo_Vertical_{Master… }` —
+`_2C_OnBlack`, `_2C_OnRed`, `_Black`, `_Melon`, `_White`. Use where height is available (covers, title cards).
 
-(Transparent backgrounds, please. Keep some built-in clear space; templates won't crop.)
+**Icon / "M" mark only** (1018×602):
 
-## Placement matrix — Editorial (concept 02)
+| File | Colour | Use on |
+|------|--------|--------|
+| `Mivada_Icon_Melon_RGB_L.png` | coral (Melon) | light backgrounds, slugs, footers, chips |
+| `Mivada_Icon_White_RGB_L.png` | white | dark / coral backgrounds |
+| `Mivada_Icon_Black_RGB_L.png` | black | light, mono |
+| `Mivada_Icon_Contrast_RGB_L.png` | dark ink (`#071621`) | light, contrast |
 
-| Surface | Background | Logo used |
-|---------|-----------|-----------|
-| Deck **cover** | black | **white wordmark**, top-left |
-| Deck **closing / contact** | black | **white wordmark** |
-| Deck content slides | off-white | **coral M mark** in the slug/footer (small) |
-| Deck content slides | black (sandwich) | **white M mark** in the slug/footer |
-| **Document masthead** | off-white | **coral wordmark** (or black if coral over-saturates beside other coral) |
-| Document **footer** | off-white | **coral M mark** (small) + contact text |
-| Any **coral field** | coral | **white wordmark** / white mark |
+## Rule of thumb
 
-**Rules of thumb:** dark or coral background → **white** variant. Light background → **coral**
-(primary), or **black** when coral sits next to other coral. Use the **wordmark** for covers and
-mastheads; use the **mark** for tight spots (slide slugs, footers, card chips). Never place the
-coral logo on coral or the white logo on white. Respect the logo's own clear space; don't stretch —
-templates scale by height and preserve aspect ratio.
+Dark/coral background → **white** (or the `2C_On…`) variant. Light background → **Master** (coral),
+or **Black** beside other coral. **Wordmark** for covers/mastheads; **icon** for tight spots
+(slide slugs, footers, card chips). Never coral-on-coral or white-on-white; preserve aspect ratio.
+
+## How the Editorial templates use it (concept 02)
+
+| Surface | Background | Logo |
+|---------|-----------|------|
+| Deck cover & closing | black | `Mivada_Logo_2C_OnBlack` (wordmark, top-left) |
+| Deck content slides | off-white | `Mivada_Icon_Melon` (small M, top-left) |
+| Deck content slides | black (sandwich) | `Mivada_Icon_White` (small M, top-left) |
+| Document masthead | off-white | `Mivada_Logo_Master` (wordmark) |
+| Document footer | off-white | `Mivada_Icon_Melon` (small M) |
+
+Wired in `02-editorial/`: `build_pptx.py` (`_logo()` helper), `presentation.html` (`.logo` img +
+content-slide `::before` mark), `document.html` (masthead/footer), `build_docx.js` (`ImageRun`).
+
+> **Colour note:** the logo's coral ("Melon") samples as `#EA5454`; the design-system accent is
+> currently `#EA493F` (sampled from the site's JPEG). They're very close. Say the word and I'll
+> standardise the accent to the official `#EA5454` across the system.

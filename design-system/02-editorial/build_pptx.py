@@ -19,6 +19,10 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.lang import MSO_LANGUAGE_ID
 from pptx.oxml.ns import qn
+import os
+
+# Real Mivada logos live in ../assets/logos (see its README for variants).
+LOGO_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "logos")
 
 # ---- THEME (exact Mivada tokens) -------------------------------------------
 THEME = {
@@ -170,6 +174,16 @@ class Deck:
         self._run(p, "M", size_in * 46, C("white"), bold=True, spacing=-0.04)
         return chip
 
+    def _logo(self, slide, stem, x, y, height_in, fallback=True):
+        """Place a real Mivada logo PNG (height-scaled, aspect preserved);
+        fall back to the coral 'M' chip if the file is absent."""
+        path = os.path.join(LOGO_DIR, stem + ".png")
+        if os.path.exists(path):
+            return slide.shapes.add_picture(path, Inches(x), Inches(y), height=Inches(height_in))
+        if fallback:
+            return self._m_chip(slide, x, y, height_in)
+        return None
+
     def _eyebrow(self, slide, x, y, w, text, color="coral"):
         tb, tf = self._box(slide, x, y, w, 0.35)
         p = self._para(tf, first=True)
@@ -177,6 +191,9 @@ class Deck:
         return tb
 
     def _slug(self, slide, text, dark=False):
+        # small Mivada 'M' mark, top-left of every content slide
+        self._logo(slide, "Mivada_Icon_White_RGB_L" if dark else "Mivada_Icon_Melon_RGB_L",
+                   0.96, 0.5, 0.26, fallback=False)
         tb, tf = self._box(slide, PAGE_W - 4.3, 0.46, 3.5, 0.35)
         p = self._para(tf, first=True, align=PP_ALIGN.RIGHT)
         self._run(p, text.upper(), 10.5, "777777" if dark else "AEAEAE",
@@ -189,11 +206,8 @@ class Deck:
     def cover(self, brand, line_pre, line_accent, eyebrow, footL, footR):
         """(1) BLACK cover — oversized white headline, one coral word."""
         s = self._slide(THEME["black"])
-        # M chip + wordmark
-        self._m_chip(s, 0.96, 0.72, 0.62)
-        tb, tf = self._box(s, 1.74, 0.72, 5, 0.62, anchor=MSO_ANCHOR.MIDDLE)
-        p = self._para(tf, first=True)
-        self._run(p, brand, 22, "FFFFFF", bold=True, spacing=-0.03)
+        # real Mivada wordmark (coral M + white text, designed for black)
+        self._logo(s, "Mivada_Logo_2C_OnBlack_RGB_L", 0.96, 0.82, 0.42)
 
         # eyebrow + monster headline
         self._eyebrow(s, 0.96, 2.55, 8, eyebrow, color="coral")
@@ -406,10 +420,7 @@ class Deck:
     def contact(self, brand, eyebrow, line_pre, line_accent, footL, footR):
         """(8) BLACK closing — oversized coral/white CTA + M-chip."""
         s = self._slide(THEME["black"])
-        self._m_chip(s, 0.96, 0.72, 0.62)
-        tb, tf = self._box(s, 1.74, 0.72, 5, 0.62, anchor=MSO_ANCHOR.MIDDLE)
-        p = self._para(tf, first=True)
-        self._run(p, brand, 22, "FFFFFF", bold=True, spacing=-0.03)
+        self._logo(s, "Mivada_Logo_2C_OnBlack_RGB_L", 0.96, 0.82, 0.42)
 
         self._eyebrow(s, 0.96, 2.4, 8, eyebrow, color="coral")
         tb, tf = self._box(s, 0.92, 2.85, 11.0, 3.0)
