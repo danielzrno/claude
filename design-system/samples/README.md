@@ -58,3 +58,19 @@ clean editorial compositions. Output: `slide-variations_editorial.pptx`.
 ```bash
 python variations.py     # -> slide-variations_editorial.pptx (9 slides)
 ```
+
+## Refined final deck — `micah_refined.py`
+
+`First_Meeting_with_Micah_Projects_refined.pptx` (14 slides) — the single-version,
+de-duplicated, reordered first-meeting deck (the keeper). Reworked intro: **white logo
+slide → framed cover → agenda → Why-Mivada-as-a-statement**; pillars live only in Services,
+numbers only in Capability, *trusted by* once; adds a "how we deliver" divider and a
+next-steps close.
+
+Flow: Logo · Cover · Agenda · Why Mivada · Your needs · Workday services · Capability ·
+Case studies · *How we deliver* · Methodology · Implementation plan · Governance · RACI ·
+Next steps.
+
+```bash
+python micah_refined.py    # -> First_Meeting_with_Micah_Projects_refined.pptx
+```
