@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mivada — Capability document (A4 portrait)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#EA493F; --coral-deep:#C9362B; --black:#000; --ink:#111111;
+    --off-white:#FAFAFA; --white:#fff; --warm:#F2F3EE; --graphite:#323232;
+    --mid:#AEAEAE; --hair:#E4E4E0; --font:'Inter',-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#5a5a5a;font-family:var(--font);-webkit-font-smoothing:antialiased;color:var(--ink)}
+  .page{width:820px;min-height:1160px;margin:30px auto;background:var(--white);padding:54px 60px 70px;
+    box-shadow:0 10px 40px rgba(0,0,0,.28);position:relative;display:flex;flex-direction:column}
+  @page{size:A4;margin:0}
+  @media print{html,body{background:#fff}.page{margin:0;box-shadow:none;width:auto;min-height:auto;page-break-after:always}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+  /* 1 masthead */
+  .mast{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--ink);padding-bottom:14px}
+  .mast img{height:30px}
+  .mast .meta{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--graphite)}
+  .mast .meta b{color:var(--coral)}
+  /* 2 lede */
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);margin-top:30px}
+  .lede{font-size:2.5rem;font-weight:800;letter-spacing:-.022em;line-height:1.04;margin-top:12px;max-width:18ch}
+  .lede .accent{color:var(--coral)}
+  .ledesub{font-size:1.05rem;font-weight:700;letter-spacing:-.01em;color:var(--graphite);margin-top:16px}
+  /* 3 two-column intro */
+  .two{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;margin-top:26px}
+  .two p{font-size:.95rem;line-height:1.5;color:var(--graphite)}
+  .two p + p{margin-top:12px}
+  .facts{display:grid;gap:12px;align-content:start}
+  .fact{border-top:1px solid var(--hair);padding-top:8px}
+  .fact .n{font-size:1.5rem;font-weight:800;letter-spacing:-.02em}.fact .n b{color:var(--coral)}
+  .fact .l{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+  /* section heading */
+  .sec{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);
+    margin-top:34px;padding-bottom:8px;border-bottom:1px solid var(--hair)}
+  .sec:first-child{margin-top:0}
+  .sechead{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-top:14px}
+  .sechead .accent{color:var(--coral)}
+  .standfirst{font-size:.92rem;line-height:1.5;color:var(--graphite);margin-top:10px;max-width:74ch}
+  /* 4 numbered pillars */
+  .pillars{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;margin-top:18px}
+  .pl{display:flex;gap:14px}
+  .pl .ix{font-size:1rem;font-weight:800;color:var(--coral);min-width:24px}
+  .pl h3{font-size:1rem;font-weight:700}.pl p{font-size:.84rem;color:var(--graphite);line-height:1.35;margin-top:3px}
+  .pl .tag{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--coral);margin-top:6px;border:1px solid var(--hair);border-radius:999px;padding:2px 8px}
+  /* 5 KPI band */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);margin-top:18px}
+  .kpis.k7{grid-template-columns:repeat(4,1fr)}
+  .kpi{padding:14px 16px;border-left:1px solid var(--hair);border-top:1px solid var(--hair)}
+  .kpi:nth-child(-n+4){border-top:0}
+  .kpi:nth-child(4n+1){border-left:0}
+  .kpi .n{font-size:1.6rem;font-weight:800;letter-spacing:-.03em}.kpi .n b{color:var(--coral)}
+  .kpi .l{font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-top:3px}
+  /* 6 black callout */
+  .callout{background:var(--ink);color:#fff;border-radius:2px;padding:22px 26px;margin-top:24px}
+  .callout .k{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+  .callout h3{font-size:1.3rem;font-weight:800;letter-spacing:-.01em;margin-top:6px}
+  .callout p{font-size:.86rem;color:#D6D6D6;line-height:1.4;margin-top:8px;max-width:62ch}
+  /* 7 pull-quote */
+  .pq{border-left:5px solid var(--coral);padding:6px 0 6px 22px;margin-top:24px}
+  .pq blockquote{font-size:1.3rem;font-weight:800;letter-spacing:-.01em;line-height:1.25;max-width:40ch}
+  .pq cite{display:block;font-style:normal;font-size:.74rem;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--coral);margin-top:10px}
+  /* 8 cases */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
+  .case .k{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral)}
+  .case p{font-size:.8rem;line-height:1.4;color:var(--graphite);margin-top:8px}
+  /* footer */
+  .foot{display:flex;align-items:center;gap:8px;justify-content:space-between;border-top:1px solid var(--hair);
+    margin-top:34px;padding-top:12px;font-size:.72rem;color:var(--graphite)}
+  .foot img{height:14px;vertical-align:middle;margin-right:6px}
+  .foot .r{color:var(--mid)}
+  .spacer{flex:1 1 auto}
+
+  /* ---- extended document blocks ---- */
+  /* client name grid */
+  .clients{display:grid;grid-template-columns:repeat(4,1fr);gap:0 18px;margin-top:18px}
+  .client{font-size:.95rem;font-weight:700;letter-spacing:-.01em;color:var(--ink);
+    padding:10px 0 8px;border-bottom:1px solid var(--hair)}
+  /* how we work — steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px;border:1px solid var(--hair)}
+  .step{padding:16px 18px;border-left:1px solid var(--hair)}
+  .step:first-child{border-left:0}
+  .step .ix{font-size:.9rem;font-weight:800;color:var(--coral)}
+  .step h3{font-size:1.05rem;font-weight:800;letter-spacing:-.01em;margin-top:4px}
+  .step p{font-size:.78rem;line-height:1.4;color:var(--graphite);margin-top:6px}
+  /* data & ai quad */
+  .quad{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+  .qd{border:1px solid var(--hair);border-left:3px solid var(--coral);padding:12px 16px}
+  .qd .k{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral)}
+  .qd p{font-size:.86rem;line-height:1.4;color:var(--graphite);margin-top:5px}
+  /* FIN & HCM two suites with module lists */
+  .suites{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:18px}
+  .suite h3{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+  .modlist{column-count:2;column-gap:24px;margin-top:12px}
+  .modlist li{list-style:none;font-size:.8rem;line-height:1.3;color:var(--graphite);
+    padding:5px 0 5px 14px;position:relative;break-inside:avoid}
+  .modlist li::before{content:"—";color:var(--coral);font-weight:700;position:absolute;left:0}
+  .suitefoot{font-size:.78rem;font-weight:700;color:var(--coral);margin-top:14px;letter-spacing:.01em}
+  /* engagement comparison cards */
+  .ecards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  .ecard{background:var(--ink);color:#fff;border-radius:3px;padding:22px 24px}
+  .ecard .k{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+  .ecard h3{font-size:1.2rem;font-weight:800;letter-spacing:-.01em;margin-top:6px}
+  .ecard ul{margin-top:14px;display:grid;gap:9px}
+  .ecard li{list-style:none;font-size:.82rem;line-height:1.35;color:#D6D6D6;padding-left:16px;position:relative}
+  .ecard li::before{content:"—";color:var(--coral);font-weight:700;position:absolute;left:0}
+  .efoot{font-size:.82rem;font-weight:600;color:var(--graphite);margin-top:16px;line-height:1.45}
+  /* AMS framework stack */
+  .fw{margin-top:18px}
+  .fwband{padding:9px 16px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+  .fwband.coral{background:var(--coral)}
+  .fwband.ink{background:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .fwband.ink .items{font-size:.66rem;font-weight:600;letter-spacing:.02em;text-transform:none;color:#D6D6D6;text-align:right}
+  .fwtiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}
+  .fwtile{border:1px solid var(--hair);background:var(--white);padding:11px 8px;text-align:center;
+    font-size:.74rem;font-weight:700;letter-spacing:-.005em;color:var(--ink)}
+  .fwfoot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+  .fwfoot div{background:var(--warm);border:1px solid var(--hair);text-align:center;padding:9px 6px;
+    font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral)}
+  /* coverage gantt */
+  .cov{margin-top:18px}
+  .covgrid{position:relative;margin-top:8px}
+  .covhours{display:grid;grid-template-columns:repeat(14,1fr);font-size:.56rem;font-weight:700;
+    color:var(--mid);text-align:center}
+  .covtrack{position:relative;height:46px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+    background-image:repeating-linear-gradient(to right,transparent,transparent calc(100%/14 - 1px),var(--hair) calc(100%/14 - 1px),var(--hair) calc(100%/14))}
+  .covtrack + .covtrack{border-top:0}
+  .covbar{position:absolute;top:7px;height:32px;border-radius:2px;display:flex;align-items:center;
+    padding-left:12px;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.02em}
+  .covoverlap{position:absolute;top:0;bottom:0;background:#FBE7E4;z-index:0}
+  .covaxis{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral);margin-top:6px}
+  .covcols{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:16px}
+  .covcols .k{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+  .covcols ul{margin-top:8px;display:grid;gap:7px}
+  .covcols li{list-style:none;font-size:.8rem;line-height:1.3;color:var(--graphite);padding-left:16px;position:relative}
+  .covcols li::before{content:"—";color:var(--coral);font-weight:700;position:absolute;left:0}
+  .covcall{background:var(--coral);color:#fff;padding:11px 18px;margin-top:16px;border-radius:2px;font-size:.82rem}
+  .covcall b{letter-spacing:.06em;text-transform:uppercase;font-size:.74rem;margin-right:8px}
+  /* governance table */
+  .gov{margin-top:18px;border:1px solid var(--hair);border-collapse:collapse;width:100%}
+  .gov th,.gov td{border:1px solid var(--hair);padding:11px 12px;vertical-align:top;text-align:left}
+  .gov thead th{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);background:var(--warm)}
+  .gov .tier{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-align:center;width:118px}
+  .gov .tier.t1{background:var(--coral)}.gov .tier.t2{background:var(--coral-deep)}.gov .tier.t3{background:var(--ink)}
+  .gov .tier small{display:block;font-size:.6rem;font-weight:700;color:rgba(255,255,255,.85);margin-top:4px;letter-spacing:.04em}
+  .gov td.cust,.gov td.act{font-size:.76rem;line-height:1.35;color:var(--graphite)}
+  .gov td.miv{font-size:.76rem;line-height:1.35;font-weight:700;color:var(--ink)}
+  .govfoot{font-size:.78rem;font-weight:700;color:var(--coral);margin-top:12px}
+  /* team org */
+  .org{margin-top:18px}
+  .orgrow{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .orgnode{border:1px solid var(--hair);padding:14px 18px}
+  .orgnode h3{font-size:.98rem;font-weight:800;letter-spacing:-.01em}
+  .orgnode p{font-size:.78rem;line-height:1.35;color:var(--graphite);margin-top:5px}
+  .orgconn{height:18px;border-left:1px solid var(--mid);width:1px;margin:0 auto}
+  .orgbanners{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  .obn{padding:16px 18px;border-radius:2px}
+  .obn.coral{background:var(--coral);color:#fff}.obn.ink{background:var(--ink)}
+  .obn .k{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+  .obn.coral .k{color:#fff}.obn.ink .k{color:var(--coral)}
+  .obn p{font-size:.8rem;line-height:1.35;font-weight:600;margin-top:6px}
+  .obn.coral p{color:#fff}.obn.ink p{color:#D6D6D6}
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1 — MASTHEAD / WHO WE ARE ===================== -->
+<div class="page">
+  <div class="mast">
+    <img src="../assets/logos/Mivada_Logo_Master_RGB_L.png" alt="Mivada">
+    <div class="meta">Company overview &amp; services · <b>2026</b></div>
+  </div>
+
+  <p class="eyebrow">Technology, human first</p>
+  <h1 class="lede">We turn enterprise platforms into <span class="accent">measurable human outcomes.</span></h1>
+  <p class="ledesub">Technology, human first.</p>
+
+  <div class="sec">Who we are</div>
+  <div class="two">
+    <div>
+      <p>Mivada is an Australian technology consultancy. We turn Workday, people systems, data and
+         automation into outcomes teams actually feel — where human understanding becomes system advantage.</p>
+      <p>We deliver across the people platform: HCM, payroll, financials, reporting and automation —
+         implemented and run around how teams really work. We grew out of a customer, so we understand
+         your challenges from the inside — and we're not a Big 4.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="n">2014</div><div class="l">Founded · Australian-owned</div></div>
+      <div class="fact"><div class="n">200<b>+</b></div><div class="l">Specialists · AU, US &amp; India</div></div>
+      <div class="fact"><div class="n">100<b>+</b></div><div class="l">People-systems clients</div></div>
+    </div>
+  </div>
+
+  <div class="sec">Trusted by</div>
+  <p class="standfirst">A decade of work with some of Australia's most demanding operations.</p>
+  <div class="clients">
+    <div class="client">Qantas</div>
+    <div class="client">Jetstar</div>
+    <div class="client">Guzman y Gomez</div>
+    <div class="client">Western Sydney Airport</div>
+    <div class="client">Canva</div>
+    <div class="client">NAB</div>
+    <div class="client">Rio Tinto</div>
+    <div class="client">ResMed</div>
+    <div class="client">HCF</div>
+    <div class="client">IAG</div>
+    <div class="client">University of Sydney</div>
+    <div class="client">Macquarie University</div>
+    <div class="client">Nine</div>
+    <div class="client">Seven West Media</div>
+    <div class="client">Amart</div>
+    <div class="client">dnata</div>
+    <div class="client">Queensland Airports</div>
+    <div class="client">Kennards</div>
+    <div class="client">Anglicare</div>
+    <div class="client">ProPharma</div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="foot">
+    <div><img src="../assets/logos/Mivada_Icon_Melon_RGB_L.png" alt=""><b>hello@mivada.com</b> · mivada.com · Sydney &amp; Melbourne</div>
+    <div class="r">01 · Overview</div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 2 — WHAT WE DO / HOW WE WORK / DATA & AI ===================== -->
+<div class="page">
+  <div class="sec">What we do</div>
+  <h2 class="sechead">Across your <span class="accent">people platform.</span></h2>
+  <div class="pillars">
+    <div class="pl"><div class="ix">01</div><div><h3>People Systems &amp; Transformation</h3><p>HCM, Payroll, Time &amp; Attendance and HRIS — implemented and optimised.</p><span class="tag">Workday</span></div></div>
+    <div class="pl"><div class="ix">02</div><div><h3>Data, Analytics &amp; BI</h3><p>Reporting, dashboards and governed analytics leaders trust.</p><span class="tag">Insight</span></div></div>
+    <div class="pl"><div class="ix">03</div><div><h3>Process &amp; Automation</h3><p>Redesign, integrations and automation that remove manual work.</p><span class="tag">Efficiency</span></div></div>
+    <div class="pl"><div class="ix">04</div><div><h3>Managed Services &amp; Support</h3><p>Long-term AMS that keeps delivering value after go-live.</p><span class="tag">Partnership</span></div></div>
+  </div>
+
+  <div class="sec">How we work</div>
+  <h2 class="sechead">People first, <span class="accent">start to finish.</span></h2>
+  <div class="steps">
+    <div class="step"><div class="ix">01</div><h3>Listen</h3><p>We learn your people, processes and constraints before touching the platform.</p></div>
+    <div class="step"><div class="ix">02</div><h3>Design</h3><p>We shape Workday around how your teams really work.</p></div>
+    <div class="step"><div class="ix">03</div><h3>Deliver</h3><p>Agile delivery, senior practitioners, clear governance.</p></div>
+    <div class="step"><div class="ix">04</div><h3>Care</h3><p>Long-term managed services that keep improving outcomes.</p></div>
+  </div>
+
+  <div class="sec">Data &amp; AI</div>
+  <h2 class="sechead">Decisions on <span class="accent">current data.</span></h2>
+  <p class="standfirst">From reporting to governed analytics and automation — we turn Workday data into trusted, timely insight.</p>
+  <div class="quad">
+    <div class="qd"><div class="k">Report</div><p>Dashboards &amp; reporting people actually use.</p></div>
+    <div class="qd"><div class="k">Analyse</div><p>Prism &amp; data lakehouse, governed analytics.</p></div>
+    <div class="qd"><div class="k">Automate</div><p>Integrations &amp; automation across the stack.</p></div>
+    <div class="qd"><div class="k">Assure</div><p>Security, controls and audit readiness.</p></div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="foot">
+    <div><img src="../assets/logos/Mivada_Icon_Melon_RGB_L.png" alt=""><b>hello@mivada.com</b> · mivada.com · Sydney &amp; Melbourne</div>
+    <div class="r">02 · What we do</div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 3 — FULL-STACK FIN & HCM ===================== -->
+<div class="page">
+  <div class="sec">Consultant coverage</div>
+  <h2 class="sechead">Full-stack Workday, <span class="accent">FIN &amp; HCM.</span></h2>
+  <p class="standfirst">Full-stack Workday functional and integration expertise across both suites.</p>
+  <div class="suites">
+    <div class="suite">
+      <h3>HCM</h3>
+      <ul class="modlist">
+        <li>Core HCM</li>
+        <li>Absence</li>
+        <li>Time Tracking</li>
+        <li>Recruiting</li>
+        <li>Talent &amp; Performance</li>
+        <li>Compensation</li>
+        <li>Benefits</li>
+        <li>Payroll (AU / global)</li>
+        <li>Learning</li>
+        <li>Security &amp; BP config</li>
+        <li>Integrations (EIB, CC, Studio)</li>
+        <li>Advanced &amp; Composite Reporting</li>
+      </ul>
+    </div>
+    <div class="suite">
+      <h3>FIN</h3>
+      <ul class="modlist">
+        <li>Financial Accounting (GL)</li>
+        <li>Accounting Center</li>
+        <li>Accounts Payable / Suppliers</li>
+        <li>Accounts Receivable / Customers</li>
+        <li>Procurement</li>
+        <li>Expenses</li>
+        <li>Banking &amp; Settlement</li>
+        <li>Business Assets</li>
+        <li>Financial Reporting</li>
+        <li>Prism Analytics</li>
+        <li>Security &amp; BP config</li>
+        <li>Integrations (EIB, CC, Studio)</li>
+      </ul>
+    </div>
+  </div>
+  <p class="suitefoot">Adaptive Planning — all modules.&nbsp; · &nbsp;Cross-skilled across both suites — one team, two suites.</p>
+
+  <div class="callout">
+    <div class="k">How we run it</div>
+    <h3>Application Management Services, owned end to end.</h3>
+    <p>Incident, problem, change and release management — SLA-backed and governed, with 24×7 P1/P2 on-call,
+       continuous improvement and bi-annual release management.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="foot">
+    <div><img src="../assets/logos/Mivada_Icon_Melon_RGB_L.png" alt=""><b>hello@mivada.com</b> · mivada.com · Sydney &amp; Melbourne</div>
+    <div class="r">03 · Capability — FIN &amp; HCM</div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 4 — TWO ENGAGEMENT MODELS ===================== -->
+<div class="page">
+  <div class="sec">Engagement models</div>
+  <h2 class="sechead">Two ways we <span class="accent">support you.</span></h2>
+  <p class="standfirst">Augmentation and Application Management Services — flex between them as your needs change.</p>
+  <div class="ecards">
+    <div class="ecard">
+      <div class="k">Staff augmentation</div>
+      <h3>Our certified consultants, embedded in your team</h3>
+      <ul>
+        <li>You direct the work; certified Workday FIN &amp; HCM consultants</li>
+        <li>Scale capacity up or down by the day, week or sprint</li>
+        <li>Ideal for project surge, BAU backlog, leave cover or niche skills</li>
+        <li>Onshore (AU), offshore (India) or a blended model</li>
+        <li>Time-and-materials or a pre-agreed block of hours</li>
+      </ul>
+    </div>
+    <div class="ecard">
+      <div class="k">Managed services (AMS)</div>
+      <h3>We own the outcome, end to end</h3>
+      <ul>
+        <li>Mivada owns incident, problem, change &amp; release management</li>
+        <li>SLA-backed and governed, with 24×7 P1/P2 on-call</li>
+        <li>Continuous improvement and bi-annual release management</li>
+        <li>Ideal for steady-state operations and long-term partnership</li>
+        <li>Fixed monthly hours with carry-forward flexibility</li>
+      </ul>
+    </div>
+  </div>
+  <p class="efoot">Many clients start with augmentation and move into AMS as their environment stabilises —
+     the same team carries the knowledge across.</p>
+
+  <div class="pq">
+    <blockquote>"They delivered in weeks what we'd scoped for a year — and our team actually uses it."</blockquote>
+    <cite>Enterprise Workday client</cite>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="foot">
+    <div><img src="../assets/logos/Mivada_Icon_Melon_RGB_L.png" alt=""><b>hello@mivada.com</b> · mivada.com · Sydney &amp; Melbourne</div>
+    <div class="r">04 · Engagement models</div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 5 — AMS OPERATING FRAMEWORK ===================== -->
+<div class="page">
+  <div class="sec">AMS framework</div>
+  <h2 class="sechead">AMS operating <span class="accent">framework.</span></h2>
+  <p class="standfirst">Driving operational excellence through governance, integration and continuous improvement.</p>
+  <div class="fw">
+    <div class="fwband coral">Continuous improvement</div>
+    <div class="fwband ink"><span>Governance</span><span class="items">Thought leadership · Product &amp; vendor relationship · Technical-debt reduction · WD bi-annual release management</span></div>
+    <div class="fwtiles">
+      <div class="fwtile">Incident management</div>
+      <div class="fwtile">Problem management</div>
+      <div class="fwtile">Change management</div>
+      <div class="fwtile">Release management</div>
+      <div class="fwtile">Service requests</div>
+      <div class="fwtile">Change Advisory Board</div>
+      <div class="fwtile">SLAs</div>
+      <div class="fwtile">Metrics</div>
+      <div class="fwtile">Integration health checks</div>
+      <div class="fwtile">Backlog management</div>
+      <div class="fwtile">Prioritisation forum</div>
+      <div class="fwtile">Capacity management</div>
+      <div class="fwtile">Enhancements</div>
+      <div class="fwtile">Knowledge base</div>
+      <div class="fwtile">Cyber security</div>
+      <div class="fwtile">BP &amp; security config</div>
+    </div>
+    <div class="fwband coral">Service integration · ITSM</div>
+    <div class="fwfoot">
+      <div>Operations as a priority</div>
+      <div>Business value realisation</div>
+      <div>Operational excellence · ITIL</div>
+    </div>
+  </div>
+
+  <div class="sec">Coverage model</div>
+  <h2 class="sechead">Coverage model — <span class="accent">always on.</span></h2>
+  <p class="standfirst">Seamless onshore–offshore collaboration for continuous support.</p>
+  <div class="cov">
+    <div class="covgrid">
+      <div class="covhours">
+        <span>8:30</span><span>9:30</span><span>10:30</span><span>11:30</span><span>12:30</span><span>13:30</span><span>14:30</span><span>15:30</span><span>16:30</span><span>17:30</span><span>18:30</span><span>19:30</span><span>20:30</span><span>21:30</span>
+      </div>
+      <div style="position:relative">
+        <div class="covoverlap" style="left:calc(100%/14*4);width:calc(100%/14*6)"></div>
+        <div class="covtrack"><div class="covbar" style="left:0;width:calc(100%/14*10);background:var(--coral)">ONSHORE · Australia</div></div>
+        <div class="covtrack"><div class="covbar" style="left:calc(100%/14*4);width:calc(100%/14*10);background:var(--ink)">OFFSHORE · India</div></div>
+      </div>
+      <div class="covhours">
+        <span>4:00</span><span>5:00</span><span>6:00</span><span>7:00</span><span>8:00</span><span>9:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span><span>14:00</span><span>15:00</span><span>16:00</span><span>17:00</span>
+      </div>
+    </div>
+    <div class="covaxis">← AEST 8:30–17:30 · IST 8:00–17:00 →</div>
+    <div class="covcols">
+      <div>
+        <div class="k">Onshore · Australia</div>
+        <ul>
+          <li>Governance &amp; stakeholder engagement</li>
+          <li>Resolution of P1 / P2 incidents</li>
+          <li>App health check &amp; start-of-day triage</li>
+        </ul>
+      </div>
+      <div>
+        <div class="k">Offshore · India</div>
+        <ul>
+          <li>Day-to-day incident management &amp; support</li>
+          <li>Routine incidents &amp; service requests</li>
+          <li>Monitoring &amp; backlog resolution per SLAs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="covcall"><b>24×7 P1/P2 on-call</b>always-on safety net for P1 &amp; P2 incidents, in line with monthly hours.</div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="foot">
+    <div><img src="../assets/logos/Mivada_Icon_Melon_RGB_L.png" alt=""><b>hello@mivada.com</b> · mivada.com · Sydney &amp; Melbourne</div>
+    <div class="r">05 · AMS framework &amp; coverage</div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 6 — GOVERNANCE / TEAM ===================== -->
+<div class="page">
+  <div class="sec">Governance</div>
+  <h2 class="sechead">Aligned at <span class="accent">every tier.</span></h2>
+  <table class="gov">
+    <thead>
+      <tr><th>Tier</th><th>Customer</th><th>Activities</th><th>Mivada</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tier t1">Strategic<small>Quarterly</small></td>
+        <td class="cust">Executive Sponsor · CIO / IT Exec · Head of HR / Payroll</td>
+        <td class="act">Strategic oversight · innovation &amp; thought leadership · roadmap &amp; investment · relationship health</td>
+        <td class="miv">CEO · Client Partner</td>
+      </tr>
+      <tr>
+        <td class="tier t2">Tactical<small>Monthly</small></td>
+        <td class="cust">Product Owner · IT Service Owner – AMS · Risk &amp; Compliance Lead</td>
+        <td class="act">Service &amp; SLA review · risk &amp; compliance · release planning &amp; adoption · improvement backlog</td>
+        <td class="miv">Client Partner · Service Delivery Lead</td>
+      </tr>
+      <tr>
+        <td class="tier t3">Operational<small>Weekly / daily</small></td>
+        <td class="cust">AMS team · Change &amp; Release Coordinators · Super Users / SMEs</td>
+        <td class="act">Daily triage &amp; resolution · change &amp; release execution · UX · operational performance</td>
+        <td class="miv">Service Delivery Lead · Consultants</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="govfoot">Principles: transparent reporting · escalation by exception · decisions at the right tier · improvement built in.</p>
+
+  <div class="sec">Team structure</div>
+  <h2 class="sechead">One integrated team — <span class="accent">onshore + offshore.</span></h2>
+  <div class="org">
+    <div class="orgrow">
+      <div class="orgnode"><h3>Client Partner</h3><p>Strategic relationship &amp; sponsorship.</p></div>
+      <div class="orgnode"><h3>Service Delivery Lead</h3><p>Day-to-day AMS operations &amp; SLAs.</p></div>
+    </div>
+    <div class="orgconn"></div>
+    <div class="orgrow">
+      <div class="orgnode"><h3>Onshore · Australia</h3><p>Functional / Integration Consultants — Core HCM · Financials · Integrations.</p></div>
+      <div class="orgnode"><h3>Offshore · India</h3><p>Functional / Integration Consultants — Core HCM · Financials · Integrations.</p></div>
+    </div>
+    <div class="orgbanners">
+      <div class="obn coral"><div class="k">Thought leadership</div><p>Strategic advisory · direct CEO access for escalation &amp; sponsorship.</p></div>
+      <div class="obn ink"><div class="k">Dedicated Workday practice</div><p>Innovation — automation, new Workday features &amp; process optimisation.</p></div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="foot">
+    <div><img src="../assets/logos/Mivada_Icon_Melon_RGB_L.png" alt=""><b>hello@mivada.com</b> · mivada.com · Sydney &amp; Melbourne</div>
+    <div class="r">06 · Governance &amp; team</div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 7 — PROVEN OUTCOMES / CAPABILITY / CONTACT ===================== -->
+<div class="page">
+  <div class="sec">Proven outcomes</div>
+  <h2 class="sechead">Proven Workday <span class="accent">outcomes.</span></h2>
+  <p class="standfirst">Long-term partnerships with some of Australia's most demanding operations.</p>
+  <div class="cases">
+    <div class="case"><div class="k">Qantas</div><p>A partner since 2014 — taking over Workday support in 2017 and growing into a strategic partner across HR, Payroll, Digital, Automation, Data and Analytics. We scaled integrations, modernised architectures and embedded automation, evolving into a long-term enterprise partner.</p></div>
+    <div class="case"><div class="k">Guzman y Gomez</div><p>Stabilised and optimised Workday post–go-live across modules, reporting, security and compliance. Agile delivery onboarded 150+ franchisees, shipped new reporting and a redesigned security model, and lifted performance across HCM, Absence and Learning.</p></div>
+    <div class="case"><div class="k">Western Sydney Intl Airport</div><p>Delivered a card-management system, then expanded into a strategic role on WSI's Workday program. By resolving functional and integration issues and assuming full AMS ownership, we stabilised HR, Payroll, Finance and Procurement.</p></div>
+  </div>
+
+  <div class="sec">Capability</div>
+  <h2 class="sechead">Proven in <span class="accent">Workday.</span></h2>
+  <p class="standfirst">A decade of Workday delivery — consultants average 3+ years on the platform.</p>
+  <div class="kpis k7">
+    <div class="kpi"><div class="n">3<b>+</b></div><div class="l">Certifications / consultant</div></div>
+    <div class="kpi"><div class="n">2000<b>+</b></div><div class="l">Workday integrations</div></div>
+    <div class="kpi"><div class="n">3000<b>+</b></div><div class="l">Custom reports</div></div>
+    <div class="kpi"><div class="n">30<b>+</b></div><div class="l">Implementations &amp; support</div></div>
+    <div class="kpi"><div class="n">200<b>+</b></div><div class="l">Employees · AU, US &amp; India</div></div>
+    <div class="kpi"><div class="n">100<b>+</b></div><div class="l">People-systems clients</div></div>
+    <div class="kpi"><div class="n">10<b>+</b></div><div class="l">Years delivering Workday</div></div>
+    <div class="kpi" style="background:var(--ink)"><div class="n" style="color:#fff">Mivada</div><div class="l" style="color:var(--coral)">A partner, not a vendor</div></div>
+  </div>
+
+  <div class="callout">
+    <div class="k">Let's talk</div>
+    <h3>Let's build something human.</h3>
+    <p>From go-live into managed services — we grow with you. Australian-owned, senior and accountable,
+       with direct access to our CEO and a dedicated engagement manager.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="foot">
+    <div><img src="../assets/logos/Mivada_Icon_Melon_RGB_L.png" alt=""><b>hello@mivada.com</b> · mivada.com · Sydney · Melbourne · AU &amp; India</div>
+    <div class="r">07 · Figures illustrative</div>
+  </div>
+</div>
+
+</body>
+</html>
