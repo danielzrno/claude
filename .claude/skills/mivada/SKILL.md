@@ -56,8 +56,9 @@ Pick the matching workflow; read its reference file before building.
    `python design-system/make_deck.py new <name>` scaffolds an editable deck script.
 
 2. **New document** → native Word `.docx` and/or HTML A4.
-   Read `editorial-system.md` (docx helpers). Start from
-   `design-system/02-editorial/build_docx.js` / `document.html`.
+   Read `editorial-system.md` (docx helpers + the standard document blocks). Start from
+   `design-system/02-editorial/build_docx.js` (Word) or `document.html` / `document-library.html`
+   (HTML A4 — the latter is the print-ready catalogue of every standard document block).
 
 3. **Translate an existing deck/document into Editorial** (no information lost).
    Read `translate-deck.md` and follow it exactly — extract everything first, map slide-by-slide,

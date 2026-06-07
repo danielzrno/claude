@@ -81,5 +81,7 @@ blocks with Mivada photography. Nothing else changes.
   `… new <name>` scaffolds an editable deck script.
 - **PPTX catalogue** — `samples/slide_library_demo.py` → `Editorial_Slide_Library.pptx` (one of every slide).
 - **HTML catalogue** — `02-editorial/slide-library.html` (the same standard slides as web slides).
+- **A4 documents** — `02-editorial/document-library.html` (standard document blocks, HTML A4) +
+  `build_docx.js` (the same blocks as native Word); `document.html` is a worked example.
 - **Library** — `02-editorial/slide_library.py` (the content-driven builders) + the `Deck` methods in `build_pptx.py`.
 - **Skill** — `.claude/skills/mivada/` generates PPTX, HTML and Word in this style.

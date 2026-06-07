@@ -79,6 +79,12 @@ italic), a KPI table with a coral header row. A4 (`CONTENT_W = 9304` DXA). Run w
 `NODE_PATH=/opt/node22/lib/node_modules node build_docx.js`. Validate with the docx skill's
 `validate.py`. Never use unicode bullets — use docx `numbering`.
 
+**Standard document blocks** (the A4 counterpart of the slide library, implemented in `build_docx.js`):
+masthead (logo + meta + rule) · eyebrow + oversized lede · two-column intro + key facts · section
+heading + hairline · numbered pillars · **KPI band** · **black callout band** · **coral pull-quote** ·
+case studies · footer (mark + contact + page #). `02-editorial/document-library.html` is the print-ready
+**A4 catalogue** of these blocks (HTML); `document.html` is a worked capability statement.
+
 ## HTML (deck + A4 doc) — link `editorial.css`
 
 Self-contained; `presentation.html` is the 16:9 deck, `document.html` the A4. Key classes:

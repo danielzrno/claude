@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mivada — Editorial document blocks (A4)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#EA493F; --coral-deep:#C9362B; --black:#000; --ink:#111111;
+    --off-white:#FAFAFA; --white:#fff; --warm:#F2F3EE; --graphite:#323232;
+    --mid:#AEAEAE; --hair:#E4E4E0; --font:'Inter',-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#5a5a5a;font-family:var(--font);-webkit-font-smoothing:antialiased;color:var(--ink)}
+  .page{width:820px;min-height:1160px;margin:30px auto;background:var(--white);padding:54px 60px 70px;
+    box-shadow:0 10px 40px rgba(0,0,0,.28);position:relative}
+  @page{size:A4;margin:0}
+  @media print{html,body{background:#fff}.page{margin:0;box-shadow:none;width:auto;min-height:auto}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+  /* 1 masthead */
+  .mast{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--ink);padding-bottom:14px}
+  .mast img{height:30px}
+  .mast .meta{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--graphite)}
+  .mast .meta b{color:var(--coral)}
+  /* 2 lede */
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);margin-top:30px}
+  .lede{font-size:2.5rem;font-weight:800;letter-spacing:-.022em;line-height:1.04;margin-top:12px;max-width:18ch}
+  .lede .accent{color:var(--coral)}
+  /* 3 two-column intro */
+  .two{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;margin-top:26px}
+  .two p{font-size:.95rem;line-height:1.5;color:var(--graphite)}
+  .facts{display:grid;gap:12px}
+  .fact{border-top:1px solid var(--hair);padding-top:8px}
+  .fact .n{font-size:1.5rem;font-weight:800;letter-spacing:-.02em}.fact .n b{color:var(--coral)}
+  .fact .l{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+  /* section heading */
+  .sec{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);
+    margin-top:34px;padding-bottom:8px;border-bottom:1px solid var(--hair)}
+  /* 4 numbered pillars */
+  .pillars{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;margin-top:18px}
+  .pl{display:flex;gap:14px}
+  .pl .ix{font-size:1rem;font-weight:800;color:var(--coral);min-width:24px}
+  .pl h3{font-size:1rem;font-weight:700}.pl p{font-size:.84rem;color:var(--graphite);line-height:1.35;margin-top:3px}
+  /* 5 KPI band */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);margin-top:18px}
+  .kpi{padding:14px 16px;border-left:1px solid var(--hair)}.kpi:first-child{border-left:0}
+  .kpi .n{font-size:1.7rem;font-weight:800;letter-spacing:-.03em}.kpi .n b{color:var(--coral)}
+  .kpi .l{font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin-top:3px}
+  /* 6 black callout */
+  .callout{background:var(--ink);color:#fff;border-radius:2px;padding:22px 26px;margin-top:24px}
+  .callout .k{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+  .callout h3{font-size:1.3rem;font-weight:800;letter-spacing:-.01em;margin-top:6px}
+  .callout p{font-size:.86rem;color:#D6D6D6;line-height:1.4;margin-top:8px;max-width:62ch}
+  /* 7 pull-quote */
+  .pq{border-left:5px solid var(--coral);padding:6px 0 6px 22px;margin-top:24px}
+  .pq blockquote{font-size:1.3rem;font-weight:800;letter-spacing:-.01em;line-height:1.25;max-width:40ch}
+  .pq cite{display:block;font-style:normal;font-size:.74rem;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--coral);margin-top:10px}
+  /* 8 cases */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
+  .case .k{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral)}
+  .case p{font-size:.8rem;line-height:1.4;color:var(--graphite);margin-top:8px}
+  /* footer */
+  .foot{display:flex;align-items:center;gap:8px;justify-content:space-between;border-top:1px solid var(--hair);
+    margin-top:34px;padding-top:12px;font-size:.72rem;color:var(--graphite)}
+  .foot img{height:14px;vertical-align:middle;margin-right:6px}
+  .foot .r{color:var(--mid)}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 1 · MASTHEAD -->
+  <div class="mast">
+    <img src="../assets/logos/Mivada_Logo_Master_RGB_L.png" alt="Mivada">
+    <div class="meta">Capability statement · <b>2026</b></div>
+  </div>
+
+  <!-- 2 · EYEBROW + LEDE -->
+  <p class="eyebrow">Technology, human first</p>
+  <h1 class="lede">We turn enterprise platforms into <span class="accent">measurable human outcomes.</span></h1>
+
+  <!-- 3 · TWO-COLUMN INTRO + KEY FACTS -->
+  <div class="two">
+    <p>Mivada is an Australian technology consultancy. We deliver Workday, people systems, data and
+       automation — implemented and run around how teams really work, where human understanding becomes
+       system advantage. We grew out of a customer, so we understand your challenges from the inside.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">2014</div><div class="l">Founded · Australian-owned</div></div>
+      <div class="fact"><div class="n">200<b>+</b></div><div class="l">Specialists · AU, US &amp; India</div></div>
+      <div class="fact"><div class="n">100<b>+</b></div><div class="l">People-systems clients</div></div>
+    </div>
+  </div>
+
+  <!-- 4 · SECTION + NUMBERED PILLARS -->
+  <div class="sec">What we do</div>
+  <div class="pillars">
+    <div class="pl"><div class="ix">01</div><div><h3>People Systems &amp; Transformation</h3><p>HCM, Payroll, Time &amp; Attendance and HRIS — implemented and optimised.</p></div></div>
+    <div class="pl"><div class="ix">02</div><div><h3>Data, Analytics &amp; BI</h3><p>Reporting, dashboards and governed analytics leaders trust.</p></div></div>
+    <div class="pl"><div class="ix">03</div><div><h3>Process &amp; Automation</h3><p>Redesign, integrations and automation that remove manual work.</p></div></div>
+    <div class="pl"><div class="ix">04</div><div><h3>Managed Services &amp; Support</h3><p>Long-term AMS that keeps delivering value after go-live.</p></div></div>
+  </div>
+
+  <!-- 5 · SECTION + KPI BAND -->
+  <div class="sec">Proven capability</div>
+  <div class="kpis">
+    <div class="kpi"><div class="n">2000<b>+</b></div><div class="l">Workday integrations</div></div>
+    <div class="kpi"><div class="n">3000<b>+</b></div><div class="l">Custom reports</div></div>
+    <div class="kpi"><div class="n">30<b>+</b></div><div class="l">Implementations &amp; support</div></div>
+    <div class="kpi"><div class="n">10<b>+</b></div><div class="l">Years delivering Workday</div></div>
+  </div>
+
+  <!-- 6 · BLACK CALLOUT BAND -->
+  <div class="callout">
+    <div class="k">How we run it</div>
+    <h3>Application Management Services, owned end to end.</h3>
+    <p>Incident, problem, change and release management — SLA-backed and governed, with 24×7 P1/P2 on-call,
+       continuous improvement and bi-annual release management.</p>
+  </div>
+
+  <!-- 7 · PULL-QUOTE -->
+  <div class="pq">
+    <blockquote>"They delivered in weeks what we'd scoped for a year — and our team actually uses it."</blockquote>
+    <cite>Enterprise Workday client</cite>
+  </div>
+
+  <!-- 8 · CASE STUDIES -->
+  <div class="sec">Proven outcomes</div>
+  <div class="cases">
+    <div class="case"><div class="k">Qantas</div><p>A partner since 2014 — from Workday support into a strategic partner across HR, Payroll, Data and Automation.</p></div>
+    <div class="case"><div class="k">Guzman y Gomez</div><p>Stabilised and optimised Workday post–go-live; onboarded 150+ franchisees with new reporting and security.</p></div>
+    <div class="case"><div class="k">Western Sydney Airport</div><p>Assumed full AMS ownership, stabilising HR, Payroll, Finance and Procurement.</p></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <div><img src="../assets/logos/Mivada_Icon_Melon_RGB_L.png" alt=""><b>hello@mivada.com</b> · mivada.com · Sydney &amp; Melbourne</div>
+    <div class="r">Figures illustrative</div>
+  </div>
+
+</div>
+</body>
+</html>

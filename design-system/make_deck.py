@@ -2,7 +2,8 @@
 # ============================================================================
 # make_deck — list the Editorial standard slide library and scaffold a new deck.
 #   python make_deck.py list            # show every standard slide + its call
-#   python make_deck.py new <name>      # write <name>.py (edit, then run it)
+#   python make_deck.py new <name>      # write <name>.py  (PPTX deck — edit, then run)
+#   python make_deck.py html <name>     # write <name>.html (HTML deck — edit in browser)
 # ============================================================================
 import sys, os
 
@@ -70,8 +71,9 @@ def do_list():
     print("Compose a deck from these (d = Deck(), import slide_library as L):\n")
     for label, call in CATALOGUE:
         print(f"  {label:<22} {call}")
-    print("\nScaffold a new deck:  python make_deck.py new <name>")
-    print("Catalogue decks:      samples/slide_library_demo.py (PPTX)  ·  02-editorial/slide-library.html (HTML)\n")
+    print("\nScaffold a new deck:  python make_deck.py new <name>   (PPTX)   ·   html <name>   (HTML)")
+    print("Catalogues:  samples/slide_library_demo.py (PPTX)  ·  02-editorial/slide-library.html (HTML deck)")
+    print("Documents:   02-editorial/document.html + document-library.html (A4)  ·  build_docx.js (Word)\n")
 
 
 def do_new(name):
@@ -84,9 +86,24 @@ def do_new(name):
     print(f"wrote {path}\n  edit the content, then:  python {name}.py   ->  {name}.pptx")
 
 
+def do_html(name):
+    name = name.replace(" ", "_")
+    src = os.path.join(ED, "slide-library.html")
+    dst = os.path.abspath(f"{name}.html")
+    if os.path.exists(dst):
+        print(f"refusing to overwrite {dst}"); return
+    logos = os.path.join(ED, "..", "assets", "logos") + os.sep
+    html = open(src).read().replace("../assets/logos/", logos)
+    with open(dst, "w") as f:
+        f.write(html)
+    print(f"wrote {dst}\n  open in a browser, trim to the slides you need; Print → Save as PDF to export")
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     if args and args[0] == "new" and len(args) > 1:
         do_new(args[1])
+    elif args and args[0] == "html" and len(args) > 1:
+        do_html(args[1])
     else:
         do_list()
