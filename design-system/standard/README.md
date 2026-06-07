@@ -25,6 +25,27 @@ script; edit the `.pptx` itself.
 The HTML and Word formats still carry the earlier content; bring them in line with the curated PPTX
 before using them as a set.
 
+### Light & dark — every slide in both
+
+The curated master alternates light and dark slides. Two **single-theme** builds make every slide
+available on one background:
+
+| File | Every slide on… |
+|------|-----------------|
+| `Mivada_Standard_Light.pptx` | off-white (`#FAFAFA`) |
+| `Mivada_Standard_Dark.pptx` | black (`#000000`) |
+
+They're generated from the master by `theme_deck.py`, a context-aware recolour: card fills, borders,
+connector lines and **text colours flip to suit the background** (text colour is chosen from the
+luminance of the shape behind it, so it works both directions). Coral stays coral. Logos swap per theme
+(coral/white M-icon; on-white vs on-black wordmark) and the governance pyramid gets a white backing
+panel on dark. Regenerate after editing the master:
+
+```bash
+python theme_deck.py Mivada_Standard.pptx light Mivada_Standard_Light.pptx
+python theme_deck.py Mivada_Standard.pptx dark  Mivada_Standard_Dark.pptx
+```
+
 ## Story (21 slides)
 
 1. Logo open · 2. Cover — *Technology, human first.* · 3. Who we are — *ANZ's largest locally owned
