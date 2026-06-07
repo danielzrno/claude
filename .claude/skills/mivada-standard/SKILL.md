@@ -14,8 +14,12 @@ description: >-
 
 Everything lives in **`design-system/standard/`** (paths below are relative to the repo root).
 The **source of truth** is `Mivada_Standard.pptx` (27 curated slides); every other format is
-generated from it. Read **`style.md`** (next to this file) for the full visual spec before editing
-or building slides.
+generated from it. Read **`references/style.md`** for the full visual spec (tokens, the box idiom,
+components, the slide catalogue) before editing or building slides.
+
+Two kinds of output: **decks** (slides — PPTX/HTML, assembled from the library) and a **proposal**
+(a flowing A4 Word *document* in the same design language, via `proposal.py`). Pick based on what the
+user wants — a presentation vs. a written proposal/capability document.
 
 ## The one rule about boxes (read this)
 
@@ -27,15 +31,17 @@ by the **label text**, not by a stripe.
 
 ## Workflow — always follow this
 
-1. **Read `style.md`** for tokens, the box idiom, components and the slide catalogue.
+1. **Read `references/style.md`** for tokens, the box idiom, components and the slide catalogue.
 2. **Ask the user which slides they want** — this is required. Use `AskUserQuestion` with a
-   multi-select built from the catalogue (`python design-system/standard/assemble.py --list`),
-   plus a question for the **output format** (PowerPoint / Word / HTML / all) and any **content**
-   they want changed from the standard. Don't assume — ask.
-3. **Assemble from the standard.** Run the assembler with the chosen slide keys, in order:
+   multi-select built from the catalogue (`python design-system/standard/assemble.py --list`, which
+   also lists presets: `company-overview`, `workday-go`, `ams-proposal`, `full`), plus a question
+   for the **output format** (PowerPoint / Word / HTML / A4 proposal / all) and any **content** they
+   want changed from the standard. Don't assume — ask.
+3. **Assemble from the standard.** Run the assembler with a preset or explicit slide keys:
    ```bash
    cd design-system/standard
-   python assemble.py --name <DeckName> --slides cover,who-we-are,engagement-model,delivery-team,outcomes,contact
+   python assemble.py --preset ams-proposal --name <DeckName>          # a named set, or…
+   python assemble.py --name <DeckName> --slides cover,who-we-are,engagement-model,outcomes,contact
    ```
    This **always alternates black/white** and emits, in `design-system/standard/`:
    `<DeckName>.pptx` (alternating), `<DeckName>_Light.pptx`, `<DeckName>_Dark.pptx`,
@@ -55,11 +61,21 @@ by the **label text**, not by a stripe.
    and surface a couple to the user. Keep figures illustrative unless the user gave real numbers, and
    keep customer names out unless they asked for a named version.
 
+## Written A4 proposal (a document, not slides)
+
+When the user wants a **proposal/capability document** rather than a deck, use `proposal.py` — it
+builds a native, editable A4 Word document in the same design language (coral eyebrows, ink headings,
+coral-header tables, black callout bands, footer with page numbers — **no** left-edge stripes). Import
+the `Proposal` class and compose sections (`masthead`, `lede`, `section`, `body`, `bullets`, `kpis`,
+`table`, `callout`); `python proposal.py` writes a worked sample. Validate with the docx skill's
+`validate.py`. This is the right tool for an AMS/Workday proposal written as prose + tables.
+
 ## Tooling (all in `design-system/standard/`)
 
 | File | Does |
 |------|------|
-| `assemble.py` | Pick standard slides → alternating deck + B&W + HTML/Word. `--list` shows keys. |
+| `assemble.py` | Pick standard slides (`--preset` or `--slides`) → alternating deck + B&W + HTML/Word. `--list` shows keys + presets. |
+| `proposal.py` | Native A4 **Word proposal document** (`Proposal` class); flowing prose + tables, on-brand. |
 | `theme_deck.py` | Recolour any deck to all-light or all-dark (context-aware; importable `build()/recolor()`). |
 | `build_web.py` | Render a light+dark pair → interactive HTML deck (toggle), A4 docs, Word (both themes). |
 | `kit.py` | Primitives for **new** on-style slides (`Deck`, `card`, `cards`, `flow`, `grid`, `band`). |

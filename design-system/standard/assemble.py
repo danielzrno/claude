@@ -33,6 +33,17 @@ SLIDES = {
     "why-mivada": 25, "contact": 26,
 }
 
+# named presets — common decks, picked from the library in narrative order
+PRESETS = {
+    "company-overview": ["cover", "who-we-are", "capability", "trusted-by", "what-we-do",
+                         "engagement-model", "outcomes", "why-mivada", "contact"],
+    "workday-go": ["cover", "velocity", "timeline", "data-handshake", "delivery-team",
+                   "payroll-testing", "commercials", "contact"],
+    "ams-proposal": ["cover", "what-we-do", "ams-itil", "ams-framework", "coverage-model",
+                     "governance-model", "transition", "slas", "commercials", "augmentation", "contact"],
+    "full": list(SLIDES.keys()),
+}
+
 def natural_dark(slide):
     x = etree.tostring(slide.background.element).decode()
     m = re.search(r"<p:bg>.*?</p:bg>", x, re.S)
@@ -73,8 +84,9 @@ def assemble(name, keys, start=None, web=True, outdir=HERE):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--list", action="store_true", help="print the slide catalogue")
+    ap.add_argument("--list", action="store_true", help="print the slide catalogue + presets")
     ap.add_argument("--name")
+    ap.add_argument("--preset", choices=list(PRESETS), help="a named slide set")
     ap.add_argument("--slides", help="comma-separated slide keys, in order")
     ap.add_argument("--start", choices=["light", "dark"], default=None)
     ap.add_argument("--no-web", action="store_true")
@@ -82,6 +94,10 @@ if __name__ == "__main__":
     if a.list:
         print("slide keys (master order):")
         for k, i in SLIDES.items(): print(f"  {i+1:2d}  {k}")
+        print("\npresets:")
+        for p, ks in PRESETS.items(): print(f"  {p:18} {', '.join(ks)}")
     else:
-        if not (a.name and a.slides): sys.exit("need --name and --slides (or --list)")
-        assemble(a.name, [k.strip() for k in a.slides.split(",")], a.start, not a.no_web)
+        keys = PRESETS[a.preset] if a.preset else ([k.strip() for k in a.slides.split(",")] if a.slides else None)
+        name = a.name or (a.preset.replace("-", "_").title() if a.preset else None)
+        if not (name and keys): sys.exit("need --preset, or --name and --slides (or --list)")
+        assemble(name, keys, a.start, not a.no_web)
