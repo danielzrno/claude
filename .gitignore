@@ -5,3 +5,6 @@ slide-*.png
 qa-*.png
 **/__pycache__/
 .DS_Store
+
+# …but standard/ ships rendered slide previews that the HTML/Word deliverables embed
+!design-system/standard/previews/**

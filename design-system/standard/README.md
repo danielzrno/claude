@@ -14,37 +14,32 @@ script; edit the `.pptx` itself.
 
 ## Formats
 
-| File | Format | Status |
+`Mivada_Standard.pptx` is the **editable source of truth**. Every other format is **generated from it**
+by `build_web.py` (which renders each slide of the light & dark builds with Inter, then assembles the
+HTML/Word), so they stay in sync — re-run it after editing the master.
+
+| File | Format | Source |
 |------|--------|--------|
 | `Mivada_Standard.pptx` | **PowerPoint** — the long combined deck (27 slides) | **Curated master** |
-| `presentation.html` | Interactive HTML deck (16:9, ←/→ nav, print 1 slide/page) | Pending re-sync to master |
-| `standard-a4-portrait.html` | HTML document — A4 portrait | Pending re-sync to master |
-| `standard-a4-landscape.html` | HTML document — A4 landscape | Pending re-sync to master |
-| `build_docx.js` → `Mivada_Standard.docx` | Word (native .docx) | Pending re-sync to master |
-
-The HTML and Word formats still carry the earlier content; bring them in line with the curated PPTX
-before using them as a set.
-
-### Light & dark — every slide in both
-
-The curated master alternates light and dark slides. Two **single-theme** builds make every slide
-available on one background:
-
-| File | Every slide on… |
-|------|-----------------|
-| `Mivada_Standard_Light.pptx` | off-white (`#FAFAFA`) |
-| `Mivada_Standard_Dark.pptx` | black (`#000000`) |
-
-They're generated from the master by `theme_deck.py`, a context-aware recolour: card fills, borders,
-connector lines and **text colours flip to suit the background** (text colour is chosen from the
-luminance of the shape behind it, so it works both directions). Coral stays coral. Logos swap per theme
-(coral/white M-icon; on-white vs on-black wordmark) and the governance pyramid gets a white backing
-panel on dark. Regenerate after editing the master:
+| `Mivada_Standard_Light.pptx` / `_Dark.pptx` | PowerPoint — every slide on white / black | `theme_deck.py` |
+| `presentation.html` | Interactive HTML deck (16:9, light/dark toggle, ←/→ nav, print 1/page) | `build_web.py` |
+| `standard-a4-landscape.html` / `-portrait.html` | A4 print docs, slide per page, light/dark toggle | `build_web.py` |
+| `Mivada_Standard.docx` / `_Dark.docx` | Word — one full-page slide per page, white / black | `build_web.py` |
+| `previews/{light,dark}/slide-NN.png` | Per-slide renders the HTML/Word embed | `build_web.py` |
 
 ```bash
-python theme_deck.py Mivada_Standard.pptx light Mivada_Standard_Light.pptx
+python theme_deck.py Mivada_Standard.pptx light Mivada_Standard_Light.pptx   # refresh B&W decks…
 python theme_deck.py Mivada_Standard.pptx dark  Mivada_Standard_Dark.pptx
+python build_web.py                                                          # …then HTML + Word + previews
 ```
+
+### How the black & white builds work
+
+`theme_deck.py` is a **context-aware recolour**: it flattens groups, then flips card fills, borders,
+connector lines and **text colours to suit the background** — each text colour is chosen from the
+luminance of the shape behind it, so one master drives both directions. Coral stays coral. Logos swap
+per theme (coral/white M-icon; on-white vs on-black wordmark), the governance pyramid gets a white
+backing panel on dark, and logo-wall groups (client logos, partner badges) are left untouched.
 
 ## Story (27 slides)
 
