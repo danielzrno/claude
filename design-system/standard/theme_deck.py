@@ -62,25 +62,44 @@ def map_line(L):
     if L == "AEAEAE": return LINE
     return L
 
+A_NS = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
+def group_tf(g):
+    xf = g._element.find(f".//{A_NS}xfrm")
+    off = xf.find(f"{A_NS}off"); ext = xf.find(f"{A_NS}ext")
+    cof = xf.find(f"{A_NS}chOff"); cex = xf.find(f"{A_NS}chExt")
+    ox, oy = int(off.get("x")), int(off.get("y")); ew, eh = int(ext.get("cx")), int(ext.get("cy"))
+    cx0, cy0 = int(cof.get("x")), int(cof.get("y"))
+    cw0, ch0 = int(cex.get("cx")) or 1, int(cex.get("cy")) or 1
+    sx, sy = ew / cw0, eh / ch0
+    return lambda x, y, w, h: (ox + (x - cx0) * sx, oy + (y - cy0) * sy, w * sx, h * sy)
+def flatten(shapes, tf):
+    for sh in shapes:
+        if str(sh.shape_type).startswith("GROUP"):
+            if any(str(c.shape_type).startswith("PICTURE") for c in sh.shapes):
+                continue   # logo wall — leave brand assets untouched
+            inner = group_tf(sh)
+            yield from flatten(sh.shapes, lambda x, y, w, h, o=tf, i=inner: o(*i(x, y, w, h)))
+        elif sh.left is not None:
+            yield sh, tf(sh.left, sh.top, sh.width, sh.height)
+
 def recolor(slide):
     slide.background.fill.solid(); slide.background.fill.fore_color.rgb = H(BG)
+    flat = list(flatten(slide.shapes, lambda x, y, w, h: (x, y, w, h)))
     panels = []   # (l,t,r,b,fill) in z-order
-    for sh in slide.shapes:
+    for sh, (ax, ay, aw, ah) in flat:
         if is_conn(sh):
             lh = line_hex(sh)
             if lh: set_line(sh, map_line(lh))
             continue
         if sh.shape_type == 1:  # autoshape
             f = fill_hex(sh)
-            small = (sh.width is not None and sh.width < Inches(0.22)) or \
-                    (sh.height is not None and sh.height < Inches(0.22))
+            small = aw < Inches(0.22) or ah < Inches(0.22)
             if f:
                 tgt = map_fill(f, small)
                 set_fill(sh, tgt)
                 if f == "111111" and not small and DARK:
                     set_line(sh, "3A3A3A")          # lift emphasis band off black
-                if sh.left is not None:
-                    panels.append((sh.left, sh.top, sh.left+sh.width, sh.top+sh.height, tgt))
+                panels.append((ax, ay, ax+aw, ay+ah, tgt))
             lh = line_hex(sh)
             if lh and not (f == "111111" and not small and DARK):
                 set_line(sh, map_line(lh))
@@ -90,9 +109,9 @@ def recolor(slide):
         for (l,t,r,b,f) in panels:
             if l <= cx <= r and t <= cy <= b: s = f
         return s
-    for sh in slide.shapes:
-        if not sh.has_text_frame or not sh.text_frame.text.strip() or sh.left is None: continue
-        cx, cy = sh.left + sh.width/2, sh.top + sh.height/2
+    for sh, (ax, ay, aw, ah) in flat:
+        if not sh.has_text_frame or not sh.text_frame.text.strip(): continue
+        cx, cy = ax + aw/2, ay + ah/2
         surf = surface(cx, cy); dark_surf = lum(surf) < 0.5
         strong_c = "FFFFFF" if dark_surf else "111111"
         muted_c  = "CFCFCF" if dark_surf else "323232"
