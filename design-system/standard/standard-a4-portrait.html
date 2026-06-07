@@ -116,6 +116,26 @@
   .ecard li{list-style:none;font-size:.82rem;line-height:1.35;color:#D6D6D6;padding-left:16px;position:relative}
   .ecard li::before{content:"—";color:var(--coral);font-weight:700;position:absolute;left:0}
   .efoot{font-size:.82rem;font-weight:600;color:var(--graphite);margin-top:16px;line-height:1.45}
+  /* lifecycle (3 stage boxes › + engagement wrap band) */
+  .life{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:10px;margin-top:18px}
+  .lstage{background:var(--ink);color:#fff;border-radius:3px;padding:20px 22px}
+  .lstage .k{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+  .lstage h3{font-size:1.12rem;font-weight:800;letter-spacing:-.01em;margin-top:8px;line-height:1.15}
+  .lchev{align-self:center;color:var(--coral);font-size:1.6rem;font-weight:800;line-height:1}
+  .ewrap{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-top:10px}
+  .eseg{border-radius:3px;padding:16px 22px}
+  .eseg.out{border:1.5px solid var(--coral);background:transparent}
+  .eseg.fill{background:var(--coral)}
+  .eseg .k{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+  .eseg.fill .k{color:#fff}
+  .eseg p{margin-top:7px;font-size:.82rem;line-height:1.35;color:var(--graphite)}
+  .eseg.fill p{color:#fff;font-weight:600}
+  /* AMS, built on ITIL (what / why / how) */
+  .amscards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .amscard{border:1px solid var(--hair);background:var(--white);border-radius:3px;padding:20px 22px}
+  .amscard .k{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+  .amscard p{margin-top:10px;font-size:.82rem;line-height:1.4;color:var(--graphite)}
+  .amsfoot{font-size:.82rem;font-weight:700;color:var(--coral);margin-top:14px}
   /* AMS framework stack */
   .fw{margin-top:18px}
   .fwband{padding:9px 16px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff}
@@ -330,35 +350,21 @@
 
 <!-- ===================== PAGE 4 — TWO ENGAGEMENT MODELS ===================== -->
 <div class="page">
-  <div class="sec">Engagement models</div>
-  <h2 class="sechead">Two ways we <span class="accent">support you.</span></h2>
-  <p class="standfirst">Augmentation and Application Management Services — flex between them as your needs change.</p>
-  <div class="ecards">
-    <div class="ecard">
-      <div class="k">Staff augmentation</div>
-      <h3>Our certified consultants, embedded in your team</h3>
-      <ul>
-        <li>You direct the work; certified Workday FIN &amp; HCM consultants</li>
-        <li>Scale capacity up or down by the day, week or sprint</li>
-        <li>Ideal for project surge, BAU backlog, leave cover or niche skills</li>
-        <li>Onshore (AU), offshore (India) or a blended model</li>
-        <li>Time-and-materials or a pre-agreed block of hours</li>
-      </ul>
-    </div>
-    <div class="ecard">
-      <div class="k">Managed services (AMS)</div>
-      <h3>We own the outcome, end to end</h3>
-      <ul>
-        <li>Mivada owns incident, problem, change &amp; release management</li>
-        <li>SLA-backed and governed, with 24×7 P1/P2 on-call</li>
-        <li>Continuous improvement and bi-annual release management</li>
-        <li>Ideal for steady-state operations and long-term partnership</li>
-        <li>Fixed monthly hours with carry-forward flexibility</li>
-      </ul>
-    </div>
+  <div class="sec">Workday services</div>
+  <h2 class="sechead">Across the whole <span class="accent">Workday lifecycle.</span></h2>
+  <p class="standfirst">Implement, optimise and manage Workday — with the engagement model that fits each stage.</p>
+  <div class="life">
+    <div class="lstage"><div class="k">Implement</div><h3>Deploy Workday HCM, Payroll &amp; Finance.</h3></div>
+    <div class="lchev">›</div>
+    <div class="lstage"><div class="k">Optimise</div><h3>Phase 2, integrations &amp; reporting.</h3></div>
+    <div class="lchev">›</div>
+    <div class="lstage"><div class="k">Manage</div><h3>Managed Services &amp; Managed Payroll — 24×7, continuous improvement.</h3></div>
   </div>
-  <p class="efoot">Many clients start with augmentation and move into AMS as their environment stabilises —
-     the same team carries the knowledge across.</p>
+  <div class="ewrap">
+    <div class="eseg out"><div class="k">Staff augmentation</div><p>Our certified consultants, embedded in your team — through Implement and Optimise.</p></div>
+    <div class="eseg fill"><div class="k">Managed services</div><p>We own the outcome at Manage.</p></div>
+  </div>
+  <p class="efoot">Flex between engagement models as you move from build to run.</p>
 
   <div class="pq">
     <blockquote>"They delivered in weeks what we'd scoped for a year — and our team actually uses it."</blockquote>
@@ -375,36 +381,14 @@
 <!-- ===================== PAGE 5 — AMS OPERATING FRAMEWORK ===================== -->
 <div class="page">
   <div class="sec">AMS framework</div>
-  <h2 class="sechead">AMS operating <span class="accent">framework.</span></h2>
-  <p class="standfirst">Driving operational excellence through governance, integration and continuous improvement.</p>
-  <div class="fw">
-    <div class="fwband coral">Continuous improvement</div>
-    <div class="fwband ink"><span>Governance</span><span class="items">Thought leadership · Product &amp; vendor relationship · Technical-debt reduction · WD bi-annual release management</span></div>
-    <div class="fwtiles">
-      <div class="fwtile">Incident management</div>
-      <div class="fwtile">Problem management</div>
-      <div class="fwtile">Change management</div>
-      <div class="fwtile">Release management</div>
-      <div class="fwtile">Service requests</div>
-      <div class="fwtile">Change Advisory Board</div>
-      <div class="fwtile">SLAs</div>
-      <div class="fwtile">Metrics</div>
-      <div class="fwtile">Integration health checks</div>
-      <div class="fwtile">Backlog management</div>
-      <div class="fwtile">Prioritisation forum</div>
-      <div class="fwtile">Capacity management</div>
-      <div class="fwtile">Enhancements</div>
-      <div class="fwtile">Knowledge base</div>
-      <div class="fwtile">Cyber security</div>
-      <div class="fwtile">BP &amp; security config</div>
-    </div>
-    <div class="fwband coral">Service integration · ITSM</div>
-    <div class="fwfoot">
-      <div>Operations as a priority</div>
-      <div>Business value realisation</div>
-      <div>Operational excellence · ITIL</div>
-    </div>
+  <h2 class="sechead">AMS, built on <span class="accent">ITIL.</span></h2>
+  <p class="standfirst">We run Workday on ITIL — the global standard for IT service management.</p>
+  <div class="amscards">
+    <div class="amscard"><div class="k">What it is</div><p>The proven framework for running IT services — incident, problem, change and release management, done to a recognised standard.</p></div>
+    <div class="amscard"><div class="k">Why it matters</div><p>Predictable, SLA-backed support: fewer incidents, faster resolution, controlled change and continuous improvement.</p></div>
+    <div class="amscard"><div class="k">How we apply it</div><p>Governed run operations · 24×7 P1/P2 on-call · change &amp; release control · continuous improvement.</p></div>
   </div>
+  <p class="amsfoot">Operational excellence, by design.</p>
 
   <div class="sec">Coverage model</div>
   <h2 class="sechead">Coverage model — <span class="accent">always on.</span></h2>
