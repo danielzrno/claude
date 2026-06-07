@@ -273,3 +273,58 @@ def org_chart(d, pre, accent, tag, leaders, delivery, banners, sub=None):
         _, tf = d._box(s, x + 0.28, 5.78, bw - 0.5, 0.4); d._run(d._para(tf, first=True), label.upper(), 11, tc, bold=True, spacing=0.1, caps=True)
         _, tf = d._box(s, x + 0.28, 6.14, bw - 0.5, 0.45); d._run(d._para(tf, first=True, line=1.12), desc, 10.5, dc, bold=True, spacing=0)
     return s
+
+
+def cards3(d, pre, accent, tag, cards, sub=None, footer=None, dark=True):
+    """Three boxes, each a label + a short paragraph. Less text; for 'what / why / how'."""
+    s = d._slide(THEME["black"] if dark else THEME["off_white"]); head(d, s, pre, accent, tag, dark=dark)
+    if sub: standfirst(d, s, sub, dark=dark)
+    bw = (CW - 0.8) / 3; y = 2.75; h = 3.3
+    for i, (label, body) in enumerate(cards[:3]):
+        x = M + i * (bw + 0.4)
+        d._rect(s, x, y, bw, h, fill_hex=(DARK if dark else WHITE),
+                line_hex=(THEME["rev_hair"] if dark else THEME["hairline"]), line_w=1.0)
+        _, tf = d._box(s, x + 0.3, y + 0.32, bw - 0.55, 0.4)
+        d._run(d._para(tf, first=True), label.upper(), 12.5, CORAL, bold=True, spacing=0.1, caps=True)
+        _, tf = d._box(s, x + 0.3, y + 0.92, bw - 0.6, h - 1.2)
+        d._run(d._para(tf, first=True, line=1.4), body, 13, (THEME["rev_body"] if dark else "323232"), bold=False, spacing=0)
+    if footer:
+        _, tf = d._box(s, M, 6.5, CW, 0.4)
+        d._run(d._para(tf, first=True), footer, 12, (THEME["mid_grey"] if dark else CORAL), bold=True, spacing=0.02)
+    return s
+
+
+def lifecycle(d, pre, accent, tag, stages, wrap, footer=None):
+    """Three stage boxes (Implement › Optimise › Manage) with an engagement 'wrap' band
+    underneath: a coral-outline segment spanning the first two stages + a coral-filled
+    segment under the third. stages=[(name,line)x3]; wrap=((Lname,Ldesc),(Rname,Rdesc))."""
+    s = d._slide(THEME["black"]); head(d, s, pre, accent, tag, dark=True)
+    bw = (CW - 0.8) / 3; y = 2.4; h = 1.95
+    for i, (name, line) in enumerate(stages[:3]):
+        x = M + i * (bw + 0.4)
+        d._rect(s, x, y, bw, h, fill_hex=DARK, line_hex=THEME["rev_hair"], line_w=1.0)
+        _, tf = d._box(s, x + 0.3, y + 0.3, bw - 0.55, 0.4)
+        d._run(d._para(tf, first=True), name.upper(), 14, CORAL, bold=True, spacing=0.08, caps=True)
+        _, tf = d._box(s, x + 0.3, y + 0.84, bw - 0.6, h - 1.05)
+        d._run(d._para(tf, first=True, line=1.32), line, 13.5, WHITE, bold=True, spacing=-0.01)
+    for i in range(2):  # coral chevrons between the boxes
+        ax = M + (i + 1) * (bw + 0.4) - 0.34
+        _, tf = d._box(s, ax, y + h / 2 - 0.28, 0.6, 0.56, anchor=MSO_ANCHOR.MIDDLE)
+        d._run(d._para(tf, first=True, align=PP_ALIGN.CENTER), "›", 26, CORAL, bold=True, spacing=0)
+    (ll, ld), (rl, rd) = wrap
+    wy = y + h + 0.45; wh = 1.0; lw = bw * 2 + 0.4
+    d._rect(s, M, wy, lw, wh, fill_hex=None, line_hex=CORAL, line_w=1.5)
+    _, tf = d._box(s, M + 0.3, wy + 0.2, lw - 0.6, 0.36)
+    d._run(d._para(tf, first=True), ll.upper(), 11.5, CORAL, bold=True, spacing=0.1, caps=True)
+    _, tf = d._box(s, M + 0.3, wy + 0.56, lw - 0.6, 0.36)
+    d._run(d._para(tf, first=True), ld, 12, THEME["rev_body"], bold=False, spacing=0)
+    rx = M + 2 * (bw + 0.4)
+    d._rect(s, rx, wy, bw, wh, fill_hex=CORAL, line_hex=None)
+    _, tf = d._box(s, rx + 0.3, wy + 0.2, bw - 0.6, 0.36)
+    d._run(d._para(tf, first=True), rl.upper(), 11.5, WHITE, bold=True, spacing=0.1, caps=True)
+    _, tf = d._box(s, rx + 0.3, wy + 0.56, bw - 0.6, 0.36)
+    d._run(d._para(tf, first=True), rd, 12, WHITE, bold=True, spacing=0)
+    if footer:
+        _, tf = d._box(s, M, 6.72, CW, 0.4)
+        d._run(d._para(tf, first=True), footer, 12, THEME["mid_grey"], bold=True, spacing=0.02)
+    return s

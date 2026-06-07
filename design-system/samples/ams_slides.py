@@ -27,33 +27,24 @@ def fin_hcm(d):
               footer="Adaptive Planning — all modules.  ·  Cross-skilled across both suites — one team, two suites.")
 
 def engagement_models(d):
-    L.two_cards(d, "Two ways we", "support you.", "Engagement models",
-                cards=[("Staff augmentation", "Our certified consultants, embedded in your team",
-                        ["You direct the work; certified Workday FIN & HCM consultants",
-                         "Scale capacity up or down by the day, week or sprint",
-                         "Ideal for project surge, BAU backlog, leave cover or niche skills",
-                         "Onshore (AU), offshore (India) or a blended model",
-                         "Time-and-materials or a pre-agreed block of hours"]),
-                       ("Managed services (AMS)", "We own the outcome, end to end",
-                        ["Mivada owns incident, problem, change & release management",
-                         "SLA-backed and governed, with 24×7 P1/P2 on-call",
-                         "Continuous improvement and bi-annual release management",
-                         "Ideal for steady-state operations and long-term partnership",
-                         "Fixed monthly hours with carry-forward flexibility"])],
-                sub="Augmentation and Application Management Services — flex between them as your needs change.",
-                footer="Many clients start with augmentation and move into AMS as their environment stabilises — the same team carries the knowledge across.")
+    # Workday lifecycle (3 stages) with the engagement model wrapped underneath:
+    # staff augmentation across Implement -> Optimise; managed services (incl. Managed Payroll) at Manage.
+    L.lifecycle(d, "Across the whole", "Workday lifecycle.", "Workday services",
+                stages=[("Implement", "Deploy Workday HCM, Payroll & Finance."),
+                        ("Optimise", "Phase 2, integrations & reporting."),
+                        ("Manage", "Managed Services & Managed Payroll — 24×7, continuous improvement.")],
+                wrap=(("Staff augmentation", "Our certified consultants, embedded in your team — through Implement and Optimise."),
+                      ("Managed services", "We own the outcome at Manage")),
+                footer="Flex between engagement models as you move from build to run.")
 
 def ams_framework(d):
-    L.framework_stack(d, "AMS operating", "framework.", "AMS framework",
-                      top_label="Continuous improvement", gov_label="Governance",
-                      gov_items="Thought leadership · Product & vendor relationship · Technical-debt reduction · WD bi-annual release management",
-                      tiles=["Incident management", "Problem management", "Change management", "Release management",
-                             "Service requests", "Change Advisory Board", "SLAs", "Metrics",
-                             "Integration health checks", "Backlog management", "Prioritisation forum", "Capacity management",
-                             "Enhancements", "Knowledge base", "Cyber security", "BP & security config"],
-                      mid_label="Service integration · ITSM",
-                      foundations=["Operations as a priority", "Business value realisation", "Operational excellence · ITIL"],
-                      sub="Driving operational excellence through governance, integration and continuous improvement.")
+    # AMS framed at the benefit level — built on ITIL: what it is, why it matters, how we apply it.
+    L.cards3(d, "AMS, built on", "ITIL.", "AMS framework",
+             sub="We run Workday on ITIL — the global standard for IT service management.",
+             cards=[("What it is", "The proven framework for running IT services — incident, problem, change and release management, done to a recognised standard."),
+                    ("Why it matters", "Predictable, SLA-backed support: fewer incidents, faster resolution, controlled change and continuous improvement."),
+                    ("How we apply it", "Governed run operations · 24×7 P1/P2 on-call · change & release control · continuous improvement.")],
+             footer="Operational excellence, by design.")
 
 def coverage_model(d):
     AEST = ["8:30", "9:30", "10:30", "11:30", "12:30", "13:30", "14:30", "15:30", "16:30", "17:30", "18:30", "19:30", "20:30", "21:30"]
