@@ -5,7 +5,7 @@ documents. This is the canonical style — tweak content here, then we point the
 
 ## Source of truth
 
-`Mivada_Standard.pptx` is now a **hand-curated master** (21 slides) — edited directly in PowerPoint,
+`Mivada_Standard.pptx` is now a **hand-curated master** (27 slides) — edited directly in PowerPoint,
 on the shared Editorial look (black canvas, coral accent, Inter). It is no longer regenerated from a
 script; edit the `.pptx` itself.
 
@@ -16,7 +16,7 @@ script; edit the `.pptx` itself.
 
 | File | Format | Status |
 |------|--------|--------|
-| `Mivada_Standard.pptx` | **PowerPoint** — the long combined deck (21 slides) | **Curated master** |
+| `Mivada_Standard.pptx` | **PowerPoint** — the long combined deck (27 slides) | **Curated master** |
 | `presentation.html` | Interactive HTML deck (16:9, ←/→ nav, print 1 slide/page) | Pending re-sync to master |
 | `standard-a4-portrait.html` | HTML document — A4 portrait | Pending re-sync to master |
 | `standard-a4-landscape.html` | HTML document — A4 landscape | Pending re-sync to master |
@@ -46,17 +46,15 @@ python theme_deck.py Mivada_Standard.pptx light Mivada_Standard_Light.pptx
 python theme_deck.py Mivada_Standard.pptx dark  Mivada_Standard_Dark.pptx
 ```
 
-## Story (21 slides)
+## Story (27 slides)
 
-1. Logo open · 2. Cover — *Technology, human first.* · 3. Who we are — *ANZ's largest locally owned
-Workday partner.* · 4. Capability — *Proven in Workday.* · 5. Trusted by — *In good company.* ·
-6. What we do — *Across your ERP platform.* · 7. Engagement model — *Across the whole Workday lifecycle.* ·
-8. Engagement models — *Four ways we support you.* · 9. Delivery approach — *Velocity & Value — Workday GO.* ·
-10. Implementation timeline — *Your implementation timeline.* · 11. Delivery approach — *The Data Handshake:
-ensuring certainty.* · 12. The one team — *Your delivery team.* · 13. Getting payroll right — *Payroll testing
-rigour.* · 14. Consultant coverage — *Full-stack Workday, FIN & HCM.* · 15. AMS framework — *AMS, built on
-ITIL.* · 16. AMS framework — *AMS operating framework.* · 17. Governance · 18. Team structure · 19. Outcomes
-— *Proven Workday outcomes.* · 20. Why Mivada — *A partner, not a vendor.* · 21. Let's talk.
+1. Logo open · 2. Cover — *Technology, human first.* · 3. Who we are · 4. Capability — *Proven in
+Workday.* · 5. Trusted by · 6. What we do · 7. Engagement model — *the Workday lifecycle* · 8. Engagement
+models · 9. *Velocity & Value — Workday GO* · 10. *Your implementation timeline* · 11. *The Data Handshake*
+· 12. *Your delivery team* · 13. *Payroll testing rigour* · 14. *Full-stack Workday, FIN & HCM* · 15. AMS,
+built on ITIL · 16. AMS operating framework · **17. Coverage model** · **18. Governance model** ·
+**19. Transition approach** · **20. Service levels (SLAs)** · **21. Commercials** · **22. Augmentation
+capability** · 23. Governance (pyramid) · 24. Team structure · 25. Outcomes · 26. Why Mivada · 27. Let's talk.
 
 ### Slide 7 — the Workday lifecycle
 
@@ -85,6 +83,22 @@ coral accents, Inter) and made **generic** (no customer name).
   flow, with an Australian-complexity footer band.
 - **14 · Full-stack Workday, FIN & HCM** — coverage as a boxed module grid: two suite panels (HCM, FIN),
   twelve module chips each, replacing the earlier dashed lists.
+
+### Slides 17–22 — the AMS deep-dive (light slides)
+
+Rebuilt from an AMS proposal into the standard's light language (off-white, white cards, coral/black,
+Inter), generic, and **box-based rather than native tables** so the light/dark recolour works cleanly.
+
+- **17 · Coverage model** — onshore (AU) / offshore (IN) coverage with a handover bar and a 24×7 on-call band.
+- **18 · Governance model** — a Strategic / Tactical / Operational matrix (customer · activities · Mivada · cadence).
+- **19 · Transition approach** — a four-week transition (week cards + milestone chips).
+- **20 · Service levels** — the P1–P4 SLA grid (definition · acknowledge · target resolution).
+- **21 · Commercials** — pricing stat cards, a blended-rate band, and key considerations (illustrative figures).
+- **22 · Augmentation capability** — FIN/HCM availability cards + a bench grid, kept as fillable `[placeholders]`.
+
+> Overlap to resolve: the new **Governance model (18)** covers similar ground to the existing **Governance
+> pyramid (23)**, and **Coverage model (17)** overlaps **Team structure (24)**. Kept both for now — say the
+> word and I'll drop the older ones.
 
 ## Notes
 
