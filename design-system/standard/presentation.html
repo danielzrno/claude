@@ -3,15 +3,13 @@
 <title>Mivada — the Standard · deck</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
 <style>
- :root{--coral:#EA493F}
- *{box-sizing:border-box;margin:0;padding:0}
+ :root{--coral:#EA493F} *{box-sizing:border-box;margin:0;padding:0}
  html,body{background:#4d4d4d;font-family:Inter,system-ui,Arial,sans-serif}
  .bar{position:fixed;inset:0 0 auto 0;height:48px;display:flex;align-items:center;gap:16px;
    padding:0 18px;background:#111;color:#fff;z-index:10;font-size:13px;font-weight:600}
  .bar b{color:var(--coral)} .bar .sp{flex:1}
  .bar button{background:#222;color:#fff;border:1px solid #3a3a3a;border-radius:6px;
-   padding:7px 14px;font:inherit;font-weight:700;cursor:pointer}
- .bar button:hover{border-color:var(--coral)}
+   padding:7px 14px;font:inherit;font-weight:700;cursor:pointer} .bar button:hover{border-color:var(--coral)}
  .deck{display:flex;flex-direction:column;align-items:center;gap:22px;padding:74px 0 90px}
  .slide{width:1280px;max-width:95vw;aspect-ratio:16/9;background:#000;
    box-shadow:0 12px 44px rgba(0,0,0,.4);scroll-snap-align:center}
@@ -21,9 +19,8 @@
  @media print{ html,body{background:#fff} .bar,.count{display:none} .deck{gap:0;padding:0}
    .slide{width:100%;max-width:none;box-shadow:none;break-after:page} }
 </style></head><body>
-<div class="bar"><b>MIVADA</b> · the Standard — 27 slides <span class="sp"></span>
-  <button onclick="toggle()" id="tg">◑ Dark</button>
-  <button onclick="print()">⎙ Print / PDF</button></div>
+<div class="bar"><b>MIVADA</b> · Mivada — the Standard — 27 slides <span class="sp"></span>
+  <button onclick="toggle()" id="tg">◑ Dark</button><button onclick="print()">⎙ Print / PDF</button></div>
 <main class="deck" id="deck">
   <figure class="slide"><img loading="lazy" data-l="previews/light/slide-01.png" data-d="previews/dark/slide-01.png" src="previews/light/slide-01.png" alt="Slide 1"></figure>
   <figure class="slide"><img loading="lazy" data-l="previews/light/slide-02.png" data-d="previews/dark/slide-02.png" src="previews/light/slide-02.png" alt="Slide 2"></figure>
@@ -57,14 +54,12 @@
 <script>
  let dark=false;
  function toggle(){dark=!dark;document.querySelectorAll('.slide img').forEach(im=>im.src=dark?im.dataset.d:im.dataset.l);
-   document.getElementById('tg').textContent=dark?'◐ Light':'◑ Dark';
-   document.body.style.background=dark?'#1a1a1a':'#4d4d4d';}
+   document.getElementById('tg').textContent=dark?'◐ Light':'◑ Dark';document.body.style.background=dark?'#1a1a1a':'#4d4d4d';}
  const sl=[...document.querySelectorAll('.slide')];
- function go(d){const y=window.scrollY+innerHeight/2;let i=sl.findIndex(s=>s.offsetTop+s.offsetHeight/2>y);
+ function go(d){const y=scrollY+innerHeight/2;let i=sl.findIndex(s=>s.offsetTop+s.offsetHeight/2>y);
    if(i<0)i=sl.length-1;i=Math.max(0,Math.min(sl.length-1,i+d));sl[i].scrollIntoView({behavior:'smooth',block:'center'});}
  addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(1);}
-   if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}
-   if(e.key.toLowerCase()==='d')toggle();});
+   if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);} if(e.key.toLowerCase()==='d')toggle();});
  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)
    document.getElementById('count').textContent=(sl.indexOf(en.target)+1)+' / 27';}),{threshold:.6});
  sl.forEach(s=>io.observe(s));

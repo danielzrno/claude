@@ -11,21 +11,25 @@ from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.oxml.ns import qn
 
-SRC, THEME, OUT = sys.argv[1], sys.argv[2], sys.argv[3]
-DARK = THEME == "dark"
 def H(s): return RGBColor.from_string(s)
 ASSET = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "logos") + os.sep
-ICON  = ASSET + ("Mivada_Icon_White_RGB_L.png" if DARK else "Mivada_Icon_Melon_RGB_L.png")
-WORD  = ASSET + ("Mivada_Logo_2C_OnBlack_RGB_L.png" if DARK else "Mivada_Logo_Master_RGB_L.png")
 
-BG    = "000000" if DARK else "FAFAFA"
-CARD  = "141414" if DARK else "FFFFFF"
-BORDER= "3A3A3A" if DARK else "E4E4E0"
-LINE  = "3A3A3A" if DARK else "AEAEAE"
-TRACK = "2A2A2A" if DARK else "EFEFEA"
-BAND  = "1C1C1C" if DARK else "111111"
-NEUTRAL = "1A1A1A" if DARK else "F2F3EE"
-ACCENT_INK = "FFFFFF" if DARK else "111111"   # thin ink accent bars
+# theme tokens — set by set_theme(dark); recolor()/fix_images() read these globals
+DARK = False
+ICON = WORD = BG = CARD = BORDER = LINE = TRACK = BAND = NEUTRAL = ACCENT_INK = None
+def set_theme(dark):
+    global DARK, ICON, WORD, BG, CARD, BORDER, LINE, TRACK, BAND, NEUTRAL, ACCENT_INK
+    DARK = bool(dark)
+    ICON = ASSET + ("Mivada_Icon_White_RGB_L.png" if DARK else "Mivada_Icon_Melon_RGB_L.png")
+    WORD = ASSET + ("Mivada_Logo_2C_OnBlack_RGB_L.png" if DARK else "Mivada_Logo_Master_RGB_L.png")
+    BG    = "000000" if DARK else "FAFAFA"
+    CARD  = "141414" if DARK else "FFFFFF"
+    BORDER= "3A3A3A" if DARK else "E4E4E0"
+    LINE  = "3A3A3A" if DARK else "AEAEAE"
+    TRACK = "2A2A2A" if DARK else "EFEFEA"
+    BAND  = "1C1C1C" if DARK else "111111"
+    NEUTRAL = "1A1A1A" if DARK else "F2F3EE"
+    ACCENT_INK = "FFFFFF" if DARK else "111111"   # thin ink accent bars
 
 def lum(hx):
     hx = hx.upper()
@@ -150,8 +154,14 @@ def fix_images(slide):
             panel.line.fill.background()
             sh._element.addprevious(panel._element)   # behind the image
 
-prs = Presentation(SRC)
-for s in prs.slides:
-    recolor(s); fix_images(s)
-prs.save(OUT)
-print("saved", OUT, THEME)
+def build(src, out, dark):
+    """Recolour every slide of `src` to one theme and save to `out`."""
+    set_theme(dark)
+    prs = Presentation(src)
+    for s in prs.slides:
+        recolor(s); fix_images(s)
+    prs.save(out); return out
+
+if __name__ == "__main__":
+    build(sys.argv[1], sys.argv[3], sys.argv[2] == "dark")
+    print("saved", sys.argv[3], sys.argv[2])

@@ -1,50 +1,42 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<title>Mivada — the Standard · A4 portrait</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
-<style>
- *{box-sizing:border-box;margin:0;padding:0}
- html,body{background:#4d4d4d;font-family:Inter,system-ui,Arial,sans-serif}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Mivada — the Standard · A4 portrait</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet"><style>
+ *{box-sizing:border-box;margin:0;padding:0} html,body{background:#4d4d4d;font-family:Inter,system-ui,Arial,sans-serif}
  @page{size:210mm 297mm;margin:0}
- .bar{position:fixed;inset:0 0 auto 0;height:44px;display:flex;gap:14px;align-items:center;
-   padding:0 16px;background:#111;color:#fff;z-index:9;font-size:13px;font-weight:700}
+ .bar{position:fixed;inset:0 0 auto 0;height:44px;display:flex;gap:14px;align-items:center;padding:0 16px;
+   background:#111;color:#fff;z-index:9;font-size:13px;font-weight:700}
  .bar button{background:#222;color:#fff;border:1px solid #3a3a3a;border-radius:6px;padding:6px 12px;font:inherit;cursor:pointer}
  .doc{display:flex;flex-direction:column;align-items:center;gap:16px;padding:64px 0}
- .pg{width:210mm;height:297mm;background:#000;box-shadow:0 8px 30px rgba(0,0,0,.4);
-   display:flex;align-items:center;justify-content:center}
+ .pg{width:210mm;height:297mm;background:#000;box-shadow:0 8px 30px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
  .pg img{width:100%;height:100%;object-fit:contain}
- @media print{ html,body{background:#fff} .bar{display:none} .doc{gap:0;padding:0}
-   .pg{box-shadow:none;break-after:page} }
-</style></head><body>
-<div class="bar"><b style="color:#EA493F">MIVADA</b> · A4 portrait · 27 pages
-  <button onclick="t()">Dark</button><button onclick="print()">Print / PDF</button></div>
-<div class="doc">
-  <section class="pg"><img data-l="previews/light/slide-01.png" data-d="previews/dark/slide-01.png" src="previews/light/slide-01.png" alt="Slide 1"></section>
-  <section class="pg"><img data-l="previews/light/slide-02.png" data-d="previews/dark/slide-02.png" src="previews/light/slide-02.png" alt="Slide 2"></section>
-  <section class="pg"><img data-l="previews/light/slide-03.png" data-d="previews/dark/slide-03.png" src="previews/light/slide-03.png" alt="Slide 3"></section>
-  <section class="pg"><img data-l="previews/light/slide-04.png" data-d="previews/dark/slide-04.png" src="previews/light/slide-04.png" alt="Slide 4"></section>
-  <section class="pg"><img data-l="previews/light/slide-05.png" data-d="previews/dark/slide-05.png" src="previews/light/slide-05.png" alt="Slide 5"></section>
-  <section class="pg"><img data-l="previews/light/slide-06.png" data-d="previews/dark/slide-06.png" src="previews/light/slide-06.png" alt="Slide 6"></section>
-  <section class="pg"><img data-l="previews/light/slide-07.png" data-d="previews/dark/slide-07.png" src="previews/light/slide-07.png" alt="Slide 7"></section>
-  <section class="pg"><img data-l="previews/light/slide-08.png" data-d="previews/dark/slide-08.png" src="previews/light/slide-08.png" alt="Slide 8"></section>
-  <section class="pg"><img data-l="previews/light/slide-09.png" data-d="previews/dark/slide-09.png" src="previews/light/slide-09.png" alt="Slide 9"></section>
-  <section class="pg"><img data-l="previews/light/slide-10.png" data-d="previews/dark/slide-10.png" src="previews/light/slide-10.png" alt="Slide 10"></section>
-  <section class="pg"><img data-l="previews/light/slide-11.png" data-d="previews/dark/slide-11.png" src="previews/light/slide-11.png" alt="Slide 11"></section>
-  <section class="pg"><img data-l="previews/light/slide-12.png" data-d="previews/dark/slide-12.png" src="previews/light/slide-12.png" alt="Slide 12"></section>
-  <section class="pg"><img data-l="previews/light/slide-13.png" data-d="previews/dark/slide-13.png" src="previews/light/slide-13.png" alt="Slide 13"></section>
-  <section class="pg"><img data-l="previews/light/slide-14.png" data-d="previews/dark/slide-14.png" src="previews/light/slide-14.png" alt="Slide 14"></section>
-  <section class="pg"><img data-l="previews/light/slide-15.png" data-d="previews/dark/slide-15.png" src="previews/light/slide-15.png" alt="Slide 15"></section>
-  <section class="pg"><img data-l="previews/light/slide-16.png" data-d="previews/dark/slide-16.png" src="previews/light/slide-16.png" alt="Slide 16"></section>
-  <section class="pg"><img data-l="previews/light/slide-17.png" data-d="previews/dark/slide-17.png" src="previews/light/slide-17.png" alt="Slide 17"></section>
-  <section class="pg"><img data-l="previews/light/slide-18.png" data-d="previews/dark/slide-18.png" src="previews/light/slide-18.png" alt="Slide 18"></section>
-  <section class="pg"><img data-l="previews/light/slide-19.png" data-d="previews/dark/slide-19.png" src="previews/light/slide-19.png" alt="Slide 19"></section>
-  <section class="pg"><img data-l="previews/light/slide-20.png" data-d="previews/dark/slide-20.png" src="previews/light/slide-20.png" alt="Slide 20"></section>
-  <section class="pg"><img data-l="previews/light/slide-21.png" data-d="previews/dark/slide-21.png" src="previews/light/slide-21.png" alt="Slide 21"></section>
-  <section class="pg"><img data-l="previews/light/slide-22.png" data-d="previews/dark/slide-22.png" src="previews/light/slide-22.png" alt="Slide 22"></section>
-  <section class="pg"><img data-l="previews/light/slide-23.png" data-d="previews/dark/slide-23.png" src="previews/light/slide-23.png" alt="Slide 23"></section>
-  <section class="pg"><img data-l="previews/light/slide-24.png" data-d="previews/dark/slide-24.png" src="previews/light/slide-24.png" alt="Slide 24"></section>
-  <section class="pg"><img data-l="previews/light/slide-25.png" data-d="previews/dark/slide-25.png" src="previews/light/slide-25.png" alt="Slide 25"></section>
-  <section class="pg"><img data-l="previews/light/slide-26.png" data-d="previews/dark/slide-26.png" src="previews/light/slide-26.png" alt="Slide 26"></section>
-  <section class="pg"><img data-l="previews/light/slide-27.png" data-d="previews/dark/slide-27.png" src="previews/light/slide-27.png" alt="Slide 27"></section>
-</div>
-<script>let d=0;function t(){d=!d;document.querySelectorAll('.pg img').forEach(i=>i.src=d?i.dataset.d:i.dataset.l);}</script>
+ @media print{ html,body{background:#fff} .bar{display:none} .doc{gap:0;padding:0} .pg{box-shadow:none;break-after:page} }
+</style></head><body><div class="bar"><b style="color:#EA493F">MIVADA</b> · A4 portrait · 27 pages
+  <button onclick="t()">Dark</button><button onclick="print()">Print / PDF</button></div><div class="doc">
+  <section class="pg"><img data-l="previews/light/slide-01.png" data-d="previews/dark/slide-01.png" alt="Slide 1" src="previews/light/slide-01.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-02.png" data-d="previews/dark/slide-02.png" alt="Slide 2" src="previews/light/slide-02.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-03.png" data-d="previews/dark/slide-03.png" alt="Slide 3" src="previews/light/slide-03.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-04.png" data-d="previews/dark/slide-04.png" alt="Slide 4" src="previews/light/slide-04.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-05.png" data-d="previews/dark/slide-05.png" alt="Slide 5" src="previews/light/slide-05.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-06.png" data-d="previews/dark/slide-06.png" alt="Slide 6" src="previews/light/slide-06.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-07.png" data-d="previews/dark/slide-07.png" alt="Slide 7" src="previews/light/slide-07.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-08.png" data-d="previews/dark/slide-08.png" alt="Slide 8" src="previews/light/slide-08.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-09.png" data-d="previews/dark/slide-09.png" alt="Slide 9" src="previews/light/slide-09.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-10.png" data-d="previews/dark/slide-10.png" alt="Slide 10" src="previews/light/slide-10.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-11.png" data-d="previews/dark/slide-11.png" alt="Slide 11" src="previews/light/slide-11.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-12.png" data-d="previews/dark/slide-12.png" alt="Slide 12" src="previews/light/slide-12.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-13.png" data-d="previews/dark/slide-13.png" alt="Slide 13" src="previews/light/slide-13.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-14.png" data-d="previews/dark/slide-14.png" alt="Slide 14" src="previews/light/slide-14.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-15.png" data-d="previews/dark/slide-15.png" alt="Slide 15" src="previews/light/slide-15.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-16.png" data-d="previews/dark/slide-16.png" alt="Slide 16" src="previews/light/slide-16.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-17.png" data-d="previews/dark/slide-17.png" alt="Slide 17" src="previews/light/slide-17.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-18.png" data-d="previews/dark/slide-18.png" alt="Slide 18" src="previews/light/slide-18.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-19.png" data-d="previews/dark/slide-19.png" alt="Slide 19" src="previews/light/slide-19.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-20.png" data-d="previews/dark/slide-20.png" alt="Slide 20" src="previews/light/slide-20.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-21.png" data-d="previews/dark/slide-21.png" alt="Slide 21" src="previews/light/slide-21.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-22.png" data-d="previews/dark/slide-22.png" alt="Slide 22" src="previews/light/slide-22.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-23.png" data-d="previews/dark/slide-23.png" alt="Slide 23" src="previews/light/slide-23.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-24.png" data-d="previews/dark/slide-24.png" alt="Slide 24" src="previews/light/slide-24.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-25.png" data-d="previews/dark/slide-25.png" alt="Slide 25" src="previews/light/slide-25.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-26.png" data-d="previews/dark/slide-26.png" alt="Slide 26" src="previews/light/slide-26.png"></section>
+  <section class="pg"><img data-l="previews/light/slide-27.png" data-d="previews/dark/slide-27.png" alt="Slide 27" src="previews/light/slide-27.png"></section>
+</div><script>let d=0;function t(){d=!d;document.querySelectorAll('.pg img').forEach(i=>i.src=d?i.dataset.d:i.dataset.l);}</script>
 </body></html>
